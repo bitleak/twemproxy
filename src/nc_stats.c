@@ -834,6 +834,15 @@ stats_listen(struct stats *st)
         return NC_ERROR;
     }
 
+#ifdef NC_HAVE_REUSEPORT
+    // FIXME: tmp work around
+    status = nc_set_reuseport(st->sd);
+    if (status < 0) {
+        log_error("set reuseport on m %d failed: %s", st->sd, strerror(errno));
+        return NC_ERROR;
+    }
+#endif
+
     status = bind(st->sd, (struct sockaddr *)&si.addr, si.addrlen);
     if (status < 0) {
         log_error("bind on m %d to addr '%.*s:%u' failed: %s", st->sd,
