@@ -46,8 +46,7 @@ core_calc_connections(struct context *ctx)
 }
 
 static struct context *
-core_ctx_create(struct instance *nci)
-{
+core_ctx_create(struct instance *nci) {
     rstatus_t status;
     struct context *ctx;
 
@@ -93,6 +92,17 @@ core_ctx_create(struct instance *nci)
         return NULL;
     }
 
+    log_debug(LOG_VVERB, "created ctx %p id %"PRIu32"", ctx, ctx->id);
+    return ctx;
+}
+
+rstatus_t
+core_init_listener(struct instance *nci) {
+    rstatus_t status;
+    struct context *ctx;
+    ctx = nci->ctx;
+
+    // FIXME: use single process for handling stats
     /* create stats per server pool */
     ctx->stats = stats_create(nci->stats_port, nci->stats_addr, nci->stats_interval,
                               nci->hostname, &ctx->pool);
@@ -100,29 +110,7 @@ core_ctx_create(struct instance *nci)
         server_pool_deinit(&ctx->pool);
         conf_destroy(ctx->cf);
         nc_free(ctx);
-        return NULL;
-    }
-
-    /* initialize event handling for client, proxy and server */
-    ctx->evb = event_base_create(EVENT_SIZE, &core_core);
-    if (ctx->evb == NULL) {
-        stats_destroy(ctx->stats);
-        server_pool_deinit(&ctx->pool);
-        conf_destroy(ctx->cf);
-        nc_free(ctx);
-        return NULL;
-    }
-
-    /* preconnect? servers in server pool */
-    status = server_pool_preconnect(ctx);
-    if (status != NC_OK) {
-        server_pool_disconnect(ctx);
-        event_base_destroy(ctx->evb);
-        stats_destroy(ctx->stats);
-        server_pool_deinit(&ctx->pool);
-        conf_destroy(ctx->cf);
-        nc_free(ctx);
-        return NULL;
+        return NC_ERROR;
     }
 
     /* initialize proxy per server pool */
@@ -134,12 +122,46 @@ core_ctx_create(struct instance *nci)
         server_pool_deinit(&ctx->pool);
         conf_destroy(ctx->cf);
         nc_free(ctx);
-        return NULL;
+        return NC_ERROR;
+    }
+    return NC_OK;
+}
+
+rstatus_t
+core_init_instance(struct instance *nci){
+    rstatus_t status;
+    struct context *ctx;
+    ctx = nci->ctx;
+
+    /* initialize event handling for client, proxy and server */
+    ctx->evb = event_base_create(EVENT_SIZE, &core_core);
+    if (ctx->evb == NULL) {
+        stats_destroy(ctx->stats);
+        server_pool_deinit(&ctx->pool);
+        conf_destroy(ctx->cf);
+        nc_free(ctx);
+        return NC_ERROR;
     }
 
-    log_debug(LOG_VVERB, "created ctx %p id %"PRIu32"", ctx, ctx->id);
+    /* preconnect? servers in server pool */
+    status = server_pool_preconnect(ctx);
+    if (status != NC_OK) {
+        server_pool_disconnect(ctx);
+        event_base_destroy(ctx->evb);
+        stats_destroy(ctx->stats);
+        server_pool_deinit(&ctx->pool);
+        conf_destroy(ctx->cf);
+        nc_free(ctx);
+        return status;
+    }
 
-    return ctx;
+    // add proxy listening sockets to event base
+    status = proxy_post_init(ctx);
+    if (status != NC_OK) {
+        return status;
+    }
+
+    return NC_OK;
 }
 
 static void
@@ -167,6 +189,36 @@ core_start(struct instance *nci)
     ctx = core_ctx_create(nci);
     if (ctx != NULL) {
         nci->ctx = ctx;
+
+// Bind listen sockets in master process if SO_REUSEPORT is disable.
+// TODO: we can also bind listen sockets ahead when SO_REUSEPORT is enable, but
+// we need to bind N times of those sockets, N equals to the number of processes.
+#ifndef NC_HAVE_REUSEPORT
+        if (core_init_listener(nci) != NC_OK) {
+            return NULL;
+        }
+#endif
+
+        switch(fork()) {
+        case -1:
+            return NULL;
+        case 0:
+            // child
+        default:
+            // parent
+            break;
+        }
+
+// Bind listen sockets in each processes if SO_REUSEPORT is enable.
+#ifdef NC_HAVE_REUSEPORT
+        if (core_init_listener(nci) != NC_OK) {
+            return NULL;
+        }
+#endif
+        if (core_init_instance(nci) != NC_OK) {
+            return NULL;
+        }
+
         return ctx;
     }
 

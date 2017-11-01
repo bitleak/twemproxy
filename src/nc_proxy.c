@@ -178,22 +178,6 @@ proxy_listen(struct context *ctx, struct conn *p)
         return NC_ERROR;
     }
 
-    status = event_add_conn(ctx->evb, p);
-    if (status < 0) {
-        log_error("event add conn p %d on addr '%.*s' failed: %s",
-                  p->sd, pool->addrstr.len, pool->addrstr.data,
-                  strerror(errno));
-        return NC_ERROR;
-    }
-
-    status = event_del_out(ctx->evb, p);
-    if (status < 0) {
-        log_error("event del out p %d on addr '%.*s' failed: %s",
-                  p->sd, pool->addrstr.len, pool->addrstr.data,
-                  strerror(errno));
-        return NC_ERROR;
-    }
-
     return NC_OK;
 }
 
@@ -233,13 +217,58 @@ proxy_init(struct context *ctx)
 
     status = array_each(&ctx->pool, proxy_each_init, NULL);
     if (status != NC_OK) {
-        proxy_deinit(ctx);
         return status;
     }
 
     log_debug(LOG_VVERB, "init proxy with %"PRIu32" pools",
               array_n(&ctx->pool));
 
+    return NC_OK;
+}
+
+rstatus_t
+proxy_each_post_init(void *elem, void *data)
+{
+    rstatus_t status;
+    struct server_pool *pool = elem;
+    struct conn *p;
+
+    p = pool->p_conn;
+    status = event_add_conn(pool->ctx->evb, p);
+    if (status < 0) {
+        log_error("event add conn p %d on addr '%.*s' failed: %s",
+                  p->sd, pool->addrstr.len, pool->addrstr.data,
+                  strerror(errno));
+        return NC_ERROR;
+    }
+
+    status = event_del_out(pool->ctx->evb, p);
+    if (status < 0) {
+        log_error("event del out p %d on addr '%.*s' failed: %s",
+                  p->sd, pool->addrstr.len, pool->addrstr.data,
+                  strerror(errno));
+        return NC_ERROR;
+    }
+
+    return NC_OK;
+}
+
+// Add proxy's listening sockets to event pool
+rstatus_t
+proxy_post_init(struct context *ctx)
+{
+    rstatus_t status;
+
+    ASSERT(array_n(&ctx->pool) != 0);
+
+    status = array_each(&ctx->pool, proxy_each_post_init, NULL);
+    if (status != NC_OK) {
+        proxy_deinit(ctx);
+        return status;
+    }
+
+    log_debug(LOG_VVERB, "post init proxy with %"PRIu32" pools",
+              array_n(&ctx->pool));
     return NC_OK;
 }
 
