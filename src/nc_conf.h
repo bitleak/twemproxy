@@ -29,8 +29,8 @@
 #define CONF_OK             (void *) NULL
 #define CONF_ERROR          (void *) "has an invalid value"
 
-#define CONF_ROOT_DEPTH     1
-#define CONF_MAX_DEPTH      CONF_ROOT_DEPTH + 1
+#define CONF_SECTION_ROOT_DEPTH  2
+#define CONF_POOL_MAX_DEPTH      (CONF_SECTION_ROOT_DEPTH + 1)
 
 #define CONF_DEFAULT_ARGS       3
 #define CONF_DEFAULT_POOL       8
