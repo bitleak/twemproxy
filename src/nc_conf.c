@@ -45,7 +45,7 @@ static struct string dist_strings[] = {
 };
 #undef DEFINE_ACTION
 
-static struct command conf_commands[] = {
+static struct command conf_pool_commands[] = {
     { string("listen"),
       conf_set_listen,
       offsetof(struct conf_pool, listen) },
@@ -113,6 +113,16 @@ static struct command conf_commands[] = {
     { string("servers"),
       conf_add_server,
       offsetof(struct conf_pool, server) },
+
+    null_command
+};
+
+static struct command conf_global_commands[] = {
+    {
+        string("worker_processes"),
+        conf_set_num,
+        offsetof(struct conf_global, worker_processes)
+    },
 
     null_command
 };
@@ -518,7 +528,7 @@ conf_handler(struct conf *cf, void *data)
     log_debug(LOG_VVERB, "conf handler on %.*s: %.*s", key->len, key->data,
               value->len, value->data);
 
-    for (cmd = conf_commands; cmd->name.len != 0; cmd++) {
+    for (cmd = conf_pool_commands; cmd->name.len != 0; cmd++) {
         char *rv;
 
         if (string_compare(key, &cmd->name) != 0) {
@@ -775,6 +785,13 @@ conf_parse_global_section(struct conf *cf)
 {
     rstatus_t status;
     bool done=false;
+    struct string *scalar;
+    struct string *key;
+    struct string *value;
+    struct command *cmd;
+
+    // init global conf
+    cf->global.worker_processes = CONF_UNSET_NUM;
 
     do {
         status = conf_event_next(cf);
@@ -787,8 +804,41 @@ conf_parse_global_section(struct conf *cf)
             cf->depth--;
             done = true;
             break;
+        case YAML_SCALAR_EVENT:
+            if (array_n(&cf->arg) < 2) {
+                conf_push_scalar(cf);
+            }
+            if (array_n(&cf->arg) == 2) {
+                // parse the key: value
+                key = array_get(&cf->arg, 0);
+
+                for (cmd = conf_global_commands; cmd->name.len != 0; cmd++) {
+                    char *rv;
+
+                    if (string_compare(key, &cmd->name) != 0) {
+                        continue;
+                    }
+
+                    rv = cmd->set(cf, cmd, &cf->global);
+                    if (rv != CONF_OK) {
+                        conf_pop_scalar(cf);
+                        conf_pop_scalar(cf);
+                        log_error("conf: directive \"%.*s\" %s", key->len, key->data, rv);
+                        return NC_ERROR;
+                    }
+                    break;
+                }
+
+                if (cmd->name.len == 0) {
+                    // reach commands list end
+                    log_error("conf: directive \"%.*s\" is unknown", key->len, key->data);
+                    return NC_ERROR;
+                }
+
+                conf_pop_scalar(cf);
+                conf_pop_scalar(cf);
+            }
         default:
-            // FIXME: Parse the Key:Value scalar pairs and setup global conf
             break;
         }
 

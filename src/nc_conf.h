@@ -98,11 +98,16 @@ struct conf_pool {
     unsigned           valid:1;               /* valid? */
 };
 
+struct conf_global {
+    int worker_processes; // number of worker processes
+};
+
 struct conf {
     char          *fname;           /* file name (ref in argv[]) */
     FILE          *fh;              /* file handle */
     struct array  arg;              /* string[] (parsed {key, value} pairs) */
     struct array  pool;             /* conf_pool[] (parsed pools) */
+    struct conf_global global;      // global conf
     uint32_t      depth;            /* parsed tree depth */
     yaml_parser_t parser;           /* yaml parser */
     yaml_event_t  event;            /* yaml event */
