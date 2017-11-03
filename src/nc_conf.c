@@ -1047,6 +1047,8 @@ conf_validate_structure(struct conf *cf)
     int type, depth;
     uint32_t i, count[CONF_POOL_MAX_DEPTH + 1];
     bool done, error, seq;
+    bool pools_section = false;
+    bool global_section = false;
 
     status = conf_yaml_init(cf);
     if (status != NC_OK) {
@@ -1064,24 +1066,26 @@ conf_validate_structure(struct conf *cf)
     /*
      * Validate that the configuration conforms roughly to the following
      * yaml tree structure:
-     *
-     * keyx:
+     * global:
      *   key1: value1
-     *   key2: value2
-     *   seq:
-     *     - elem1
-     *     - elem2
-     *     - elem3
-     *   key3: value3
+     * pools:
+     *   keyx:
+     *     key1: value1
+     *     key2: value2
+     *     seq:
+     *       - elem1
+     *       - elem2
+     *       - elem3
+     *     key3: value3
      *
-     * keyy:
-     *   key1: value1
-     *   key2: value2
-     *   seq:
-     *     - elem1
-     *     - elem2
-     *     - elem3
-     *   key3: value3
+     *   keyy:
+     *     key1: value1
+     *     key2: value2
+     *     seq:
+     *       - elem1
+     *       - elem2
+     *       - elem3
+     *     key3: value3
      */
     do {
         status = conf_event_next(cf);
@@ -1119,14 +1123,19 @@ conf_validate_structure(struct conf *cf)
             break;
 
         case YAML_MAPPING_END_EVENT:
-            if (depth == CONF_POOL_MAX_DEPTH) {
+            if (pools_section && depth == CONF_POOL_MAX_DEPTH) {
                 if (seq) {
                     seq = false;
                 } else {
                     error = true;
                     log_error("conf: '%s' missing sequence directive at depth "
-                              "%d", cf->fname, depth);
+                                  "%d", cf->fname, depth);
                 }
+            } else if (pools_section && depth == CONF_SECTION_ROOT_DEPTH) {
+                pools_section = false; // "pools" section finish
+            } else if (global_section) {
+                global_section = false; // "global" section finish
+                count[depth] = 0;
             }
             depth--;
             count[depth] = 0;
@@ -1159,12 +1168,27 @@ conf_validate_structure(struct conf *cf)
                 error = true;
                 log_error("conf: '%s' has invalid empty \"key:\" at depth %d",
                           cf->fname, depth);
-            } else if (depth == CONF_SECTION_ROOT_DEPTH && count[depth] != 0) {
+            } else if(depth == 1) {
+                if (!strncmp((char *)cf->event.data.scalar.value, "pools", cf->event.data.scalar.length)) {
+                    pools_section = true;
+                } else if (!strncmp((char *)cf->event.data.scalar.value, "global", cf->event.data.scalar.length)) {
+                    global_section = true;
+                } else {
+                    error = true;
+                    log_error("conf: unknown section: %.*s at depth %d", cf->event.data.scalar.length, cf->event.data.scalar.value);
+                }
+            } else if (pools_section && depth == CONF_SECTION_ROOT_DEPTH && count[depth] != 0) {
                 error = true;
                 log_error("conf: '%s' has invalid mapping \"key:\" at depth %d",
                           cf->fname, depth);
-            } else if (depth == CONF_POOL_MAX_DEPTH && count[depth] == 2) {
+            } else if (pools_section && depth == CONF_POOL_MAX_DEPTH && count[depth] == 2) {
                 /* found a "key: value", resetting! */
+                count[depth] = 0;
+            } else if (global_section && depth > CONF_GLOBAL_MAX_DEPTH) {
+                error = true;
+                log_error("conf: global section has invalid mapping at depth %s", depth);
+            } else if (global_section && depth == CONF_GLOBAL_MAX_DEPTH && count[depth] == 2) {
+                // found a "key: value" in global section, reset
                 count[depth] = 0;
             }
             count[depth]++;
@@ -1199,8 +1223,7 @@ conf_pre_validate(struct conf *cf)
 
     status = conf_validate_structure(cf);
     if (status != NC_OK) {
-        // FIXME: Skip til validationg for global section is done
-        //return status;
+        return status;
     }
 
     cf->sound = 1;
