@@ -20,6 +20,10 @@
 #include <nc_server.h>
 #include <proto/nc_proto.h>
 
+#define MAX_SECTION_NAME_N 33
+static rstatus_t conf_parse_pools_section(struct conf *cf, void *data);
+static rstatus_t conf_parse_global_section(struct conf *cf);
+
 #define DEFINE_ACTION(_hash, _name) string(#_name),
 static struct string hash_strings[] = {
     HASH_CODEC( DEFINE_ACTION )
@@ -41,7 +45,7 @@ static struct string dist_strings[] = {
 };
 #undef DEFINE_ACTION
 
-static struct command conf_commands[] = {
+static struct command conf_pool_commands[] = {
     { string("listen"),
       conf_set_listen,
       offsetof(struct conf_pool, listen) },
@@ -109,6 +113,16 @@ static struct command conf_commands[] = {
     { string("servers"),
       conf_add_server,
       offsetof(struct conf_pool, server) },
+
+    null_command
+};
+
+static struct command conf_global_commands[] = {
+    {
+        string("worker_processes"),
+        conf_set_num,
+        offsetof(struct conf_global, worker_processes)
+    },
 
     null_command
 };
@@ -514,7 +528,7 @@ conf_handler(struct conf *cf, void *data)
     log_debug(LOG_VVERB, "conf handler on %.*s: %.*s", key->len, key->data,
               value->len, value->data);
 
-    for (cmd = conf_commands; cmd->name.len != 0; cmd++) {
+    for (cmd = conf_pool_commands; cmd->name.len != 0; cmd++) {
         char *rv;
 
         if (string_compare(key, &cmd->name) != 0) {
@@ -540,6 +554,10 @@ conf_begin_parse(struct conf *cf)
 {
     rstatus_t status;
     bool done;
+    bool start_section = false;
+    bool pools_section = false;
+    bool global_section = false;
+    char section_name[MAX_SECTION_NAME_N + 1];
 
     ASSERT(cf->sound && !cf->parsed);
     ASSERT(cf->depth == 0);
@@ -564,8 +582,48 @@ conf_begin_parse(struct conf *cf)
             break;
 
         case YAML_MAPPING_START_EVENT:
-            ASSERT(cf->depth < CONF_MAX_DEPTH);
+            ASSERT(cf->depth < CONF_POOL_MAX_DEPTH);
             cf->depth++;
+            if (cf->depth == CONF_SECTION_ROOT_DEPTH) {
+                if (pools_section) {
+                    conf_event_done(cf);
+                    status = conf_parse_pools_section(cf, NULL);
+                    if (status != NC_OK) {
+                        return status;
+                    }
+                    pools_section = false;
+                } else if (global_section) {
+                    conf_event_done(cf);
+                    status = conf_parse_global_section(cf);
+                    if (status != NC_OK) {
+                        return status;
+                    }
+                    global_section = false;
+                }
+                start_section = false;
+            }
+            break;
+        case YAML_SCALAR_EVENT:
+            ASSERT(cf->depth < CONF_POOL_MAX_DEPTH);
+            size_t len = cf->event.data.scalar.length ? MAX_SECTION_NAME_N : cf->event.data.scalar.length;
+            strncpy(section_name, cf->event.data.scalar.value, len);
+            section_name[len] = 0;
+            if (start_section) {
+                log_error("invalid config format, expected mapping");
+            }
+            log_debug(LOG_NOTICE, "config section: %s", section_name);
+            start_section = true;
+            if (strcmp(section_name, "pools") == 0) {
+                pools_section = true;
+            } else if (strcmp(section_name, "global") == 0) {
+                global_section = true;
+            } else {
+                log_error("unknown section: %s", section_name);
+                //return NC_ERROR;
+            }
+            break;
+
+        case YAML_MAPPING_END_EVENT: // top level ends
             done = true;
             break;
 
@@ -587,7 +645,7 @@ conf_end_parse(struct conf *cf)
     bool done;
 
     ASSERT(cf->sound && !cf->parsed);
-    ASSERT(cf->depth == 0);
+    ASSERT(cf->depth == 1);
 
     done = false;
     do {
@@ -619,7 +677,7 @@ conf_end_parse(struct conf *cf)
 }
 
 static rstatus_t
-conf_parse_core(struct conf *cf, void *data)
+conf_parse_pools_section(struct conf *cf, void *data)
 {
     rstatus_t status;
     bool done, leaf, new_pool;
@@ -641,9 +699,9 @@ conf_parse_core(struct conf *cf, void *data)
     switch (cf->event.type) {
     case YAML_MAPPING_END_EVENT:
         cf->depth--;
-        if (cf->depth == 1) {
+        if (cf->depth == CONF_SECTION_ROOT_DEPTH) {
             conf_pop_scalar(cf);
-        } else if (cf->depth == 0) {
+        } else if (cf->depth == CONF_SECTION_ROOT_DEPTH - 1) {
             done = true;
         }
         break;
@@ -669,20 +727,20 @@ conf_parse_core(struct conf *cf, void *data)
 
         /* take appropriate action */
         if (cf->seq) {
-            /* for a sequence, leaf is at CONF_MAX_DEPTH */
-            ASSERT(cf->depth == CONF_MAX_DEPTH);
+            /* for a sequence, leaf is at CONF_POOL_MAX_DEPTH */
+            ASSERT(cf->depth == CONF_POOL_MAX_DEPTH);
             leaf = true;
-        } else if (cf->depth == CONF_ROOT_DEPTH) {
+        } else if (cf->depth == CONF_SECTION_ROOT_DEPTH) {
             /* create new conf_pool */
             data = array_push(&cf->pool);
             if (data == NULL) {
                 status = NC_ENOMEM;
                 break;
-           }
-           new_pool = true;
-        } else if (array_n(&cf->arg) == cf->depth + 1) {
-            /* for {key: value}, leaf is at CONF_MAX_DEPTH */
-            ASSERT(cf->depth == CONF_MAX_DEPTH);
+            }
+            new_pool = true;
+        } else if (array_n(&cf->arg) == cf->depth) {
+            /* for {key: value}, leaf is at CONF_POOL_MAX_DEPTH */
+            ASSERT(cf->depth == CONF_POOL_MAX_DEPTH);
             leaf = true;
         }
         break;
@@ -718,7 +776,75 @@ conf_parse_core(struct conf *cf, void *data)
         }
     }
 
-    return conf_parse_core(cf, data);
+    return conf_parse_pools_section(cf, data);
+}
+
+// FIXME: create global conf structure and fill them up.
+static rstatus_t
+conf_parse_global_section(struct conf *cf)
+{
+    rstatus_t status;
+    bool done=false;
+    struct string *scalar;
+    struct string *key;
+    struct string *value;
+    struct command *cmd;
+
+    // init global conf
+    cf->global.worker_processes = CONF_UNSET_NUM;
+
+    do {
+        status = conf_event_next(cf);
+        if (status != NC_OK) {
+            return status;
+        }
+
+        switch (cf->event.type) {
+        case YAML_MAPPING_END_EVENT:
+            cf->depth--;
+            done = true;
+            break;
+        case YAML_SCALAR_EVENT:
+            if (array_n(&cf->arg) < 2) {
+                conf_push_scalar(cf);
+            }
+            if (array_n(&cf->arg) == 2) {
+                // parse the key: value
+                key = array_get(&cf->arg, 0);
+
+                for (cmd = conf_global_commands; cmd->name.len != 0; cmd++) {
+                    char *rv;
+
+                    if (string_compare(key, &cmd->name) != 0) {
+                        continue;
+                    }
+
+                    rv = cmd->set(cf, cmd, &cf->global);
+                    if (rv != CONF_OK) {
+                        conf_pop_scalar(cf);
+                        conf_pop_scalar(cf);
+                        log_error("conf: directive \"%.*s\" %s", key->len, key->data, rv);
+                        return NC_ERROR;
+                    }
+                    break;
+                }
+
+                if (cmd->name.len == 0) {
+                    // reach commands list end
+                    log_error("conf: directive \"%.*s\" is unknown", key->len, key->data);
+                    return NC_ERROR;
+                }
+
+                conf_pop_scalar(cf);
+                conf_pop_scalar(cf);
+            }
+        default:
+            break;
+        }
+
+        conf_event_done(cf);
+    } while(!done);
+    return NC_OK;
 }
 
 static rstatus_t
@@ -730,11 +856,6 @@ conf_parse(struct conf *cf)
     ASSERT(array_n(&cf->arg) == 0);
 
     status = conf_begin_parse(cf);
-    if (status != NC_OK) {
-        return status;
-    }
-
-    status = conf_parse_core(cf, NULL);
     if (status != NC_OK) {
         return status;
     }
@@ -974,8 +1095,10 @@ conf_validate_structure(struct conf *cf)
 {
     rstatus_t status;
     int type, depth;
-    uint32_t i, count[CONF_MAX_DEPTH + 1];
+    uint32_t i, count[CONF_POOL_MAX_DEPTH + 1];
     bool done, error, seq;
+    bool pools_section = false;
+    bool global_section = false;
 
     status = conf_yaml_init(cf);
     if (status != NC_OK) {
@@ -986,31 +1109,33 @@ conf_validate_structure(struct conf *cf)
     error = false;
     seq = false;
     depth = 0;
-    for (i = 0; i < CONF_MAX_DEPTH + 1; i++) {
+    for (i = 0; i < CONF_POOL_MAX_DEPTH + 1; i++) {
         count[i] = 0;
     }
 
     /*
      * Validate that the configuration conforms roughly to the following
      * yaml tree structure:
-     *
-     * keyx:
+     * global:
      *   key1: value1
-     *   key2: value2
-     *   seq:
-     *     - elem1
-     *     - elem2
-     *     - elem3
-     *   key3: value3
+     * pools:
+     *   keyx:
+     *     key1: value1
+     *     key2: value2
+     *     seq:
+     *       - elem1
+     *       - elem2
+     *       - elem3
+     *     key3: value3
      *
-     * keyy:
-     *   key1: value1
-     *   key2: value2
-     *   seq:
-     *     - elem1
-     *     - elem2
-     *     - elem3
-     *   key3: value3
+     *   keyy:
+     *     key1: value1
+     *     key2: value2
+     *     seq:
+     *       - elem1
+     *       - elem2
+     *       - elem3
+     *     key3: value3
      */
     do {
         status = conf_event_next(cf);
@@ -1035,27 +1160,32 @@ conf_validate_structure(struct conf *cf)
             break;
 
         case YAML_MAPPING_START_EVENT:
-            if (depth == CONF_ROOT_DEPTH && count[depth] != 1) {
+            if (depth == CONF_SECTION_ROOT_DEPTH && count[depth] != 1) {
                 error = true;
                 log_error("conf: '%s' has more than one \"key:value\" at depth"
                           " %d", cf->fname, depth);
-            } else if (depth >= CONF_MAX_DEPTH) {
+            } else if (depth >= CONF_POOL_MAX_DEPTH) {
                 error = true;
                 log_error("conf: '%s' has a depth greater than %d", cf->fname,
-                          CONF_MAX_DEPTH);
+                          CONF_POOL_MAX_DEPTH);
             }
             depth++;
             break;
 
         case YAML_MAPPING_END_EVENT:
-            if (depth == CONF_MAX_DEPTH) {
+            if (pools_section && depth == CONF_POOL_MAX_DEPTH) {
                 if (seq) {
                     seq = false;
                 } else {
                     error = true;
                     log_error("conf: '%s' missing sequence directive at depth "
-                              "%d", cf->fname, depth);
+                                  "%d", cf->fname, depth);
                 }
+            } else if (pools_section && depth == CONF_SECTION_ROOT_DEPTH) {
+                pools_section = false; // "pools" section finish
+            } else if (global_section) {
+                global_section = false; // "global" section finish
+                count[depth] = 0;
             }
             depth--;
             count[depth] = 0;
@@ -1066,10 +1196,10 @@ conf_validate_structure(struct conf *cf)
                 error = true;
                 log_error("conf: '%s' has more than one sequence directive",
                           cf->fname);
-            } else if (depth != CONF_MAX_DEPTH) {
+            } else if (depth != CONF_POOL_MAX_DEPTH) {
                 error = true;
                 log_error("conf: '%s' has sequence at depth %d instead of %d",
-                          cf->fname, depth, CONF_MAX_DEPTH);
+                          cf->fname, depth, CONF_POOL_MAX_DEPTH);
             } else if (count[depth] != 1) {
                 error = true;
                 log_error("conf: '%s' has invalid \"key:value\" at depth %d",
@@ -1079,7 +1209,7 @@ conf_validate_structure(struct conf *cf)
             break;
 
         case YAML_SEQUENCE_END_EVENT:
-            ASSERT(depth == CONF_MAX_DEPTH);
+            ASSERT(depth == CONF_POOL_MAX_DEPTH);
             count[depth] = 0;
             break;
 
@@ -1088,12 +1218,27 @@ conf_validate_structure(struct conf *cf)
                 error = true;
                 log_error("conf: '%s' has invalid empty \"key:\" at depth %d",
                           cf->fname, depth);
-            } else if (depth == CONF_ROOT_DEPTH && count[depth] != 0) {
+            } else if(depth == 1) {
+                if (!strncmp((char *)cf->event.data.scalar.value, "pools", cf->event.data.scalar.length)) {
+                    pools_section = true;
+                } else if (!strncmp((char *)cf->event.data.scalar.value, "global", cf->event.data.scalar.length)) {
+                    global_section = true;
+                } else {
+                    error = true;
+                    log_error("conf: unknown section: %.*s at depth %d", cf->event.data.scalar.length, cf->event.data.scalar.value);
+                }
+            } else if (pools_section && depth == CONF_SECTION_ROOT_DEPTH && count[depth] != 0) {
                 error = true;
                 log_error("conf: '%s' has invalid mapping \"key:\" at depth %d",
                           cf->fname, depth);
-            } else if (depth == CONF_MAX_DEPTH && count[depth] == 2) {
+            } else if (pools_section && depth == CONF_POOL_MAX_DEPTH && count[depth] == 2) {
                 /* found a "key: value", resetting! */
+                count[depth] = 0;
+            } else if (global_section && depth > CONF_GLOBAL_MAX_DEPTH) {
+                error = true;
+                log_error("conf: global section has invalid mapping at depth %s", depth);
+            } else if (global_section && depth == CONF_GLOBAL_MAX_DEPTH && count[depth] == 2) {
+                // found a "key: value" in global section, reset
                 count[depth] = 0;
             }
             count[depth]++;
