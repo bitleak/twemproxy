@@ -103,22 +103,22 @@ struct conf_global {
 };
 
 struct conf {
-    char          *fname;           /* file name (ref in argv[]) */
-    FILE          *fh;              /* file handle */
-    struct array  arg;              /* string[] (parsed {key, value} pairs) */
-    struct array  pool;             /* conf_pool[] (parsed pools) */
-    struct conf_global global;      // global conf
-    uint32_t      depth;            /* parsed tree depth */
-    yaml_parser_t parser;           /* yaml parser */
-    yaml_event_t  event;            /* yaml event */
-    yaml_token_t  token;            /* yaml token */
-    unsigned      seq:1;            /* sequence? */
-    unsigned      valid_parser:1;   /* valid parser? */
-    unsigned      valid_event:1;    /* valid event? */
-    unsigned      valid_token:1;    /* valid token? */
-    unsigned      sound:1;          /* sound? */
-    unsigned      parsed:1;         /* parsed? */
-    unsigned      valid:1;          /* valid? */
+    char               *fname;           /* file name (ref in argv[]) */
+    FILE               *fh;              /* file handle */
+    struct array       arg;              /* string[] (parsed {key, value} pairs) */
+    struct array       pool;             /* conf_pool[] (parsed pools) */
+    struct conf_global global;           // global conf
+    uint32_t           depth;            /* parsed tree depth */
+    yaml_parser_t      parser;           /* yaml parser */
+    yaml_event_t       event;            /* yaml event */
+    yaml_token_t       token;            /* yaml token */
+    unsigned           seq:1;            /* sequence? */
+    unsigned           valid_parser:1;   /* valid parser? */
+    unsigned           valid_event:1;    /* valid event? */
+    unsigned           valid_token:1;    /* valid token? */
+    unsigned           sound:1;          /* sound? */
+    unsigned           parsed:1;         /* parsed? */
+    unsigned           valid:1;          /* valid? */
 };
 
 struct command {
