@@ -58,6 +58,11 @@
 # define NC_HAVE_BACKTRACE 1
 #endif
 
+#include <sys/socket.h>
+#ifdef SO_REUSEPORT
+#define NC_HAVE_REUSEPORT
+#endif
+
 #define NC_OK        0
 #define NC_ERROR    -1
 #define NC_EAGAIN   -2
