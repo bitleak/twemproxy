@@ -21,6 +21,7 @@
 #include <nc_conf.h>
 #include <nc_server.h>
 #include <nc_proxy.h>
+#include <nc_process.h>
 
 static uint32_t ctx_id; /* context generation */
 
@@ -190,33 +191,10 @@ core_start(struct instance *nci)
     if (ctx != NULL) {
         nci->ctx = ctx;
 
-// Bind listen sockets in master process if SO_REUSEPORT is disable.
-// TODO: we can also bind listen sockets ahead when SO_REUSEPORT is enable, but
-// we need to bind N times of those sockets, N equals to the number of processes.
-#ifndef NC_HAVE_REUSEPORT
-        if (core_init_listener(nci) != NC_OK) {
-            return NULL;
-        }
-#endif
-
-        switch(fork()) {
-        case -1:
-            return NULL;
-        case 0:
-            // child
-        default:
-            // parent
-            break;
-        }
-
-// Bind listen sockets in each processes if SO_REUSEPORT is enable.
-#ifdef NC_HAVE_REUSEPORT
-        if (core_init_listener(nci) != NC_OK) {
-            return NULL;
-        }
-#endif
-        if (core_init_instance(nci) != NC_OK) {
-            return NULL;
+        if (ctx->cf->global.worker_processes < 1) {
+            nc_single_process_cycle(nci);
+        } else {
+            nc_multi_processes_cycle(nci);
         }
 
         return ctx;

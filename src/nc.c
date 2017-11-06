@@ -525,14 +525,6 @@ nc_run(struct instance *nci)
         return;
     }
 
-    /* run rabbit run */
-    for (;;) {
-        status = core_loop(ctx);
-        if (status != NC_OK) {
-            break;
-        }
-    }
-
     core_stop(ctx);
 }
 
