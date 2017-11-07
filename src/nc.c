@@ -533,6 +533,7 @@ main(int argc, char **argv)
 {
     rstatus_t status;
     struct instance nci;
+    nci.role = ROLE_MASTER;
 
     nc_set_default_options(&nci);
 

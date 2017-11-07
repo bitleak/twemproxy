@@ -71,6 +71,9 @@
 /* reserved fds for std streams, log, stats fd, epoll etc. */
 #define RESERVED_FDS 32
 
+#define ROLE_MASTER 1
+#define ROLE_WORKER 2
+
 typedef int rstatus_t; /* return type */
 typedef int err_t;     /* error type */
 
@@ -152,8 +155,11 @@ struct instance {
     pid_t           pid;                         /* process id */
     char            *pid_filename;               /* pid filename */
     unsigned        pidfile:1;                   /* pid file created? */
+    char            role;                        // ROLE_MASTER / ROLE_WORKER
+    struct array    workers;                     // WORKERS if role == ROLE_MASTER
 };
 
+struct context *core_ctx_create(struct instance *nci);
 struct context *core_start(struct instance *nci);
 rstatus_t core_init_listener(struct instance *nci);
 rstatus_t core_init_instance(struct instance *nci);
