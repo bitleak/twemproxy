@@ -66,3 +66,5 @@ nutcracker
 
 Makefile
 Makefile.in
+
+*.swo
