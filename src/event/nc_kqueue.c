@@ -377,7 +377,7 @@ event_wait(struct event_base *evb, int timeout)
                 }
 
                 if (evd->cb != NULL && events != 0) {
-                    evd->cb(evd->priv, events);
+                    evd->cb(evb, evd->priv, events);
                 }
             }
             return evb->nreturned;

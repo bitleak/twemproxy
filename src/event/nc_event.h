@@ -27,7 +27,7 @@
 #define EVENT_WRITE 0x00ff00
 #define EVENT_ERR   0xff0000
 
-typedef int (*event_cb_t)(void *, uint32_t);
+typedef int (*event_cb_t)(void *, void *, uint32_t);
 typedef void (*event_stats_cb_t)(void *, void *);
 
 struct ev_data {

@@ -307,7 +307,7 @@ core_timeout(struct context *ctx)
 }
 
 rstatus_t
-core_core(void *arg, uint32_t events)
+core_core(void *evb, void *arg, uint32_t events)
 {
     rstatus_t status;
     struct conn *conn = arg;

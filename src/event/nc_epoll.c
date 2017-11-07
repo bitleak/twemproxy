@@ -47,7 +47,7 @@ event_base_create(int nevent, event_cb_t cb)
     }
 
     evd = nc_calloc(nevent, sizeof(*evd));
-    if (event == NULL) {
+    if (evd == NULL) {
         status = close(ep);
         nc_free(event);
         if (status < 0) {
@@ -345,7 +345,7 @@ event_wait(struct event_base *evb, int timeout)
                 }
 
                 if (evd->cb != NULL) {
-                    evd->cb(evd->priv, events);
+                    evd->cb(evb, evd->priv, events);
                 }
             }
             return nsd;
