@@ -27,6 +27,7 @@ event_base_create(int nevent, event_cb_t cb)
     struct event_base *evb;
     int status, kq;
     struct kevent *change, *event;
+    struct ev_data *evd;
 
     ASSERT(nevent > 0);
 
@@ -55,10 +56,22 @@ event_base_create(int nevent, event_cb_t cb)
         return NULL;
     }
 
+    evd = nc_calloc(nevent, sizeof(*evd));
+    if (evd == NULL) {
+        nc_free(change);
+        nc_free(event);
+        status = close(kq);
+        if (status < 0) {
+            log_error("close kq %d failed, ignored: %s", kq, strerror(errno));
+        }
+        return NULL;
+    }
+
     evb = nc_alloc(sizeof(*evb));
     if (evb == NULL) {
         nc_free(change);
         nc_free(event);
+        nc_free(evd);
         status = close(kq);
         if (status < 0) {
             log_error("close kq %d failed, ignored: %s", kq, strerror(errno));
@@ -70,6 +83,8 @@ event_base_create(int nevent, event_cb_t cb)
     evb->change = change;
     evb->nchange = 0;
     evb->event = event;
+    evb->evd = evd;
+    evb->nevd = nevent;
     evb->nevent = nevent;
     evb->nreturned = 0;
     evb->nprocessed = 0;
@@ -93,6 +108,7 @@ event_base_destroy(struct event_base *evb)
 
     nc_free(evb->change);
     nc_free(evb->event);
+    nc_free(evb->evd);
 
     status = close(evb->kq);
     if (status < 0) {
@@ -103,93 +119,136 @@ event_base_destroy(struct event_base *evb)
     nc_free(evb);
 }
 
+
+static void
+event_base_need_resize(struct event_base *evb, int fd)
+{
+    int new_size;
+    struct ev_data *new_evd;
+
+    if (fd <= evb->nevd) {
+        return;
+    }
+    new_size = fd>evb->nevd*2 ? fd : evb->nevd*2;
+    new_evd = nc_realloc(evb->evd, new_size*sizeof(struct ev_data));
+    if (new_evd != NULL) {
+        evb->evd = new_evd;
+        evb->nevd = new_size;
+    }
+}
+
 int
-event_add_in(struct event_base *evb, struct conn *c)
+event_add(struct event_base *evb, int fd, int mask, event_cb_t cb, void *priv)
 {
     struct kevent *event;
 
     ASSERT(evb->kq > 0);
+    ASSERT(cb != NULL);
+    ASSERT(fd > 0);
+
+    event_base_need_resize(evb, fd);
+    if (fd > evb->nevd) {
+        return -1;
+    }
+    evb->evd[fd].cb = cb;
+    evb->evd[fd].priv = priv;
+    evb->evd[fd].mask |= mask;
+    if (mask & EVENT_READ) {
+        event = &evb->change[evb->nchange++];
+        EV_SET(event, fd, EVFILT_READ, EV_ADD | EV_CLEAR, 0, 0, NULL);
+    }
+    if (mask & EVENT_WRITE) {
+        event = &evb->change[evb->nchange++];
+        EV_SET(event, fd, EVFILT_WRITE, EV_ADD | EV_CLEAR, 0, 0, NULL);
+    }
+    return 0;
+}
+
+int
+event_del(struct event_base *evb, int fd, int mask)
+{
+    struct kevent *event;
+
+    ASSERT(evb->kq > 0);
+    ASSERT(fd > 0);
+    ASSERT(evb->nchange < evb->nevent);
+
+    if (mask & EVENT_READ) {
+        event = &evb->change[evb->nchange++];
+        EV_SET(event, fd, EVFILT_READ, EV_DELETE, 0, 0, NULL);
+        evb->evd[fd].mask &= ~EVENT_READ;
+    }
+    if (mask & EVENT_WRITE) {
+        event = &evb->change[evb->nchange++];
+        EV_SET(event, fd, EVFILT_WRITE, EV_DELETE, 0, 0, NULL);
+        evb->evd[fd].mask &= ~EVENT_WRITE;
+    }
+    if (mask == EVENT_NONE) {
+        evb->evd[fd].cb = NULL;
+        evb->evd[fd].priv = NULL;
+    }
+    return 0;
+}
+
+int
+event_add_in(struct event_base *evb, struct conn *c)
+{
+    ASSERT(evb->kq > 0);
     ASSERT(c != NULL);
     ASSERT(c->sd > 0);
     ASSERT(evb->nchange < evb->nevent);
-
     if (c->recv_active) {
         return 0;
     }
-
-    event = &evb->change[evb->nchange++];
-    EV_SET(event, c->sd, EVFILT_READ, EV_ADD | EV_CLEAR, 0, 0, c);
-
+    event_add(evb, c->sd, EVENT_READ, evb->cb, c);
     c->recv_active = 1;
-
     return 0;
 }
 
 int
 event_del_in(struct event_base *evb, struct conn *c)
 {
-    struct kevent *event;
-
     ASSERT(evb->kq > 0);
     ASSERT(c != NULL);
     ASSERT(c->sd > 0);
     ASSERT(evb->nchange < evb->nevent);
-
     if (!c->recv_active) {
         return 0;
     }
-
-    event = &evb->change[evb->nchange++];
-    EV_SET(event, c->sd, EVFILT_READ, EV_DELETE, 0, 0, c);
-
+    event_del(evb, c->sd, EVENT_READ);
     c->recv_active = 0;
-
     return 0;
 }
 
 int
 event_add_out(struct event_base *evb, struct conn *c)
 {
-    struct kevent *event;
-
     ASSERT(evb->kq > 0);
     ASSERT(c != NULL);
     ASSERT(c->sd > 0);
     ASSERT(c->recv_active);
     ASSERT(evb->nchange < evb->nevent);
-
     if (c->send_active) {
         return 0;
     }
-
-    event = &evb->change[evb->nchange++];
-    EV_SET(event, c->sd, EVFILT_WRITE, EV_ADD | EV_CLEAR, 0, 0, c);
-
+    event_add(evb, c->sd, EVENT_WRITE, evb->cb, c);
     c->send_active = 1;
-
     return 0;
 }
 
 int
 event_del_out(struct event_base *evb, struct conn *c)
 {
-    struct kevent *event;
-
     ASSERT(evb->kq > 0);
     ASSERT(c != NULL);
     ASSERT(c->sd > 0);
     ASSERT(c->recv_active);
     ASSERT(evb->nchange < evb->nevent);
-
     if (!c->send_active) {
         return 0;
     }
-
-    event = &evb->change[evb->nchange++];
-    EV_SET(event, c->sd, EVFILT_WRITE, EV_DELETE, 0, 0, c);
-
+    event_del(evb, c->sd, EVENT_WRITE);
     c->send_active = 0;
-
     return 0;
 }
 
@@ -277,6 +336,7 @@ event_wait(struct event_base *evb, int timeout)
             for (evb->nprocessed = 0; evb->nprocessed < evb->nreturned;
                 evb->nprocessed++) {
                 struct kevent *ev = &evb->event[evb->nprocessed];
+                struct ev_data *evd = &evb->evd[ev->ident];
                 uint32_t events = 0;
 
                 log_debug(LOG_VVERB, "kevent %04"PRIX32" with filter %d "
@@ -316,8 +376,8 @@ event_wait(struct event_base *evb, int timeout)
                     events |= EVENT_WRITE;
                 }
 
-                if (evb->cb != NULL && events != 0) {
-                    evb->cb(ev->udata, events);
+                if (evd->cb != NULL && events != 0) {
+                    evd->cb(evd->priv, events);
                 }
             }
             return evb->nreturned;

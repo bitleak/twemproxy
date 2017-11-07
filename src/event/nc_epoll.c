@@ -27,6 +27,7 @@ event_base_create(int nevent, event_cb_t cb)
     struct event_base *evb;
     int status, ep;
     struct epoll_event *event;
+    struct ev_data *evd;
 
     ASSERT(nevent > 0);
 
@@ -45,9 +46,20 @@ event_base_create(int nevent, event_cb_t cb)
         return NULL;
     }
 
+    evd = nc_calloc(nevent, sizeof(*evd));
+    if (event == NULL) {
+        status = close(ep);
+        nc_free(event);
+        if (status < 0) {
+            log_error("close e %d failed, ignored: %s", ep, strerror(errno));
+        }
+        return NULL;
+    }
+
     evb = nc_alloc(sizeof(*evb));
     if (evb == NULL) {
         nc_free(event);
+        nc_free(evd);
         status = close(ep);
         if (status < 0) {
             log_error("close e %d failed, ignored: %s", ep, strerror(errno));
@@ -56,6 +68,8 @@ event_base_create(int nevent, event_cb_t cb)
     }
 
     evb->ep = ep;
+    evb->evd = evd;
+    evb->nevd = nevent;
     evb->event = event;
     evb->nevent = nevent;
     evb->cb = cb;
@@ -77,6 +91,7 @@ event_base_destroy(struct event_base *evb)
     ASSERT(evb->ep > 0);
 
     nc_free(evb->event);
+    nc_free(evb->evd);
 
     status = close(evb->ep);
     if (status < 0) {
@@ -87,11 +102,90 @@ event_base_destroy(struct event_base *evb)
     nc_free(evb);
 }
 
+static void
+event_base_need_resize(struct event_base *evb, int fd)
+{
+    int new_size;
+    struct ev_data *new_evd;
+
+    if (fd <= evb->nevd) {
+        return;
+    }
+    new_size = fd>evb->nevd*2 ? fd + 1 : evb->nevd*2;
+    new_evd = nc_realloc(evb->evd, new_size*sizeof(struct ev_data));
+    if (new_evd != NULL) {
+        evb->evd = new_evd;
+        evb->nevd = new_size;
+    }
+}
+
+int
+event_add(struct event_base *evb, int fd, int mask, event_cb_t cb, void *priv)
+{
+    int op;
+    struct epoll_event event = {0};
+    int ep = evb->ep;
+
+    ASSERT(ep > 0);
+    ASSERT(cb != NULL);
+    ASSERT(fd > 0);
+
+    event_base_need_resize(evb, fd);
+    if (fd > evb->nevd) {
+        return -1;
+    }
+    op = evb->evd[fd].mask == EVENT_NONE ? EPOLL_CTL_ADD : EPOLL_CTL_MOD;
+
+    evb->evd[fd].cb = cb;
+    evb->evd[fd].priv = priv;
+    evb->evd[fd].mask |= mask;
+    if (mask & EVENT_READ) {
+        event.events |= (uint32_t)(EPOLLIN | EPOLLET);
+    }
+    if (mask & EVENT_WRITE) {
+        event.events |= (uint32_t)(EPOLLIN | EPOLLOUT | EPOLLET);
+    }
+    event.data.fd = fd;
+    return epoll_ctl(ep, op, fd, &event);
+}
+
+int
+event_del(struct event_base *evb, int fd, int delmask)
+{
+    int mask;
+    struct epoll_event event = {0};
+    int ep = evb->ep;
+
+    ASSERT(ep > 0);
+    ASSERT(fd > 0);
+
+    mask = evb->evd[fd].mask & (~delmask);
+    event.events = 0;
+    event.data.fd = fd;
+
+    evb->evd[fd].mask = EVENT_NONE;
+    if (mask & EVENT_READ) {
+        evb->evd[fd].mask |= EVENT_READ;
+        event.events = (uint32_t)(EPOLLIN | EPOLLET);
+    }
+    if (mask & EVENT_WRITE) {
+        evb->evd[fd].mask |= EVENT_WRITE;
+        event.events |= (uint32_t)(EPOLLOUT | EPOLLET);
+    }
+    if (mask == EVENT_NONE) {
+        evb->evd[fd].cb = NULL;
+        evb->evd[fd].priv = NULL;
+        /* Note, Kernel < 2.6.9 requires a non null event pointer even for
+         *  EPOLL_CTL_DEL. */
+        return epoll_ctl(ep, EPOLL_CTL_DEL, fd, &event);
+    }
+    return epoll_ctl(ep, EPOLL_CTL_MOD, fd, &event);
+}
+
 int
 event_add_in(struct event_base *evb, struct conn *c)
 {
     int status;
-    struct epoll_event event;
     int ep = evb->ep;
 
     ASSERT(ep > 0);
@@ -101,11 +195,7 @@ event_add_in(struct event_base *evb, struct conn *c)
     if (c->recv_active) {
         return 0;
     }
-
-    event.events = (uint32_t)(EPOLLIN | EPOLLET);
-    event.data.ptr = c;
-
-    status = epoll_ctl(ep, EPOLL_CTL_MOD, c->sd, &event);
+    status = event_add(evb, c->sd, EVENT_READ, evb->cb, c);
     if (status < 0) {
         log_error("epoll ctl on e %d sd %d failed: %s", ep, c->sd,
                   strerror(errno));
@@ -126,7 +216,6 @@ int
 event_add_out(struct event_base *evb, struct conn *c)
 {
     int status;
-    struct epoll_event event;
     int ep = evb->ep;
 
     ASSERT(ep > 0);
@@ -138,10 +227,7 @@ event_add_out(struct event_base *evb, struct conn *c)
         return 0;
     }
 
-    event.events = (uint32_t)(EPOLLIN | EPOLLOUT | EPOLLET);
-    event.data.ptr = c;
-
-    status = epoll_ctl(ep, EPOLL_CTL_MOD, c->sd, &event);
+    status = event_add(evb, c->sd, EVENT_WRITE, evb->cb, c);
     if (status < 0) {
         log_error("epoll ctl on e %d sd %d failed: %s", ep, c->sd,
                   strerror(errno));
@@ -156,7 +242,6 @@ int
 event_del_out(struct event_base *evb, struct conn *c)
 {
     int status;
-    struct epoll_event event;
     int ep = evb->ep;
 
     ASSERT(ep > 0);
@@ -168,10 +253,7 @@ event_del_out(struct event_base *evb, struct conn *c)
         return 0;
     }
 
-    event.events = (uint32_t)(EPOLLIN | EPOLLET);
-    event.data.ptr = c;
-
-    status = epoll_ctl(ep, EPOLL_CTL_MOD, c->sd, &event);
+    status = event_del(evb, c->sd, EVENT_WRITE);
     if (status < 0) {
         log_error("epoll ctl on e %d sd %d failed: %s", ep, c->sd,
                   strerror(errno));
@@ -186,17 +268,13 @@ int
 event_add_conn(struct event_base *evb, struct conn *c)
 {
     int status;
-    struct epoll_event event;
     int ep = evb->ep;
 
     ASSERT(ep > 0);
     ASSERT(c != NULL);
     ASSERT(c->sd > 0);
 
-    event.events = (uint32_t)(EPOLLIN | EPOLLOUT | EPOLLET);
-    event.data.ptr = c;
-
-    status = epoll_ctl(ep, EPOLL_CTL_ADD, c->sd, &event);
+    status = event_add(evb, c->sd, EVENT_READ|EVENT_WRITE, evb->cb, c);
     if (status < 0) {
         log_error("epoll ctl on e %d sd %d failed: %s", ep, c->sd,
                   strerror(errno));
@@ -218,7 +296,7 @@ event_del_conn(struct event_base *evb, struct conn *c)
     ASSERT(c != NULL);
     ASSERT(c->sd > 0);
 
-    status = epoll_ctl(ep, EPOLL_CTL_DEL, c->sd, NULL);
+    status = event_del(evb, c->sd, EVENT_READ|EVENT_WRITE);
     if (status < 0) {
         log_error("epoll ctl on e %d sd %d failed: %s", ep, c->sd,
                   strerror(errno));
@@ -248,6 +326,7 @@ event_wait(struct event_base *evb, int timeout)
         if (nsd > 0) {
             for (i = 0; i < nsd; i++) {
                 struct epoll_event *ev = &evb->event[i];
+                struct ev_data *evd = &evb->evd[ev->data.fd];
                 uint32_t events = 0;
 
                 log_debug(LOG_VVERB, "epoll %04"PRIX32" triggered on conn %p",
@@ -265,8 +344,8 @@ event_wait(struct event_base *evb, int timeout)
                     events |= EVENT_WRITE;
                 }
 
-                if (evb->cb != NULL) {
-                    evb->cb(ev->data.ptr, events);
+                if (evd->cb != NULL) {
+                    evd->cb(evd->priv, events);
                 }
             }
             return nsd;
