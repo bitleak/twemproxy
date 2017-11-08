@@ -85,8 +85,9 @@ nc_spawn_workers(int n, struct instance *parent_nci)
     struct instance **nci_elem_ptr, *worker_nci;
 
     ASSERT(parent_nci->role == ROLE_MASTER);
+    ASSERT(n >= 0);
 
-    array_init(&parent_nci->workers, n, sizeof(struct instance *));
+    array_init(&parent_nci->workers, (uint32_t)n, sizeof(struct instance *));
 
     for (int i = 0; i < n; ++i) {
         worker_nci = nc_clone_instance(parent_nci);
