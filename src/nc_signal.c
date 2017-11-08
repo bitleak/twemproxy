@@ -20,6 +20,7 @@
 
 #include <nc_core.h>
 #include <nc_signal.h>
+#include <nc_process.h>
 
 static struct signal signals[] = {
     { SIGUSR1, "SIGUSR1", 0,                 signal_handler },
@@ -84,6 +85,8 @@ signal_handler(int signo)
 
     switch (signo) {
     case SIGUSR1:
+        actionstr = ", reopening log file";
+        action = log_reopen;
         break;
 
     case SIGUSR2:
@@ -100,8 +103,10 @@ signal_handler(int signo)
         break;
 
     case SIGHUP:
-        actionstr = ", reopening log file";
-        action = log_reopen;
+        if (pm_myrole == ROLE_MASTER) {
+            actionstr = ", reload config";
+            action = nc_reload_config;
+        }
         break;
 
     case SIGINT:

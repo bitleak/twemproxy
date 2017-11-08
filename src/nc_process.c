@@ -6,6 +6,7 @@
 // Global process management states. TODO: set those flags in signal handlers
 bool pm_reload = false;
 bool pm_respawn = false;
+char pm_myrole = ROLE_MASTER;
 
 static struct instance *
 nc_clone_instance(struct instance *parent_nci)
@@ -62,6 +63,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
     for(;;) {
         if (pm_reload) {
             // TODO: reload config
+            log_debug(LOG_NOTICE, "reloading config");
         }
 
         if (pm_respawn) {
@@ -110,6 +112,7 @@ nc_spawn_workers(int n, struct instance *parent_nci)
             log_error("failed to spawn worker");
             return NC_ERROR;
         case 0:
+            pm_myrole = ROLE_WORKER;
             // TODO: setup the communication channel between master and workers
             pid = getpid();
             worker_nci->pid = pid;
@@ -129,8 +132,15 @@ void
 nc_worker_process(int worker_id, struct instance *nci)
 {
     rstatus_t status;
+    sigset_t set;
 
     ASSERT(nci->role == ROLE_WORKER);
+
+    sigemptyset(&set);
+    if (sigprocmask(SIG_SETMASK, &set, NULL) == -1) {
+        log_error("[worker] failed to clear signal mask");
+        return;
+    }
 
     status = core_init_instance(nci);
     if (status != NC_OK) {
@@ -173,4 +183,10 @@ nc_single_process_cycle(struct instance *nci)
         }
     }
     return status;
+}
+
+void
+nc_reload_config(void)
+{
+    pm_reload = true;
 }
