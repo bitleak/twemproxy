@@ -1,7 +1,7 @@
 #include <nc_core.h>
 
-#ifndef TWEMPROXY_NC_PROCESS_H
-#define TWEMPROXY_NC_PROCESS_H
+#ifndef _NC_PROCESS_H
+#define _NC_PROCESS_H
 
 extern bool pm_reload;
 extern bool pm_respawn;
@@ -11,4 +11,4 @@ rstatus_t nc_spawn_workers(int n, struct instance *parent_nci);
 void      nc_worker_process(int worker_id, struct instance *nci);
 rstatus_t nc_single_process_cycle(struct instance *nci);
 
-#endif //TWEMPROXY_NC_PROCESS_H
+#endif //_NC_PROCESS_H
