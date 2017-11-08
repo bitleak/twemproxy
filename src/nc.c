@@ -517,7 +517,6 @@ nc_post_run(struct instance *nci)
 static void
 nc_run(struct instance *nci)
 {
-    rstatus_t status;
     struct context *ctx;
 
     ctx = core_start(nci);

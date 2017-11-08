@@ -80,15 +80,17 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 rstatus_t
 nc_spawn_workers(int n, struct instance *parent_nci)
 {
+    int i;
     rstatus_t status;
     pid_t pid;
     struct instance **nci_elem_ptr, *worker_nci;
 
     ASSERT(parent_nci->role == ROLE_MASTER);
+    ASSERT(n >= 0);
 
-    array_init(&parent_nci->workers, n, sizeof(struct instance *));
+    array_init(&parent_nci->workers, (uint32_t)n, sizeof(struct instance *));
 
-    for (int i = 0; i < n; ++i) {
+    for (i = 0; i < n; ++i) {
         worker_nci = nc_clone_instance(parent_nci);
         if (worker_nci == NULL) {
             return NC_ERROR;
