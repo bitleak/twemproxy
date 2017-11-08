@@ -8,7 +8,8 @@ bool pm_reload = false;
 bool pm_respawn = false;
 
 static struct instance *
-nc_clone_instance(struct instance *parent_nci) {
+nc_clone_instance(struct instance *parent_nci)
+{
     struct context *new_ctx;
     struct instance *cloned_nci;
     cloned_nci = nc_alloc(sizeof(*parent_nci));
@@ -26,9 +27,10 @@ nc_clone_instance(struct instance *parent_nci) {
 }
 
 static rstatus_t
-nc_close_other_proxy(void *elem, void *data) {
-    struct instance *nci = *(struct instance **)elem, *self = data;
-    struct context *ctx=nci->ctx;
+nc_close_other_proxy(void *elem, void *data)
+{
+    struct instance *nci = *(struct instance **) elem, *self = data;
+    struct context *ctx = nci->ctx;
 
     if (nci == self) {
         return NC_OK;
@@ -39,7 +41,8 @@ nc_close_other_proxy(void *elem, void *data) {
 }
 
 static rstatus_t
-nc_close_other_proxies(struct array *workers, struct instance *self) {
+nc_close_other_proxies(struct array *workers, struct instance *self)
+{
     return array_each(workers, nc_close_other_proxy, self);
 }
 
@@ -50,12 +53,13 @@ nc_close_other_proxies(struct array *workers, struct instance *self) {
 //   4. spawn workers
 //   5. loop for signals
 rstatus_t
-nc_multi_processes_cycle(struct instance *parent_nci) {
+nc_multi_processes_cycle(struct instance *parent_nci)
+{
     rstatus_t status;
 
     pm_respawn = true; // spawn workers upon start
 
-    while (true) {
+    for(;;) {
         if (pm_reload) {
             // TODO: reload config
         }
@@ -74,7 +78,8 @@ nc_multi_processes_cycle(struct instance *parent_nci) {
 }
 
 rstatus_t
-nc_spawn_workers(int n, struct instance *parent_nci) {
+nc_spawn_workers(int n, struct instance *parent_nci)
+{
     rstatus_t status;
     pid_t pid;
     struct instance **nci_elem_ptr, *worker_nci;
@@ -119,7 +124,8 @@ nc_spawn_workers(int n, struct instance *parent_nci) {
 }
 
 void
-nc_worker_process(int worker_id, struct instance *nci) {
+nc_worker_process(int worker_id, struct instance *nci)
+{
     rstatus_t status;
 
     ASSERT(nci->role == ROLE_WORKER);
@@ -134,7 +140,7 @@ nc_worker_process(int worker_id, struct instance *nci) {
     // TODO: worker should remove the listening sockets from event base and after lingering connections are exhausted
     // or timeout, quit process.
 
-    while (true) {
+    for(;;) {
         status = core_loop(nci->ctx);
         if (status != NC_OK) {
             break;
@@ -145,7 +151,8 @@ nc_worker_process(int worker_id, struct instance *nci) {
 }
 
 rstatus_t
-nc_single_process_cycle(struct instance *nci) {
+nc_single_process_cycle(struct instance *nci)
+{
     rstatus_t status;
 
     status = core_init_listener(nci);
@@ -157,7 +164,7 @@ nc_single_process_cycle(struct instance *nci) {
         return status;
     }
 
-    while (true) {
+    for(;;) {
         status = core_loop(nci->ctx);
         if (status != NC_OK) {
             break;
