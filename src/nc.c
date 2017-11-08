@@ -525,14 +525,6 @@ nc_run(struct instance *nci)
         return;
     }
 
-    /* run rabbit run */
-    for (;;) {
-        status = core_loop(ctx);
-        if (status != NC_OK) {
-            break;
-        }
-    }
-
     core_stop(ctx);
 }
 
@@ -541,6 +533,7 @@ main(int argc, char **argv)
 {
     rstatus_t status;
     struct instance nci;
+    nci.role = ROLE_MASTER;
 
     nc_set_default_options(&nci);
 
