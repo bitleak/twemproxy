@@ -144,20 +144,21 @@ struct context {
 
 
 struct instance {
-    struct context  *ctx;                        /* active context */
-    int             log_level;                   /* log level */
-    char            *log_filename;               /* log filename */
-    char            *conf_filename;              /* configuration filename */
-    uint16_t        stats_port;                  /* stats monitoring port */
-    int             stats_interval;              /* stats aggregation interval */
-    char            *stats_addr;                 /* stats monitoring addr */
-    char            hostname[NC_MAXHOSTNAMELEN]; /* hostname */
-    size_t          mbuf_chunk_size;             /* mbuf chunk size */
-    pid_t           pid;                         /* process id */
-    char            *pid_filename;               /* pid filename */
-    unsigned        pidfile:1;                   /* pid file created? */
-    char            role;                        // ROLE_MASTER / ROLE_WORKER
-    struct array    workers;                     // WORKERS if role == ROLE_MASTER
+    struct context   *ctx;                        /* active context */
+    int              log_level;                   /* log level */
+    char             *log_filename;               /* log filename */
+    char             *conf_filename;              /* configuration filename */
+    uint16_t         stats_port;                  /* stats monitoring port */
+    int              stats_interval;              /* stats aggregation interval */
+    char             *stats_addr;                 /* stats monitoring addr */
+    char             hostname[NC_MAXHOSTNAMELEN]; /* hostname */
+    size_t           mbuf_chunk_size;             /* mbuf chunk size */
+    pid_t            pid;                         /* process id */
+    char             *pid_filename;               /* pid filename */
+    unsigned         pidfile:1;                   /* pid file created? */
+    char             role;                        // ROLE_MASTER / ROLE_WORKER
+    struct array     workers;                     // WORKERS if role == ROLE_MASTER
+    struct channel*  chan;
 };
 
 struct context *core_ctx_create(struct instance *nci);
