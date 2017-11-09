@@ -752,6 +752,12 @@ server_pool_each_preconnect(void *elem, void *data)
         return NC_OK;
     }
 
+    if (array_n(&sp->redis_master) > 0) {
+        status = array_each(&sp->redis_master, server_each_preconnect, NULL);
+        if (status != NC_OK) {
+            return status;
+        }
+    }
     status = array_each(&sp->server, server_each_preconnect, NULL);
     if (status != NC_OK) {
         return status;

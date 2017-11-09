@@ -21,6 +21,7 @@
 #include <proto/nc_proto.h>
 
 #define MAX_SECTION_NAME_N 33
+
 static rstatus_t conf_parse_pools_section(struct conf *cf, void *data);
 static rstatus_t conf_parse_global_section(struct conf *cf);
 
@@ -235,6 +236,12 @@ conf_pool_init(struct conf_pool *cp, struct string *name)
         string_deinit(&cp->name);
         return status;
     }
+    status = array_init(&cp->redis_master, 1, sizeof(struct conf_server));
+    if (status != NC_OK) {
+        array_deinit(&cp->redis_master);
+        string_deinit(&cp->name);
+        return status;
+    }
 
     log_debug(LOG_VVERB, "init conf pool %p, '%.*s'", cp, name->len, name->data);
 
@@ -282,6 +289,7 @@ conf_pool_each_transform(void *elem, void *data)
     TAILQ_INIT(&sp->c_conn_q);
 
     array_null(&sp->server);
+    array_null(&sp->redis_master);
     sp->ncontinuum = 0;
     sp->nserver_continuum = 0;
     sp->continuum = NULL;
@@ -320,6 +328,12 @@ conf_pool_each_transform(void *elem, void *data)
     status = server_init(&sp->server, &cp->server, sp);
     if (status != NC_OK) {
         return status;
+    }
+    if (array_n(&cp->redis_master) > 0) {
+        status = server_init(&sp->redis_master, &cp->redis_master, sp);
+        if (status != NC_OK) {
+            return status;
+        }
     }
 
     log_debug(LOG_VERB, "transform to pool %"PRIu32" '%.*s'", sp->idx,
@@ -1417,6 +1431,11 @@ conf_validate_pool(struct conf *cf, struct conf_pool *cp)
         return NC_ERROR;
     }
 
+    if (!cp->redis && array_n(&cp->redis_master) > 0) {
+        log_error("conf: directive \"redis_master:\" is only valid for a redis pool");
+        return NC_ERROR;
+    }
+
     status = conf_validate_server(cf, cp);
     if (status != NC_OK) {
         return status;
@@ -1677,17 +1696,15 @@ conf_add_server(struct conf *cf, struct command *cmd, void *conf)
 {
     rstatus_t status;
     struct array *a;
-    struct string *value;
+    struct string *value, master_str;
+    struct conf_pool *pool;
     struct conf_server *field;
     uint8_t *p, *q, *start;
     uint8_t *pname, *addr, *port, *weight, *name;
     uint32_t k, delimlen, pnamelen, addrlen, portlen, weightlen, namelen;
     char delim[] = " ::";
 
-    p = conf;
-    a = (struct array *)(p + cmd->offset);
-
-    field = array_push(a);
+    field = nc_alloc(sizeof(*field));
     if (field == NULL) {
         return CONF_ERROR;
     }
@@ -1754,7 +1771,6 @@ conf_add_server(struct conf *cf, struct command *cmd, void *conf)
     pnamelen = namelen > 0 ? value->len - (namelen + 1) : value->len;
     status = string_copy(&field->pname, pname, pnamelen);
     if (status != NC_OK) {
-        array_pop(a);
         return CONF_ERROR;
     }
 
@@ -1808,6 +1824,19 @@ conf_add_server(struct conf *cf, struct command *cmd, void *conf)
      */
 
     field->valid = 1;
+
+    string_set_text(&master_str, "[master]");
+    // set server array as deault
+    pool = (struct conf_pool *)conf;
+    a = &pool->server;
+    if (string_compare(&field->name, &master_str) == 0) {
+        a = &pool->redis_master;
+        if (array_n(a) > 0) {
+            return "master is duplicate";
+        }
+    }
+    nc_memcpy(array_push(a), field, sizeof(*field));
+    nc_free(field);
 
     return CONF_OK;
 }
