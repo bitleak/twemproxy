@@ -207,19 +207,13 @@ nc_shutdown_workers(struct array *workers)
 {
     uint32_t i, nelem;
     void *elem;
-    struct chan_msg msg;
     struct instance *worker_nci;
 
+    nc_signal_workers(workers, NC_CMD_TERMINATE);
     for (i = 0, nelem = array_n(workers); i < nelem; i++) {
         elem = array_pop(workers);
         worker_nci = (struct instance *)elem;
-        // write quit command to worker
-        msg.command = NC_CMD_TERMINATE;
-        if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
-            log_error("failed to send shutdown msg, err %s", strerror(errno));
-        }
         nc_dealloc_channel(worker_nci->chan);
-
         core_ctx_destroy(worker_nci->ctx);
     }
     // TODO: tell old workers to shutdown gracefully
@@ -398,4 +392,22 @@ nc_migrate_proxies(struct context *dst, struct context *src)
         }
     }
     return NC_OK;
+}
+
+void
+nc_signal_workers(struct array *workers, int command)
+{
+    uint32_t i, nelem;
+    void *elem;
+    struct chan_msg msg;
+    struct instance *worker_nci;
+
+    for (i = 0, nelem = array_n(workers); i < nelem; i++) {
+        elem = array_get(workers, i);
+        worker_nci = *(struct instance **)elem;
+        msg.command = command;
+        if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
+            log_error("failed to write channel, err %s", strerror(errno));
+        }
+    }
 }
