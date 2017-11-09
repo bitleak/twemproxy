@@ -111,7 +111,7 @@ event_base_need_resize(struct event_base *evb, int fd)
     if (fd <= evb->nevd) {
         return;
     }
-    new_size = fd>evb->nevd*2 ? fd + 1 : evb->nevd*2;
+    new_size = fd > evb->nevd*2 ? fd + 1 : evb->nevd*2;
     new_evd = nc_realloc(evb->evd, new_size*sizeof(struct ev_data));
     if (new_evd != NULL) {
         evb->evd = new_evd;
