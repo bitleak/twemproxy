@@ -125,6 +125,7 @@ struct event_base;
 #include <nc_message.h>
 #include <nc_connection.h>
 #include <nc_server.h>
+#include <nc_channel.h>
 
 struct context {
     uint32_t           id;          /* unique context id */
@@ -164,7 +165,7 @@ struct context *core_start(struct instance *nci);
 rstatus_t core_init_listener(struct instance *nci);
 rstatus_t core_init_instance(struct instance *nci);
 void core_stop(struct context *ctx);
-rstatus_t core_core(void *arg, uint32_t events);
+rstatus_t core_core(void *evb, void *arg, uint32_t events);
 rstatus_t core_loop(struct context *ctx);
 
 #endif

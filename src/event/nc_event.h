@@ -22,25 +22,34 @@
 
 #define EVENT_SIZE  1024
 
+#define EVENT_NONE  0x000000
 #define EVENT_READ  0x0000ff
 #define EVENT_WRITE 0x00ff00
 #define EVENT_ERR   0xff0000
 
-typedef int (*event_cb_t)(void *, uint32_t);
+typedef int (*event_cb_t)(void *, void *, uint32_t);
 typedef void (*event_stats_cb_t)(void *, void *);
+
+struct ev_data {
+    int        mask;
+    event_cb_t cb;
+    void       *priv;
+};
 
 #ifdef NC_HAVE_KQUEUE
 
 struct event_base {
-    int           kq;          /* kernel event queue descriptor */
+    int            kq;          /* kernel event queue descriptor */
 
-    struct kevent *change;     /* change[] - events we want to monitor */
-    int           nchange;     /* # change */
+    struct kevent  *change;     /* change[] - events we want to monitor */
+    int            nchange;     /* # change */
 
-    struct kevent *event;      /* event[] - events that were triggered */
-    int           nevent;      /* # event */
-    int           nreturned;   /* # event placed in event[] */
-    int           nprocessed;  /* # event processed from event[] */
+    struct kevent  *event;      /* event[] - events that were triggered */
+    int            nevent;      /* # event */
+    struct ev_data *evd;        /* event_data[] - data that stored for event */
+    int            nevd;        /* # event data */
+    int            nreturned;   /* # event placed in event[] */
+    int            nprocessed;  /* # event processed from event[] */
 
     event_cb_t    cb;          /* event callback */
 };
@@ -48,10 +57,12 @@ struct event_base {
 #elif NC_HAVE_EPOLL
 
 struct event_base {
-    int                ep;      /* epoll descriptor */
+    int                 ep;      /* epoll descriptor */
 
     struct epoll_event *event;  /* event[] - events that were triggered */
     int                nevent;  /* # event */
+    struct ev_data     *evd;    /* event_data[] - data that stored for event */
+    int                nevd;    /* # event data */
 
     event_cb_t         cb;      /* event callback */
 };
@@ -76,6 +87,8 @@ struct event_base {
 struct event_base *event_base_create(int size, event_cb_t cb);
 void event_base_destroy(struct event_base *evb);
 
+int event_add(struct event_base *evb, int fd, int mask, event_cb_t cb, void *priv);
+int event_del(struct event_base *evb, int fd, int mask);
 int event_add_in(struct event_base *evb, struct conn *c);
 int event_del_in(struct event_base *evb, struct conn *c);
 int event_add_out(struct event_base *evb, struct conn *c);
