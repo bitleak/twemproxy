@@ -35,6 +35,72 @@
 
 static rstatus_t redis_handle_auth_req(struct msg *request, struct msg *response);
 
+
+bool
+redis_readonly(struct msg *r)
+{
+    switch(r->type) {
+    case MSG_REQ_REDIS_GET:
+    case MSG_REQ_REDIS_TTL:
+    case MSG_REQ_REDIS_MGET:
+    case MSG_REQ_REDIS_PING:
+    case MSG_REQ_REDIS_AUTH:
+    case MSG_REQ_REDIS_PTTL:
+    case MSG_REQ_REDIS_TYPE:
+    case MSG_REQ_REDIS_DUMP:
+    case MSG_REQ_REDIS_STRLEN:
+    case MSG_REQ_REDIS_EXISTS:
+    case MSG_REQ_REDIS_GETRANGE:
+
+    /* bit op */
+    case MSG_REQ_REDIS_GETBIT:
+    case MSG_REQ_REDIS_BITCOUNT:
+
+    /* hash op */
+    case MSG_REQ_REDIS_HGET:
+    case MSG_REQ_REDIS_HLEN:
+    case MSG_REQ_REDIS_HVALS:
+    case MSG_REQ_REDIS_HKEYS:
+    case MSG_REQ_REDIS_HSCAN:
+    case MSG_REQ_REDIS_HGETALL:
+    case MSG_REQ_REDIS_HEXISTS:
+
+     /* list op */
+    case MSG_REQ_REDIS_LLEN:
+    case MSG_REQ_REDIS_LINDEX:
+    case MSG_REQ_REDIS_LRANGE:
+
+    /* hyperloglog op */
+    case MSG_REQ_REDIS_PFCOUNT:
+
+    /* zset op */
+    case MSG_REQ_REDIS_ZCARD:
+    case MSG_REQ_REDIS_ZRANK:
+    case MSG_REQ_REDIS_ZSCAN:
+    case MSG_REQ_REDIS_ZCOUNT:
+    case MSG_REQ_REDIS_ZRANGE:
+    case MSG_REQ_REDIS_ZSCORE:
+    case MSG_REQ_REDIS_ZREVRANK:
+    case MSG_REQ_REDIS_ZLEXCOUNT:
+    case MSG_REQ_REDIS_ZREVRANGE:
+    case MSG_REQ_REDIS_ZRANGEBYLEX:
+    case MSG_REQ_REDIS_ZRANGEBYSCORE:
+
+    /* set op */
+    case MSG_REQ_REDIS_SCARD:
+    case MSG_REQ_REDIS_SSCAN:
+    case MSG_REQ_REDIS_SDIFF:
+    case MSG_REQ_REDIS_SINTER:
+    case MSG_REQ_REDIS_SUNION:
+    case MSG_REQ_REDIS_SMEMBERS:
+    case MSG_REQ_REDIS_SISMEMBER:
+    case MSG_REQ_REDIS_SRANDMEMBER:
+        return true;
+    default:
+        return false;
+    }
+}
+
 /*
  * Return true, if the redis command take no key, otherwise
  * return false
