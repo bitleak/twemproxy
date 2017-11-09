@@ -516,7 +516,7 @@ stats_add_header(struct stats *st)
         return status;
     }
 
-    status = stats_add_num(st, &st->ntotal_conn_str, conn_ntotal_conn());
+    status = stats_add_num(st, &st->ntotal_conn_str, (int64_t)conn_ntotal_conn());
     if (status != NC_OK) {
         return status;
     }
@@ -833,6 +833,15 @@ stats_listen(struct stats *st)
         log_error("set reuseaddr on m %d failed: %s", st->sd, strerror(errno));
         return NC_ERROR;
     }
+
+#ifdef NC_HAVE_REUSEPORT
+    // FIXME: tmp work around
+    status = nc_set_reuseport(st->sd);
+    if (status < 0) {
+        log_error("set reuseport on m %d failed: %s", st->sd, strerror(errno));
+        return NC_ERROR;
+    }
+#endif
 
     status = bind(st->sd, (struct sockaddr *)&si.addr, si.addrlen);
     if (status < 0) {

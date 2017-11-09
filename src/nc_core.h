@@ -58,6 +58,11 @@
 # define NC_HAVE_BACKTRACE 1
 #endif
 
+#include <sys/socket.h>
+#ifdef SO_REUSEPORT
+#define NC_HAVE_REUSEPORT
+#endif
+
 #define NC_OK        0
 #define NC_ERROR    -1
 #define NC_EAGAIN   -2
@@ -65,6 +70,9 @@
 
 /* reserved fds for std streams, log, stats fd, epoll etc. */
 #define RESERVED_FDS 32
+
+#define ROLE_MASTER 1
+#define ROLE_WORKER 2
 
 typedef int rstatus_t; /* return type */
 typedef int err_t;     /* error type */
@@ -148,9 +156,14 @@ struct instance {
     pid_t           pid;                         /* process id */
     char            *pid_filename;               /* pid filename */
     unsigned        pidfile:1;                   /* pid file created? */
+    char            role;                        // ROLE_MASTER / ROLE_WORKER
+    struct array    workers;                     // WORKERS if role == ROLE_MASTER
 };
 
+struct context *core_ctx_create(struct instance *nci);
 struct context *core_start(struct instance *nci);
+rstatus_t core_init_listener(struct instance *nci);
+rstatus_t core_init_instance(struct instance *nci);
 void core_stop(struct context *ctx);
 rstatus_t core_core(void *evb, void *arg, uint32_t events);
 rstatus_t core_loop(struct context *ctx);

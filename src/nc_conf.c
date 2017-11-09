@@ -606,7 +606,7 @@ conf_begin_parse(struct conf *cf)
         case YAML_SCALAR_EVENT:
             ASSERT(cf->depth < CONF_POOL_MAX_DEPTH);
             size_t len = cf->event.data.scalar.length ? MAX_SECTION_NAME_N : cf->event.data.scalar.length;
-            strncpy(section_name, cf->event.data.scalar.value, len);
+            strncpy(section_name, (const char *)cf->event.data.scalar.value, len);
             section_name[len] = 0;
             if (start_section) {
                 log_error("invalid config format, expected mapping");
@@ -785,9 +785,7 @@ conf_parse_global_section(struct conf *cf)
 {
     rstatus_t status;
     bool done=false;
-    struct string *scalar;
     struct string *key;
-    struct string *value;
     struct command *cmd;
 
     // init global conf
@@ -1890,7 +1888,7 @@ conf_set_hash(struct conf *cf, struct command *cmd, void *conf)
             continue;
         }
 
-        *hp = hash - hash_strings;
+        *hp = (hash_type_t)(hash - hash_strings);
 
         return CONF_OK;
     }
@@ -1919,7 +1917,7 @@ conf_set_distribution(struct conf *cf, struct command *cmd, void *conf)
             continue;
         }
 
-        *dp = dist - dist_strings;
+        *dp = (dist_type_t)(dist - dist_strings);
 
         return CONF_OK;
     }
