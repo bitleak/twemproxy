@@ -188,6 +188,11 @@ proxy_each_init(void *elem, void *data)
     struct server_pool *pool = elem;
     struct conn *p;
 
+    if (pool->p_conn != NULL) {
+        // this server pool's listener has been created in the previous cycle, we are here because of reloading, skip
+        return NC_OK;
+    }
+
     p = conn_get_proxy(pool);
     if (p == NULL) {
         return NC_ENOMEM;
