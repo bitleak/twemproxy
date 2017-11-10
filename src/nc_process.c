@@ -73,6 +73,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 
     for (;;) {
         if (pm_reload) {
+            pm_reload = false;
             log_debug(LOG_NOTICE, "reloading config");
             ctx = core_ctx_create(parent_nci);
             if (ctx == NULL) {
@@ -94,11 +95,11 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 
         // FIXME: dealloc master instance memory after reload
         if (pm_respawn) {
+            pm_respawn = false;
             status = nc_spawn_workers(&parent_nci->workers);
             if (status != NC_OK) {
                 break;
             }
-            pm_respawn = false;
         }
 
         sigsuspend(0); // wake when signal arrives. TODO: add timer using setitimer
