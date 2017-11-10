@@ -63,6 +63,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 {
     rstatus_t status;
     struct context *ctx, *prev_ctx;
+    sigset_t set;
 
     pm_respawn = true; // spawn workers upon start
     status = nc_setup_listener_for_workers(parent_nci, false);
@@ -102,7 +103,8 @@ nc_multi_processes_cycle(struct instance *parent_nci)
             }
         }
 
-        sigsuspend(0); // wake when signal arrives. TODO: add timer using setitimer
+        sigemptyset(&set);
+        sigsuspend(&set); // wake when signal arrives. TODO: add timer using setitimer
     }
     return status;
 }
