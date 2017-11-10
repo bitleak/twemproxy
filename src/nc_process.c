@@ -15,29 +15,27 @@ bool pm_respawn = false;
 char pm_myrole = ROLE_MASTER;
 bool pm_quit = false;
 
-static struct instance *
-nc_clone_instance(struct instance *parent_nci)
+static rstatus_t
+nc_clone_instance(struct instance *dst, struct instance *src)
 {
     struct context *new_ctx;
-    struct instance *cloned_nci;
-    cloned_nci = nc_alloc(sizeof(*parent_nci));
-    if (cloned_nci == NULL) {
-        return NULL;
+    if (dst == NULL || src == NULL) {
+        return NC_ERROR;
     }
-    nc_memcpy(cloned_nci, parent_nci, sizeof(*parent_nci));
-    new_ctx = core_ctx_create(cloned_nci);
+    nc_memcpy(dst, src, sizeof(struct instance));
+    new_ctx = core_ctx_create(dst);
     if (new_ctx == NULL) {
         log_error("failed to create context");
-        return NULL;
+        return NC_ERROR;
     }
-    cloned_nci->ctx = new_ctx;
-    return cloned_nci;
+    dst->ctx = new_ctx;
+    return NC_OK;
 }
 
 static rstatus_t
 nc_close_other_proxy(void *elem, void *data)
 {
-    struct instance *nci = *(struct instance **)elem, *self = data;
+    struct instance *nci = (struct instance *)elem, *self = data;
     struct context *ctx = nci->ctx;
 
     if (nci == self) {
@@ -67,7 +65,11 @@ nc_multi_processes_cycle(struct instance *parent_nci)
     struct context *ctx, *prev_ctx;
 
     pm_respawn = true; // spawn workers upon start
-    nc_setup_listener_for_workers(parent_nci, false);
+    status = nc_setup_listener_for_workers(parent_nci, false);
+    if (status != NC_OK) {
+        log_error("[master] failed to setup listeners");
+        return status;
+    }
 
     for (;;) {
         if (pm_reload) {
@@ -110,7 +112,7 @@ nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)
     rstatus_t status;
     int i, n = parent_nci->ctx->cf->global.worker_processes;
     int old_workers_n = 0;
-    struct instance **nci_elem_ptr, *worker_nci, *old_worker_nci;
+    struct instance *worker_nci, *old_worker_nci;
     struct array old_workers;
 
     if (reloading) {
@@ -118,19 +120,22 @@ nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)
         old_workers_n = (int)array_n(&old_workers);
     }
 
-    array_init(&parent_nci->workers, (uint32_t)n, sizeof(struct instance *));
+    status = array_init(&parent_nci->workers, (uint32_t)n, sizeof(struct instance));
+    if (status != NC_OK) {
+        log_error("failed to init parent_nci->workers");
+        return status;
+    }
 
     for (i = 0; i < n; i++) {
-        worker_nci = nc_clone_instance(parent_nci);
-        if (worker_nci == NULL) {
-            return NC_ERROR;
+        worker_nci = array_push(&parent_nci->workers);
+        status = nc_clone_instance(worker_nci, parent_nci);
+        if (status != NC_OK) {
+            return status;
         }
         worker_nci->role = ROLE_WORKER;
-        nci_elem_ptr = array_push(&parent_nci->workers);
-        *nci_elem_ptr = worker_nci;
 
         if (reloading && i < old_workers_n) {
-            old_worker_nci = *(struct instance **)array_get(&old_workers, (uint32_t)i);
+            old_worker_nci = (struct instance *)array_get(&old_workers, (uint32_t)i);
             nc_migrate_proxies(worker_nci->ctx, old_worker_nci->ctx);
         }
 
@@ -155,7 +160,7 @@ nc_spawn_workers(struct array *workers)
     ASSERT(array_n(workers) > 0);
 
     for (i = 0; (uint32_t)i < array_n(workers); ++i) {
-        worker_nci = *(struct instance **)array_get(workers, (uint32_t)i);
+        worker_nci = (struct instance *)array_get(workers, (uint32_t)i);
         worker_nci->chan = nc_alloc_channel();
         if (worker_nci->chan == NULL) {
             return NC_ENOMEM;
@@ -192,7 +197,7 @@ nc_shutdown_workers(struct array *workers)
 
     for (i = 0, nelem = array_n(workers); i < nelem; i++) {
         elem = array_pop(workers);
-        worker_nci = *(struct instance **)elem;
+        worker_nci = (struct instance *)elem;
         // write quit command to worker
         msg.command = NC_CMD_QUIT;
         if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
