@@ -204,11 +204,11 @@ nc_shutdown_workers(struct array *workers)
         // write quit command to worker
         msg.command = NC_CMD_QUIT;
         if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
-            log_error("failed to write channel, err %s", strerror(errno));
+            log_error("failed to send shutdown msg, err %s", strerror(errno));
         }
         nc_dealloc_channel(worker_nci->chan);
-        // TODO: free ctx, close p_conn if not NULL
-        nc_free(worker_nci);
+
+        core_ctx_destroy(worker_nci->ctx);
     }
     // TODO: tell old workers to shutdown gracefully
     array_deinit(workers);
