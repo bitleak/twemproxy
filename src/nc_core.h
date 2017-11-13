@@ -71,9 +71,6 @@
 /* reserved fds for std streams, log, stats fd, epoll etc. */
 #define RESERVED_FDS 32
 
-#define ROLE_MASTER 1
-#define ROLE_WORKER 2
-
 typedef int rstatus_t; /* return type */
 typedef int err_t;     /* error type */
 

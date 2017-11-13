@@ -3,6 +3,9 @@
 #ifndef _NC_PROCESS_H
 #define _NC_PROCESS_H
 
+#define ROLE_MASTER 1
+#define ROLE_WORKER 2
+
 #define NC_CMD_QUIT 1
 
 extern bool pm_reload;

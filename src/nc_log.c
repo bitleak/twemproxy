@@ -22,7 +22,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include <nc_core.h>
 #include <nc_process.h>
 
 static struct logger logger;
