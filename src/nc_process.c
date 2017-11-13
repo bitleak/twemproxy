@@ -13,6 +13,7 @@ static rstatus_t nc_shutdown_workers(struct array *workers);
 bool pm_reload = false;
 bool pm_respawn = false;
 char pm_myrole = ROLE_MASTER;
+bool pm_quit = false;
 
 static struct instance *
 nc_clone_instance(struct instance *parent_nci)
@@ -89,6 +90,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
             pm_respawn = true; // restart workers
         }
 
+        // FIXME: dealloc master instance memory after reload
         if (pm_respawn) {
             status = nc_spawn_workers(&parent_nci->workers);
             if (status != NC_OK) {
@@ -154,6 +156,10 @@ nc_spawn_workers(struct array *workers)
 
     for (i = 0; (uint32_t)i < array_n(workers); ++i) {
         worker_nci = *(struct instance **)array_get(workers, (uint32_t)i);
+        worker_nci->chan = nc_alloc_channel();
+        if (worker_nci->chan == NULL) {
+            return NC_ENOMEM;
+        }
 
         switch (pid = fork()) {
         case -1:
@@ -181,12 +187,20 @@ nc_shutdown_workers(struct array *workers)
 {
     uint32_t i, nelem;
     void *elem;
-    struct instance **nci_ptr;
+    struct chan_msg msg;
+    struct instance *worker_nci;
+
     for (i = 0, nelem = array_n(workers); i < nelem; i++) {
         elem = array_pop(workers);
-        nci_ptr = (struct instance **)elem;
+        worker_nci = *(struct instance **)elem;
+        // write quit command to worker
+        msg.command = NC_CMD_QUIT;
+        if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
+            log_error("failed to write channel, err %s", strerror(errno));
+        }
+        nc_dealloc_channel(worker_nci->chan);
         // TODO: free ctx, close p_conn if not NULL
-        nc_free(*nci_ptr);
+        nc_free(worker_nci);
     }
     // TODO: tell old workers to shutdown gracefully
     array_deinit(workers);
@@ -213,16 +227,21 @@ nc_worker_process(int worker_id, struct instance *nci)
         return;
     }
 
-    // TODO: add master/workers communication channel to event base
+    status = nc_add_channel_event(nci->ctx->evb, nci->chan->fds[1]);
+    if (status != NC_OK) {
+        log_error("[worker] failed to add channel event");
+        return;
+    }
     // TODO: worker should remove the listening sockets from event base and after lingering connections are exhausted
     // or timeout, quit process.
 
-    for (;;) {
+    for (;!pm_quit;) {
         status = core_loop(nci->ctx);
         if (status != NC_OK) {
             break;
         }
     }
+    log_warn("[worker] terminted with quit flag: %d", pm_quit);
 
     exit(0);
 }

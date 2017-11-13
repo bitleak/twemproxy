@@ -1,5 +1,6 @@
 #include <fcntl.h>
 #include <nc_core.h>
+#include <nc_process.h>
 
 struct channel*
 nc_alloc_channel(void)
@@ -56,6 +57,12 @@ channel_recv(void *evb, void *priv)
         if (n == NC_EAGAIN) {
             return NC_EAGAIN;
         }
+        switch (msg.command) {
+            case NC_CMD_QUIT:
+                pm_quit = 1;
+                log_warn("[worker] quit signal was receviced");
+                break;
+        }
     }
     return NC_OK;
 }
@@ -92,7 +99,7 @@ channel_event_cb(void *evb, void *priv, uint32_t events)
 }
 
 int
-nc_add_channel_event(struct event_base  *evb, int fd)
+nc_add_channel_event(struct event_base *evb, int fd)
 {
     return event_add(evb, fd, EVENT_WRITE|EVENT_READ, channel_event_cb, (void *)(long)fd);
 }
