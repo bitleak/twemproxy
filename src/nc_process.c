@@ -225,19 +225,19 @@ nc_worker_process(int worker_id, struct instance *nci)
 
     sigemptyset(&set);
     if (sigprocmask(SIG_SETMASK, &set, NULL) == -1) {
-        log_error("[worker] failed to clear signal mask");
+        log_error("failed to clear signal mask");
         return;
     }
 
     status = core_init_instance(nci);
     if (status != NC_OK) {
-        log_error("[worker] failed to initialize");
+        log_error("failed to initialize");
         return;
     }
 
     status = nc_add_channel_event(nci->ctx->evb, nci->chan->fds[1]);
     if (status != NC_OK) {
-        log_error("[worker] failed to add channel event");
+        log_error("failed to add channel event");
         return;
     }
     // TODO: worker should remove the listening sockets from event base and after lingering connections are exhausted
@@ -249,7 +249,7 @@ nc_worker_process(int worker_id, struct instance *nci)
             break;
         }
     }
-    log_warn("[worker] terminted with quit flag: %d", pm_quit);
+    log_warn("terminated with quit flag: %d", pm_quit);
 
     exit(0);
 }

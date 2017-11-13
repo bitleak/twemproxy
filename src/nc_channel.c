@@ -60,7 +60,7 @@ channel_recv(void *evb, void *priv)
         switch (msg.command) {
             case NC_CMD_QUIT:
                 pm_quit = 1;
-                log_warn("[worker] quit signal was receviced");
+                log_warn("quit signal was received");
                 break;
         }
     }
@@ -80,7 +80,7 @@ channel_error(void *evb, void *priv)
 
     fd = (int) priv;
     return event_del(evb, fd, EVENT_READ|EVENT_WRITE);
-    
+
 }
 
 static rstatus_t
@@ -136,7 +136,7 @@ nc_read_channel(int fd, struct chan_msg *chmsg)
 {
     ssize_t n;
     struct iovec iov[1];
-    struct msghdr msg; 
+    struct msghdr msg;
 
     iov[0].iov_base = (char *) chmsg;
     iov[0].iov_len = sizeof(*chmsg);
