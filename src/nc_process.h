@@ -6,7 +6,8 @@
 #define ROLE_MASTER 1
 #define ROLE_WORKER 2
 
-#define NC_CMD_QUIT 1
+#define NC_CMD_QUIT      1
+#define NC_CMD_TERMINATE 2
 
 extern bool pm_reload;
 extern bool pm_respawn;

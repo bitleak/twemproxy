@@ -213,7 +213,7 @@ nc_shutdown_workers(struct array *workers)
         elem = array_pop(workers);
         worker_nci = (struct instance *)elem;
         // write quit command to worker
-        msg.command = NC_CMD_QUIT;
+        msg.command = NC_CMD_TERMINATE;
         if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
             log_error("failed to send shutdown msg, err %s", strerror(errno));
         }
