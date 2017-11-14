@@ -127,7 +127,7 @@ signal_handler(int signo)
         if (pm_terminate) {
             pm_quit = true;
             pm_terminate = false;
-            actionstr = ", graceful shutdown";
+            actionstr = ", time's up, quit";
         }
         break;
 
