@@ -124,6 +124,12 @@ static struct command conf_global_commands[] = {
         offsetof(struct conf_global, worker_processes)
     },
 
+    {
+        string("worker_shutdown_timeout"),
+        conf_set_num,
+        offsetof(struct conf_global, worker_shutdown_timeout)
+    },
+
     null_command
 };
 
@@ -790,6 +796,7 @@ conf_parse_global_section(struct conf *cf)
 
     // init global conf
     cf->global.worker_processes = CONF_UNSET_NUM;
+    cf->global.worker_shutdown_timeout = CONF_UNSET_NUM;
 
     do {
         status = conf_event_next(cf);
@@ -861,6 +868,9 @@ conf_parse(struct conf *cf)
     status = conf_end_parse(cf);
     if (status != NC_OK) {
         return status;
+    }
+    if (cf->global.worker_shutdown_timeout == CONF_UNSET_NUM) {
+        cf->global.worker_shutdown_timeout = CONF_DEFAULT_WORKER_SHUTDOWN_TIMEOUT;
     }
 
     cf->parsed = 1;

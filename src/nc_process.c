@@ -13,7 +13,9 @@ static rstatus_t nc_shutdown_workers(struct array *workers);
 bool pm_reload = false;
 bool pm_respawn = false;
 char pm_myrole = ROLE_MASTER;
-bool pm_quit = false;
+bool pm_quit = false; // quit right away
+bool pm_terminate= false; // quit after worker_shutdown_timeout
+
 struct instance *master_nci = NULL;
 
 static rstatus_t
@@ -76,7 +78,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 
     for (;;) {
         if (pm_reload) {
-            pm_reload = false;
+            pm_reload = false; // restart workers
             log_debug(LOG_NOTICE, "reloading config");
             ctx = core_ctx_create(parent_nci);
             if (ctx == NULL) {
@@ -212,7 +214,7 @@ nc_shutdown_workers(struct array *workers)
         elem = array_pop(workers);
         worker_nci = (struct instance *)elem;
         // write quit command to worker
-        msg.command = NC_CMD_QUIT;
+        msg.command = NC_CMD_TERMINATE;
         if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
             log_error("failed to send shutdown msg, err %s", strerror(errno));
         }
@@ -253,13 +255,22 @@ nc_worker_process(int worker_id, struct instance *nci)
     // TODO: worker should remove the listening sockets from event base and after lingering connections are exhausted
     // or timeout, quit process.
 
+    bool terminating = false;
     for (;!pm_quit;) {
+        if (pm_terminate && !terminating) {
+            // close proxy listen fd, and wait for 30 seconds
+            proxy_deinit(nci->ctx);
+            nc_set_timer(nci->ctx->cf->global.worker_shutdown_timeout * 1000, 0);
+            terminating = true;
+        }
         status = core_loop(nci->ctx);
         if (status != NC_OK) {
             break;
         }
     }
-    log_warn("terminated with quit flag: %d", pm_quit);
+    server_pool_disconnect(nci->ctx);
+    server_pool_deinit(&nci->ctx->pool);
+    log_warn("[worker] terminted with quit flag: %d", pm_quit);
 
     exit(0);
 }

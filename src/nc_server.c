@@ -21,6 +21,7 @@
 #include <nc_core.h>
 #include <nc_server.h>
 #include <nc_conf.h>
+#include <nc_client.h>
 
 static void
 server_resolve(struct server *server, struct conn *conn)
@@ -896,6 +897,23 @@ server_pool_init(struct array *server_pool, struct array *conf_pool,
     return NC_OK;
 }
 
+static void
+server_pool_clients_disconnect(struct server_pool *sp)
+{
+    struct conn *conn, *nconn; /* current and next connection */
+
+    if (sp == NULL || TAILQ_EMPTY(&sp->c_conn_q) || sp->nc_conn_q == 0) {
+        return;
+    }
+    for (conn = TAILQ_FIRST(&sp->c_conn_q); conn != NULL;
+         conn = nconn) {
+        ASSERT(sp->nc_conn_q > 0);
+        nconn = TAILQ_NEXT(conn, conn_tqe);
+        client_close(sp->ctx, conn);
+    }
+    ASSERT(sp->nc_conn_q == 0);
+}
+
 void
 server_pool_deinit(struct array *server_pool)
 {
@@ -905,6 +923,8 @@ server_pool_deinit(struct array *server_pool)
         struct server_pool *sp;
 
         sp = array_pop(server_pool);
+        server_pool_clients_disconnect(sp);
+
         ASSERT(sp->p_conn == NULL);
         ASSERT(TAILQ_EMPTY(&sp->c_conn_q) && sp->nc_conn_q == 0);
 
