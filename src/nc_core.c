@@ -165,7 +165,7 @@ core_init_instance(struct instance *nci){
     return NC_OK;
 }
 
-static void
+void
 core_ctx_destroy(struct context *ctx)
 {
     log_debug(LOG_VVERB, "destroy ctx %p id %"PRIu32"", ctx, ctx->id);

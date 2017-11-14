@@ -71,9 +71,6 @@
 /* reserved fds for std streams, log, stats fd, epoll etc. */
 #define RESERVED_FDS 32
 
-#define ROLE_MASTER 1
-#define ROLE_WORKER 2
-
 typedef int rstatus_t; /* return type */
 typedef int err_t;     /* error type */
 
@@ -168,5 +165,6 @@ rstatus_t core_init_instance(struct instance *nci);
 void core_stop(struct context *ctx);
 rstatus_t core_core(void *evb, void *arg, uint32_t events);
 rstatus_t core_loop(struct context *ctx);
+void core_ctx_destroy(struct context *ctx);
 
 #endif

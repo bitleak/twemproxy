@@ -15,29 +15,27 @@ bool pm_respawn = false;
 char pm_myrole = ROLE_MASTER;
 bool pm_quit = false;
 
-static struct instance *
-nc_clone_instance(struct instance *parent_nci)
+static rstatus_t
+nc_clone_instance(struct instance *dst, struct instance *src)
 {
     struct context *new_ctx;
-    struct instance *cloned_nci;
-    cloned_nci = nc_alloc(sizeof(*parent_nci));
-    if (cloned_nci == NULL) {
-        return NULL;
+    if (dst == NULL || src == NULL) {
+        return NC_ERROR;
     }
-    nc_memcpy(cloned_nci, parent_nci, sizeof(*parent_nci));
-    new_ctx = core_ctx_create(cloned_nci);
+    nc_memcpy(dst, src, sizeof(struct instance));
+    new_ctx = core_ctx_create(dst);
     if (new_ctx == NULL) {
         log_error("failed to create context");
-        return NULL;
+        return NC_ERROR;
     }
-    cloned_nci->ctx = new_ctx;
-    return cloned_nci;
+    dst->ctx = new_ctx;
+    return NC_OK;
 }
 
 static rstatus_t
 nc_close_other_proxy(void *elem, void *data)
 {
-    struct instance *nci = *(struct instance **)elem, *self = data;
+    struct instance *nci = (struct instance *)elem, *self = data;
     struct context *ctx = nci->ctx;
 
     if (nci == self) {
@@ -65,12 +63,18 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 {
     rstatus_t status;
     struct context *ctx, *prev_ctx;
+    sigset_t set;
 
     pm_respawn = true; // spawn workers upon start
-    nc_setup_listener_for_workers(parent_nci, false);
+    status = nc_setup_listener_for_workers(parent_nci, false);
+    if (status != NC_OK) {
+        log_error("[master] failed to setup listeners");
+        return status;
+    }
 
     for (;;) {
         if (pm_reload) {
+            pm_reload = false;
             log_debug(LOG_NOTICE, "reloading config");
             ctx = core_ctx_create(parent_nci);
             if (ctx == NULL) {
@@ -92,14 +96,15 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 
         // FIXME: dealloc master instance memory after reload
         if (pm_respawn) {
+            pm_respawn = false;
             status = nc_spawn_workers(&parent_nci->workers);
             if (status != NC_OK) {
                 break;
             }
-            pm_respawn = false;
         }
 
-        sigsuspend(0); // wake when signal arrives. TODO: add timer using setitimer
+        sigemptyset(&set);
+        sigsuspend(&set); // wake when signal arrives. TODO: add timer using setitimer
     }
     return status;
 }
@@ -110,7 +115,7 @@ nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)
     rstatus_t status;
     int i, n = parent_nci->ctx->cf->global.worker_processes;
     int old_workers_n = 0;
-    struct instance **nci_elem_ptr, *worker_nci, *old_worker_nci;
+    struct instance *worker_nci, *old_worker_nci;
     struct array old_workers;
 
     if (reloading) {
@@ -118,19 +123,22 @@ nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)
         old_workers_n = (int)array_n(&old_workers);
     }
 
-    array_init(&parent_nci->workers, (uint32_t)n, sizeof(struct instance *));
+    status = array_init(&parent_nci->workers, (uint32_t)n, sizeof(struct instance));
+    if (status != NC_OK) {
+        log_error("failed to init parent_nci->workers");
+        return status;
+    }
 
     for (i = 0; i < n; i++) {
-        worker_nci = nc_clone_instance(parent_nci);
-        if (worker_nci == NULL) {
-            return NC_ERROR;
+        worker_nci = array_push(&parent_nci->workers);
+        status = nc_clone_instance(worker_nci, parent_nci);
+        if (status != NC_OK) {
+            return status;
         }
         worker_nci->role = ROLE_WORKER;
-        nci_elem_ptr = array_push(&parent_nci->workers);
-        *nci_elem_ptr = worker_nci;
 
         if (reloading && i < old_workers_n) {
-            old_worker_nci = *(struct instance **)array_get(&old_workers, (uint32_t)i);
+            old_worker_nci = (struct instance *)array_get(&old_workers, (uint32_t)i);
             nc_migrate_proxies(worker_nci->ctx, old_worker_nci->ctx);
         }
 
@@ -155,7 +163,7 @@ nc_spawn_workers(struct array *workers)
     ASSERT(array_n(workers) > 0);
 
     for (i = 0; (uint32_t)i < array_n(workers); ++i) {
-        worker_nci = *(struct instance **)array_get(workers, (uint32_t)i);
+        worker_nci = (struct instance *)array_get(workers, (uint32_t)i);
         worker_nci->chan = nc_alloc_channel();
         if (worker_nci->chan == NULL) {
             return NC_ENOMEM;
@@ -192,15 +200,15 @@ nc_shutdown_workers(struct array *workers)
 
     for (i = 0, nelem = array_n(workers); i < nelem; i++) {
         elem = array_pop(workers);
-        worker_nci = *(struct instance **)elem;
+        worker_nci = (struct instance *)elem;
         // write quit command to worker
         msg.command = NC_CMD_QUIT;
         if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
-            log_error("failed to write channel, err %s", strerror(errno));
+            log_error("failed to send shutdown msg, err %s", strerror(errno));
         }
         nc_dealloc_channel(worker_nci->chan);
-        // TODO: free ctx, close p_conn if not NULL
-        nc_free(worker_nci);
+
+        core_ctx_destroy(worker_nci->ctx);
     }
     // TODO: tell old workers to shutdown gracefully
     array_deinit(workers);
@@ -217,19 +225,19 @@ nc_worker_process(int worker_id, struct instance *nci)
 
     sigemptyset(&set);
     if (sigprocmask(SIG_SETMASK, &set, NULL) == -1) {
-        log_error("[worker] failed to clear signal mask");
+        log_error("failed to clear signal mask");
         return;
     }
 
     status = core_init_instance(nci);
     if (status != NC_OK) {
-        log_error("[worker] failed to initialize");
+        log_error("failed to initialize");
         return;
     }
 
     status = nc_add_channel_event(nci->ctx->evb, nci->chan->fds[1]);
     if (status != NC_OK) {
-        log_error("[worker] failed to add channel event");
+        log_error("failed to add channel event");
         return;
     }
     // TODO: worker should remove the listening sockets from event base and after lingering connections are exhausted
@@ -241,7 +249,7 @@ nc_worker_process(int worker_id, struct instance *nci)
             break;
         }
     }
-    log_warn("[worker] terminted with quit flag: %d", pm_quit);
+    log_warn("terminated with quit flag: %d", pm_quit);
 
     exit(0);
 }
