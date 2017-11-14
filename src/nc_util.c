@@ -661,3 +661,23 @@ nc_unresolve_desc(int sd)
 
     return nc_unresolve_addr(addr, addrlen);
 }
+
+rstatus_t
+nc_set_timer(int ms, int interval)
+{
+    struct itimerval tick;
+
+    if (ms <= 0) {
+        return NC_ERROR;
+    }
+
+    memset(&tick, 0, sizeof(tick));
+    tick.it_value.tv_sec = ms/1000;
+    tick.it_value.tv_usec = (ms%1000)*1000;
+    tick.it_interval.tv_sec = interval/1000;
+    tick.it_interval.tv_usec = (interval%1000)*1000;
+    if (setitimer(ITIMER_REAL, &tick, NULL) != 0) {
+        return NC_ERROR;
+    }
+    return NC_OK;
+}

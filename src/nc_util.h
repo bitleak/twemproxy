@@ -214,4 +214,5 @@ char *nc_unresolve_addr(struct sockaddr *addr, socklen_t addrlen);
 char *nc_unresolve_peer_desc(int sd);
 char *nc_unresolve_desc(int sd);
 
+rstatus_t nc_set_timer(int ms, int interval);
 #endif

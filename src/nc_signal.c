@@ -33,6 +33,7 @@ static struct signal signals[] = {
     { SIGSEGV, "SIGSEGV", (int)SA_RESETHAND, signal_handler },
     { SIGCHLD, "SIGCHLD", 0,                 signal_handler },
     { SIGPIPE, "SIGPIPE", 0,                 SIG_IGN },
+    { SIGALRM, "SIGALRM", 0,                 signal_handler },
     { 0,        NULL,     0,                 NULL }
 };
 
@@ -121,6 +122,13 @@ signal_handler(int signo)
         log_stacktrace();
         actionstr = ", core dumping";
         raise(SIGSEGV);
+        break;
+    case SIGALRM:
+        if (pm_terminate) {
+            pm_quit = true;
+            pm_terminate = false;
+            actionstr = ", graceful shutdown";
+        }
         break;
 
     case SIGCHLD:

@@ -14,6 +14,8 @@ bool pm_reload = false;
 bool pm_respawn = false;
 char pm_myrole = ROLE_MASTER;
 bool pm_quit = false;
+bool pm_terminate= false;
+
 struct instance *master_nci = NULL;
 
 static rstatus_t
@@ -76,7 +78,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 
     for (;;) {
         if (pm_reload) {
-            pm_reload = false;
+            pm_reload = false; // restart workers
             log_debug(LOG_NOTICE, "reloading config");
             ctx = core_ctx_create(parent_nci);
             if (ctx == NULL) {
@@ -105,7 +107,6 @@ nc_multi_processes_cycle(struct instance *parent_nci)
             }
         }
 
-        sigemptyset(&set);
         sigsuspend(&set); // wake when signal arrives. TODO: add timer using setitimer
     }
     return status;
@@ -253,7 +254,14 @@ nc_worker_process(int worker_id, struct instance *nci)
     // TODO: worker should remove the listening sockets from event base and after lingering connections are exhausted
     // or timeout, quit process.
 
+    bool shutdown = false;
     for (;!pm_quit;) {
+        if (pm_terminate && !shutdown) {
+            // close proxy listen fd, and wait for 30 seconds
+            proxy_deinit(nci->ctx);
+            nc_set_timer(30000, 0);
+            shutdown = true;
+        }
         status = core_loop(nci->ctx);
         if (status != NC_OK) {
             break;
