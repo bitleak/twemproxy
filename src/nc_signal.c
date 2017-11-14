@@ -29,7 +29,9 @@ static struct signal signals[] = {
     { SIGTTOU, "SIGTTOU", 0,                 signal_handler },
     { SIGHUP,  "SIGHUP",  0,                 signal_handler },
     { SIGINT,  "SIGINT",  0,                 signal_handler },
+    { SIGTERM, "SIGTERM", 0,                 signal_handler },
     { SIGSEGV, "SIGSEGV", (int)SA_RESETHAND, signal_handler },
+    { SIGCHLD, "SIGCHLD", 0,                 signal_handler },
     { SIGPIPE, "SIGPIPE", 0,                 SIG_IGN },
     { 0,        NULL,     0,                 NULL }
 };
@@ -110,6 +112,7 @@ signal_handler(int signo)
         break;
 
     case SIGINT:
+    case SIGTERM:
         done = true;
         actionstr = ", exiting";
         break;
@@ -118,6 +121,12 @@ signal_handler(int signo)
         log_stacktrace();
         actionstr = ", core dumping";
         raise(SIGSEGV);
+        break;
+
+    case SIGCHLD:
+        ASSERT(pm_myrole == ROLE_MASTER);
+        actionstr = ", reaping child";
+        action = nc_reap_worker;
         break;
 
     default:

@@ -12,9 +12,11 @@ extern bool pm_reload;
 extern bool pm_respawn;
 extern char pm_myrole;
 extern bool pm_quit;
+extern struct instance *master_nci;
 
 rstatus_t nc_multi_processes_cycle(struct instance *parent_nci);
 rstatus_t nc_single_process_cycle(struct instance *nci);
 void      nc_reload_config(void);
+void      nc_reap_worker(void);
 
 #endif //_NC_PROCESS_H
