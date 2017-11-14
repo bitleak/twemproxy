@@ -56,6 +56,7 @@
 #define CONF_DEFAULT_SERVER_CONNECTIONS      1
 #define CONF_DEFAULT_KETAMA_PORT             11211
 #define CONF_DEFAULT_TCPKEEPALIVE            false
+#define CONF_DEFAULT_WORKER_SHUTDOWN_TIMEOUT 30
 
 struct conf_listen {
     struct string   pname;   /* listen: as "hostname:port" */
@@ -100,6 +101,7 @@ struct conf_pool {
 
 struct conf_global {
     int worker_processes; // number of worker processes
+    int worker_shutdown_timeout; // number of seconds that worker would be quit after signal terminate was received
 };
 
 struct conf {

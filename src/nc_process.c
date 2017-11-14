@@ -107,6 +107,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
             }
         }
 
+        sigemptyset(&set);
         sigsuspend(&set); // wake when signal arrives. TODO: add timer using setitimer
     }
     return status;
@@ -259,7 +260,7 @@ nc_worker_process(int worker_id, struct instance *nci)
         if (pm_terminate && !terminating) {
             // close proxy listen fd, and wait for 30 seconds
             proxy_deinit(nci->ctx);
-            nc_set_timer(30000, 0);
+            nc_set_timer(nci->ctx->cf->global.worker_shutdown_timeout * 1000, 0);
             terminating = true;
         }
         status = core_loop(nci->ctx);
