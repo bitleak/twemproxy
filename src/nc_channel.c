@@ -60,7 +60,7 @@ channel_recv(void *evb, void *priv)
         switch (msg.command) {
             case NC_CMD_TERMINATE:
                 pm_terminate = true;
-                log_warn("terminate signal was receviced");
+                log_warn("terminate signal was received");
                 break;
             case NC_CMD_QUIT:
                 pm_quit = true;
