@@ -14,6 +14,7 @@ bool pm_reload = false;
 bool pm_respawn = false;
 char pm_myrole = ROLE_MASTER;
 bool pm_quit = false;
+struct instance *master_nci = NULL;
 
 static rstatus_t
 nc_clone_instance(struct instance *dst, struct instance *src)
@@ -67,6 +68,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 
     pm_respawn = true; // spawn workers upon start
     status = nc_setup_listener_for_workers(parent_nci, false);
+    master_nci = parent_nci;
     if (status != NC_OK) {
         log_error("[master] failed to setup listeners");
         return status;
@@ -154,37 +156,45 @@ nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)
 }
 
 static rstatus_t
+nc_spawn_worker(int worker_id, struct instance *worker_nci, struct array *workers) {
+    pid_t pid;
+
+    worker_nci->chan = nc_alloc_channel();
+    if (worker_nci->chan == NULL) {
+        return NC_ENOMEM;
+    }
+
+    switch (pid = fork()) {
+    case -1:
+        return NC_ERROR;
+    case 0:
+        pm_myrole = ROLE_WORKER;
+        // TODO: setup the communication channel between master and workers
+        pid = getpid();
+        worker_nci->pid = pid;
+        nc_close_other_proxies(workers, worker_nci);
+        nc_worker_process(worker_id, worker_nci);
+        NOT_REACHED();
+    default:
+        worker_nci->pid = pid;
+        log_debug(LOG_NOTICE, "worker [%d] started", pid);
+        break;
+    }
+    return NC_OK;
+}
+
+static rstatus_t
 nc_spawn_workers(struct array *workers)
 {
     int i;
-    pid_t pid;
     struct instance *worker_nci;
 
     ASSERT(array_n(workers) > 0);
 
     for (i = 0; (uint32_t)i < array_n(workers); ++i) {
         worker_nci = (struct instance *)array_get(workers, (uint32_t)i);
-        worker_nci->chan = nc_alloc_channel();
-        if (worker_nci->chan == NULL) {
-            return NC_ENOMEM;
-        }
-
-        switch (pid = fork()) {
-        case -1:
+        if (nc_spawn_worker(i, worker_nci, workers) != NC_OK) {
             log_error("failed to spawn worker");
-            return NC_ERROR;
-        case 0:
-            pm_myrole = ROLE_WORKER;
-            // TODO: setup the communication channel between master and workers
-            pid = getpid();
-            worker_nci->pid = pid;
-            nc_close_other_proxies(workers, worker_nci);
-            nc_worker_process(i, worker_nci);
-            NOT_REACHED();
-        default:
-            worker_nci->pid = pid;
-            log_debug(LOG_NOTICE, "worker [%d] started", pid);
-            break;
         }
     }
     return NC_OK;
@@ -281,6 +291,58 @@ void
 nc_reload_config(void)
 {
     pm_reload = true;
+}
+
+void
+nc_reap_worker(void)
+{
+    uint32_t i, nelem;
+    int status;
+    pid_t pid;
+    int err;
+    struct instance *worker_nci;
+
+    ASSERT(master_nci != NULL);
+
+    for ( ;; ) {
+        pid = waitpid(-1, &status, WNOHANG);
+
+        if (pid == 0) {
+            return;
+        }
+
+        if (pid == -1) {
+            err = errno;
+
+            if (err == EINTR) {
+                continue;
+            }
+
+            if (err == ECHILD) {
+                return;
+            }
+        }
+
+        if (WIFEXITED(status)) {
+            log_debug(LOG_NOTICE, "worker [%d] exited with status: %d", pid, WEXITSTATUS(status));
+            if (WEXITSTATUS(status) == 0) {
+                // worker shutdown due to config reloading, we don't need to respawn worker or cleanup ends here
+                return;
+            }
+        }
+        if (WIFSIGNALED(status)) {
+            log_debug(LOG_NOTICE, "worker [%d] terminated", pid);
+        }
+
+        for (i = 0, nelem = array_n(&master_nci->workers); i < nelem; i++) {
+            worker_nci = (struct instance*)array_get(&master_nci->workers, i);
+            if (worker_nci->pid == pid) {
+                log_debug(LOG_NOTICE, "respawn worker to replace [%d]", pid);
+                nc_dealloc_channel(worker_nci->chan);
+                nc_spawn_worker((int)i, worker_nci, &master_nci->workers); // spawn worker use old ctx which is enough
+            }
+        }
+    }
 }
 
 // keep the src (old) context's proxies if they exist in the dst (new) context
