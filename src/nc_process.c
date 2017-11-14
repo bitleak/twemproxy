@@ -254,13 +254,13 @@ nc_worker_process(int worker_id, struct instance *nci)
     // TODO: worker should remove the listening sockets from event base and after lingering connections are exhausted
     // or timeout, quit process.
 
-    bool shutdown = false;
+    bool has_pre_terminated = false;
     for (;!pm_quit;) {
-        if (pm_terminate && !shutdown) {
+        if (pm_terminate && !has_pre_terminated) {
             // close proxy listen fd, and wait for 30 seconds
             proxy_deinit(nci->ctx);
             nc_set_timer(30000, 0);
-            shutdown = true;
+            has_pre_terminated = true;
         }
         status = core_loop(nci->ctx);
         if (status != NC_OK) {

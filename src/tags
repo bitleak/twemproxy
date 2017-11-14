@@ -1,0 +1,2143 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ACLOCAL	Makefile	/^ACLOCAL = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing aclocal-1.15$/;"	m
+ACLOCAL	event/Makefile	/^ACLOCAL = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing aclocal-1.15$/;"	m
+ACLOCAL	hashkit/Makefile	/^ACLOCAL = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing aclocal-1.15$/;"	m
+ACLOCAL	proto/Makefile	/^ACLOCAL = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing aclocal-1.15$/;"	m
+ACLOCAL_M4	Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+ACLOCAL_M4	event/Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+ACLOCAL_M4	hashkit/Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+ACLOCAL_M4	proto/Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+AMTAR	Makefile	/^AMTAR = $${TAR-tar}$/;"	m
+AMTAR	event/Makefile	/^AMTAR = $${TAR-tar}$/;"	m
+AMTAR	hashkit/Makefile	/^AMTAR = $${TAR-tar}$/;"	m
+AMTAR	proto/Makefile	/^AMTAR = $${TAR-tar}$/;"	m
+AM_CFLAGS	Makefile	/^AM_CFLAGS = -fno-strict-aliasing -Wall -Wshadow -Wpointer-arith \\$/;"	m
+AM_CFLAGS	event/Makefile	/^AM_CFLAGS = -Wall -Wshadow -Wno-unused-parameter -Wno-unused-value$/;"	m
+AM_CFLAGS	hashkit/Makefile	/^AM_CFLAGS = -Wall -Wshadow -Wno-unused-parameter -Wno-unused-value$/;"	m
+AM_CFLAGS	proto/Makefile	/^AM_CFLAGS = -Wall -Wshadow -Wno-unused-parameter -Wno-unused-value$/;"	m
+AM_CPPFLAGS	Makefile	/^AM_CPPFLAGS = $(am__append_1) -I $(top_srcdir)\/src\/hashkit -I \\$/;"	m
+AM_CPPFLAGS	event/Makefile	/^AM_CPPFLAGS = -I $(top_srcdir)\/src$/;"	m
+AM_CPPFLAGS	hashkit/Makefile	/^AM_CPPFLAGS = -I $(top_srcdir)\/src$/;"	m
+AM_CPPFLAGS	proto/Makefile	/^AM_CPPFLAGS = -I $(top_srcdir)\/src$/;"	m
+AM_DEFAULT_VERBOSITY	Makefile	/^AM_DEFAULT_VERBOSITY = 1$/;"	m
+AM_DEFAULT_VERBOSITY	event/Makefile	/^AM_DEFAULT_VERBOSITY = 1$/;"	m
+AM_DEFAULT_VERBOSITY	hashkit/Makefile	/^AM_DEFAULT_VERBOSITY = 1$/;"	m
+AM_DEFAULT_VERBOSITY	proto/Makefile	/^AM_DEFAULT_VERBOSITY = 1$/;"	m
+AM_LDFLAGS	Makefile	/^AM_LDFLAGS = -lm -lpthread -rdynamic $(am__append_2) $(am__append_3)$/;"	m
+AM_RECURSIVE_TARGETS	Makefile	/^AM_RECURSIVE_TARGETS = $(am__recursive_targets:-recursive=) TAGS CTAGS \\$/;"	m
+AM_V_AR	event/Makefile	/^AM_V_AR = $(am__v_AR_$(V))$/;"	m
+AM_V_AR	hashkit/Makefile	/^AM_V_AR = $(am__v_AR_$(V))$/;"	m
+AM_V_AR	proto/Makefile	/^AM_V_AR = $(am__v_AR_$(V))$/;"	m
+AM_V_CC	Makefile	/^AM_V_CC = $(am__v_CC_$(V))$/;"	m
+AM_V_CC	event/Makefile	/^AM_V_CC = $(am__v_CC_$(V))$/;"	m
+AM_V_CC	hashkit/Makefile	/^AM_V_CC = $(am__v_CC_$(V))$/;"	m
+AM_V_CC	proto/Makefile	/^AM_V_CC = $(am__v_CC_$(V))$/;"	m
+AM_V_CCLD	Makefile	/^AM_V_CCLD = $(am__v_CCLD_$(V))$/;"	m
+AM_V_CCLD	event/Makefile	/^AM_V_CCLD = $(am__v_CCLD_$(V))$/;"	m
+AM_V_CCLD	hashkit/Makefile	/^AM_V_CCLD = $(am__v_CCLD_$(V))$/;"	m
+AM_V_CCLD	proto/Makefile	/^AM_V_CCLD = $(am__v_CCLD_$(V))$/;"	m
+AM_V_GEN	Makefile	/^AM_V_GEN = $(am__v_GEN_$(V))$/;"	m
+AM_V_GEN	event/Makefile	/^AM_V_GEN = $(am__v_GEN_$(V))$/;"	m
+AM_V_GEN	hashkit/Makefile	/^AM_V_GEN = $(am__v_GEN_$(V))$/;"	m
+AM_V_GEN	proto/Makefile	/^AM_V_GEN = $(am__v_GEN_$(V))$/;"	m
+AM_V_P	Makefile	/^AM_V_P = $(am__v_P_$(V))$/;"	m
+AM_V_P	event/Makefile	/^AM_V_P = $(am__v_P_$(V))$/;"	m
+AM_V_P	hashkit/Makefile	/^AM_V_P = $(am__v_P_$(V))$/;"	m
+AM_V_P	proto/Makefile	/^AM_V_P = $(am__v_P_$(V))$/;"	m
+AM_V_at	Makefile	/^AM_V_at = $(am__v_at_$(V))$/;"	m
+AM_V_at	event/Makefile	/^AM_V_at = $(am__v_at_$(V))$/;"	m
+AM_V_at	hashkit/Makefile	/^AM_V_at = $(am__v_at_$(V))$/;"	m
+AM_V_at	proto/Makefile	/^AM_V_at = $(am__v_at_$(V))$/;"	m
+AM_V_lt	Makefile	/^AM_V_lt = $(am__v_lt_$(V))$/;"	m
+AM_V_lt	event/Makefile	/^AM_V_lt = $(am__v_lt_$(V))$/;"	m
+AM_V_lt	hashkit/Makefile	/^AM_V_lt = $(am__v_lt_$(V))$/;"	m
+AM_V_lt	proto/Makefile	/^AM_V_lt = $(am__v_lt_$(V))$/;"	m
+AR	Makefile	/^AR = ar$/;"	m
+AR	event/Makefile	/^AR = ar$/;"	m
+AR	hashkit/Makefile	/^AR = ar$/;"	m
+AR	proto/Makefile	/^AR = ar$/;"	m
+ARFLAGS	event/Makefile	/^ARFLAGS = cru$/;"	m
+ARFLAGS	hashkit/Makefile	/^ARFLAGS = cru$/;"	m
+ARFLAGS	proto/Makefile	/^ARFLAGS = cru$/;"	m
+ASSERT	nc_util.h	/^#define ASSERT(/;"	d
+AUTOCONF	Makefile	/^AUTOCONF = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing autoconf$/;"	m
+AUTOCONF	event/Makefile	/^AUTOCONF = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing autoconf$/;"	m
+AUTOCONF	hashkit/Makefile	/^AUTOCONF = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing autoconf$/;"	m
+AUTOCONF	proto/Makefile	/^AUTOCONF = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing autoconf$/;"	m
+AUTOHEADER	Makefile	/^AUTOHEADER = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing autoheader$/;"	m
+AUTOHEADER	event/Makefile	/^AUTOHEADER = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing autoheader$/;"	m
+AUTOHEADER	hashkit/Makefile	/^AUTOHEADER = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing autoheader$/;"	m
+AUTOHEADER	proto/Makefile	/^AUTOHEADER = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing autoheader$/;"	m
+AUTOMAKE	Makefile	/^AUTOMAKE = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing automake-1.15$/;"	m
+AUTOMAKE	event/Makefile	/^AUTOMAKE = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing automake-1.15$/;"	m
+AUTOMAKE	hashkit/Makefile	/^AUTOMAKE = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing automake-1.15$/;"	m
+AUTOMAKE	proto/Makefile	/^AUTOMAKE = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing automake-1.15$/;"	m
+AWK	Makefile	/^AWK = awk$/;"	m
+AWK	event/Makefile	/^AWK = awk$/;"	m
+AWK	hashkit/Makefile	/^AWK = awk$/;"	m
+AWK	proto/Makefile	/^AWK = awk$/;"	m
+CC	Makefile	/^CC = gcc$/;"	m
+CC	event/Makefile	/^CC = gcc$/;"	m
+CC	hashkit/Makefile	/^CC = gcc$/;"	m
+CC	proto/Makefile	/^CC = gcc$/;"	m
+CCDEPMODE	Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CCDEPMODE	event/Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CCDEPMODE	hashkit/Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CCDEPMODE	proto/Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CCLD	Makefile	/^CCLD = $(CC)$/;"	m
+CCLD	event/Makefile	/^CCLD = $(CC)$/;"	m
+CCLD	hashkit/Makefile	/^CCLD = $(CC)$/;"	m
+CCLD	proto/Makefile	/^CCLD = $(CC)$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -ggdb3 -O0$/;"	m
+CFLAGS	event/Makefile	/^CFLAGS = -ggdb3 -O0$/;"	m
+CFLAGS	hashkit/Makefile	/^CFLAGS = -ggdb3 -O0$/;"	m
+CFLAGS	proto/Makefile	/^CFLAGS = -ggdb3 -O0$/;"	m
+CIRCLEQ_EMPTY	nc_queue.h	/^#define CIRCLEQ_EMPTY(/;"	d
+CIRCLEQ_ENTRY	nc_queue.h	/^#define CIRCLEQ_ENTRY(/;"	d
+CIRCLEQ_FIRST	nc_queue.h	/^#define CIRCLEQ_FIRST(/;"	d
+CIRCLEQ_FOREACH	nc_queue.h	/^#define CIRCLEQ_FOREACH(/;"	d
+CIRCLEQ_FOREACH_REVERSE	nc_queue.h	/^#define CIRCLEQ_FOREACH_REVERSE(/;"	d
+CIRCLEQ_HEAD	nc_queue.h	/^#define CIRCLEQ_HEAD(/;"	d
+CIRCLEQ_HEAD_INITIALIZER	nc_queue.h	/^#define CIRCLEQ_HEAD_INITIALIZER(/;"	d
+CIRCLEQ_INIT	nc_queue.h	/^#define CIRCLEQ_INIT(/;"	d
+CIRCLEQ_INSERT_AFTER	nc_queue.h	/^#define CIRCLEQ_INSERT_AFTER(/;"	d
+CIRCLEQ_INSERT_BEFORE	nc_queue.h	/^#define CIRCLEQ_INSERT_BEFORE(/;"	d
+CIRCLEQ_INSERT_HEAD	nc_queue.h	/^#define CIRCLEQ_INSERT_HEAD(/;"	d
+CIRCLEQ_INSERT_TAIL	nc_queue.h	/^#define CIRCLEQ_INSERT_TAIL(/;"	d
+CIRCLEQ_LAST	nc_queue.h	/^#define CIRCLEQ_LAST(/;"	d
+CIRCLEQ_NEXT	nc_queue.h	/^#define CIRCLEQ_NEXT(/;"	d
+CIRCLEQ_PREV	nc_queue.h	/^#define CIRCLEQ_PREV(/;"	d
+CIRCLEQ_REMOVE	nc_queue.h	/^#define CIRCLEQ_REMOVE(/;"	d
+COMPILE	Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
+COMPILE	event/Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
+COMPILE	hashkit/Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
+COMPILE	proto/Makefile	/^COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\$/;"	m
+CONFIG_CLEAN_FILES	Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_FILES	event/Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_FILES	hashkit/Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_FILES	proto/Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	event/Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	hashkit/Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	proto/Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_HEADER	Makefile	/^CONFIG_HEADER = $(top_builddir)\/config.h$/;"	m
+CONFIG_HEADER	event/Makefile	/^CONFIG_HEADER = $(top_builddir)\/config.h$/;"	m
+CONFIG_HEADER	hashkit/Makefile	/^CONFIG_HEADER = $(top_builddir)\/config.h$/;"	m
+CONFIG_HEADER	proto/Makefile	/^CONFIG_HEADER = $(top_builddir)\/config.h$/;"	m
+CONF_DEFAULT_ARGS	nc_conf.h	/^#define CONF_DEFAULT_ARGS /;"	d
+CONF_DEFAULT_AUTO_EJECT_HOSTS	nc_conf.h	/^#define CONF_DEFAULT_AUTO_EJECT_HOSTS /;"	d
+CONF_DEFAULT_CLIENT_CONNECTIONS	nc_conf.h	/^#define CONF_DEFAULT_CLIENT_CONNECTIONS /;"	d
+CONF_DEFAULT_DIST	nc_conf.h	/^#define CONF_DEFAULT_DIST /;"	d
+CONF_DEFAULT_HASH	nc_conf.h	/^#define CONF_DEFAULT_HASH /;"	d
+CONF_DEFAULT_KETAMA_PORT	nc_conf.h	/^#define CONF_DEFAULT_KETAMA_PORT /;"	d
+CONF_DEFAULT_LISTEN_BACKLOG	nc_conf.h	/^#define CONF_DEFAULT_LISTEN_BACKLOG /;"	d
+CONF_DEFAULT_POOL	nc_conf.h	/^#define CONF_DEFAULT_POOL /;"	d
+CONF_DEFAULT_PRECONNECT	nc_conf.h	/^#define CONF_DEFAULT_PRECONNECT /;"	d
+CONF_DEFAULT_REDIS	nc_conf.h	/^#define CONF_DEFAULT_REDIS /;"	d
+CONF_DEFAULT_REDIS_DB	nc_conf.h	/^#define CONF_DEFAULT_REDIS_DB /;"	d
+CONF_DEFAULT_SERVERS	nc_conf.h	/^#define CONF_DEFAULT_SERVERS /;"	d
+CONF_DEFAULT_SERVER_CONNECTIONS	nc_conf.h	/^#define CONF_DEFAULT_SERVER_CONNECTIONS /;"	d
+CONF_DEFAULT_SERVER_FAILURE_LIMIT	nc_conf.h	/^#define CONF_DEFAULT_SERVER_FAILURE_LIMIT /;"	d
+CONF_DEFAULT_SERVER_RETRY_TIMEOUT	nc_conf.h	/^#define CONF_DEFAULT_SERVER_RETRY_TIMEOUT /;"	d
+CONF_DEFAULT_TCPKEEPALIVE	nc_conf.h	/^#define CONF_DEFAULT_TCPKEEPALIVE /;"	d
+CONF_DEFAULT_TIMEOUT	nc_conf.h	/^#define CONF_DEFAULT_TIMEOUT /;"	d
+CONF_ERROR	nc_conf.h	/^#define CONF_ERROR /;"	d
+CONF_GLOBAL_MAX_DEPTH	nc_conf.h	/^#define CONF_GLOBAL_MAX_DEPTH /;"	d
+CONF_OK	nc_conf.h	/^#define CONF_OK /;"	d
+CONF_POOL_MAX_DEPTH	nc_conf.h	/^#define CONF_POOL_MAX_DEPTH /;"	d
+CONF_SECTION_ROOT_DEPTH	nc_conf.h	/^#define CONF_SECTION_ROOT_DEPTH /;"	d
+CONF_UNSET_DIST	nc_conf.h	/^#define CONF_UNSET_DIST /;"	d
+CONF_UNSET_HASH	nc_conf.h	/^#define CONF_UNSET_HASH /;"	d
+CONF_UNSET_NUM	nc_conf.h	/^#define CONF_UNSET_NUM /;"	d
+CONF_UNSET_PTR	nc_conf.h	/^#define CONF_UNSET_PTR /;"	d
+CPP	Makefile	/^CPP = gcc -E$/;"	m
+CPP	event/Makefile	/^CPP = gcc -E$/;"	m
+CPP	hashkit/Makefile	/^CPP = gcc -E$/;"	m
+CPP	proto/Makefile	/^CPP = gcc -E$/;"	m
+CPPFLAGS	Makefile	/^CPPFLAGS = $/;"	m
+CPPFLAGS	event/Makefile	/^CPPFLAGS = $/;"	m
+CPPFLAGS	hashkit/Makefile	/^CPPFLAGS = $/;"	m
+CPPFLAGS	proto/Makefile	/^CPPFLAGS = $/;"	m
+CR	nc_util.h	/^#define CR /;"	d
+CRLF	nc_util.h	/^#define CRLF /;"	d
+CRLF_LEN	nc_util.h	/^#define CRLF_LEN /;"	d
+CTAGS	Makefile	/^CTAGS = ctags$/;"	m
+CTAGS	event/Makefile	/^CTAGS = ctags$/;"	m
+CTAGS	hashkit/Makefile	/^CTAGS = ctags$/;"	m
+CTAGS	proto/Makefile	/^CTAGS = ctags$/;"	m
+CXX	Makefile	/^CXX = g++$/;"	m
+CXX	event/Makefile	/^CXX = g++$/;"	m
+CXX	hashkit/Makefile	/^CXX = g++$/;"	m
+CXX	proto/Makefile	/^CXX = g++$/;"	m
+CXXCPP	Makefile	/^CXXCPP = g++ -E$/;"	m
+CXXCPP	event/Makefile	/^CXXCPP = g++ -E$/;"	m
+CXXCPP	hashkit/Makefile	/^CXXCPP = g++ -E$/;"	m
+CXXCPP	proto/Makefile	/^CXXCPP = g++ -E$/;"	m
+CXXDEPMODE	Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXDEPMODE	event/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXDEPMODE	hashkit/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXDEPMODE	proto/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXFLAGS	Makefile	/^CXXFLAGS = -g -O2$/;"	m
+CXXFLAGS	event/Makefile	/^CXXFLAGS = -g -O2$/;"	m
+CXXFLAGS	hashkit/Makefile	/^CXXFLAGS = -g -O2$/;"	m
+CXXFLAGS	proto/Makefile	/^CXXFLAGS = -g -O2$/;"	m
+CYGPATH_W	Makefile	/^CYGPATH_W = echo$/;"	m
+CYGPATH_W	event/Makefile	/^CYGPATH_W = echo$/;"	m
+CYGPATH_W	hashkit/Makefile	/^CYGPATH_W = echo$/;"	m
+CYGPATH_W	proto/Makefile	/^CYGPATH_W = echo$/;"	m
+DEFAULT_INCLUDES	Makefile	/^DEFAULT_INCLUDES = -I. -I$(top_builddir)$/;"	m
+DEFAULT_INCLUDES	event/Makefile	/^DEFAULT_INCLUDES = -I. -I$(top_builddir)$/;"	m
+DEFAULT_INCLUDES	hashkit/Makefile	/^DEFAULT_INCLUDES = -I. -I$(top_builddir)$/;"	m
+DEFAULT_INCLUDES	proto/Makefile	/^DEFAULT_INCLUDES = -I. -I$(top_builddir)$/;"	m
+DEFINE_ACTION	hashkit/nc_hashkit.h	/^#define DEFINE_ACTION(/;"	d
+DEFINE_ACTION	hashkit/nc_hashkit.h	/^#undef DEFINE_ACTION$/;"	d
+DEFINE_ACTION	nc_conf.c	/^#define DEFINE_ACTION(/;"	d	file:
+DEFINE_ACTION	nc_conf.c	/^#undef DEFINE_ACTION$/;"	d	file:
+DEFINE_ACTION	nc_message.c	/^#define DEFINE_ACTION(/;"	d	file:
+DEFINE_ACTION	nc_message.c	/^#undef DEFINE_ACTION$/;"	d	file:
+DEFINE_ACTION	nc_message.h	/^#define DEFINE_ACTION(/;"	d
+DEFINE_ACTION	nc_message.h	/^#undef DEFINE_ACTION$/;"	d
+DEFINE_ACTION	nc_stats.c	/^#define DEFINE_ACTION(/;"	d	file:
+DEFINE_ACTION	nc_stats.c	/^#undef DEFINE_ACTION$/;"	d	file:
+DEFINE_ACTION	nc_stats.h	/^#define DEFINE_ACTION(/;"	d
+DEFINE_ACTION	nc_stats.h	/^#undef DEFINE_ACTION$/;"	d
+DEFINE_ACTION	proto/nc_redis.c	/^#define DEFINE_ACTION(/;"	d	file:
+DEFINE_ACTION	proto/nc_redis.c	/^#undef DEFINE_ACTION$/;"	d	file:
+DEFS	Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEFS	event/Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEFS	hashkit/Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEFS	proto/Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEPDIR	Makefile	/^DEPDIR = .deps$/;"	m
+DEPDIR	event/Makefile	/^DEPDIR = .deps$/;"	m
+DEPDIR	hashkit/Makefile	/^DEPDIR = .deps$/;"	m
+DEPDIR	proto/Makefile	/^DEPDIR = .deps$/;"	m
+DISTFILES	Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DISTFILES	event/Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DISTFILES	hashkit/Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DISTFILES	proto/Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DIST_CODEC	hashkit/nc_hashkit.h	/^    DIST_CODEC( DEFINE_ACTION )$/;"	e	enum:dist_type
+DIST_CODEC	hashkit/nc_hashkit.h	/^#define DIST_CODEC(/;"	d
+DIST_COMMON	Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(am__DIST_COMMON)$/;"	m
+DIST_COMMON	event/Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(noinst_HEADERS) \\$/;"	m
+DIST_COMMON	hashkit/Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(noinst_HEADERS) \\$/;"	m
+DIST_COMMON	proto/Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(noinst_HEADERS) \\$/;"	m
+DIST_SENTINEL	hashkit/nc_hashkit.h	/^    DIST_SENTINEL$/;"	e	enum:dist_type
+DIST_SOURCES	Makefile	/^DIST_SOURCES = $(nutcracker_SOURCES)$/;"	m
+DIST_SOURCES	event/Makefile	/^DIST_SOURCES = $(libevent_a_SOURCES)$/;"	m
+DIST_SOURCES	hashkit/Makefile	/^DIST_SOURCES = $(libhashkit_a_SOURCES)$/;"	m
+DIST_SOURCES	proto/Makefile	/^DIST_SOURCES = $(libproto_a_SOURCES)$/;"	m
+DIST_SUBDIRS	Makefile	/^DIST_SUBDIRS = $(SUBDIRS)$/;"	m
+DLLTOOL	Makefile	/^DLLTOOL = false$/;"	m
+DLLTOOL	event/Makefile	/^DLLTOOL = false$/;"	m
+DLLTOOL	hashkit/Makefile	/^DLLTOOL = false$/;"	m
+DLLTOOL	proto/Makefile	/^DLLTOOL = false$/;"	m
+DSYMUTIL	Makefile	/^DSYMUTIL = dsymutil$/;"	m
+DSYMUTIL	event/Makefile	/^DSYMUTIL = dsymutil$/;"	m
+DSYMUTIL	hashkit/Makefile	/^DSYMUTIL = dsymutil$/;"	m
+DSYMUTIL	proto/Makefile	/^DSYMUTIL = dsymutil$/;"	m
+DUMPBIN	Makefile	/^DUMPBIN = $/;"	m
+DUMPBIN	event/Makefile	/^DUMPBIN = $/;"	m
+DUMPBIN	hashkit/Makefile	/^DUMPBIN = $/;"	m
+DUMPBIN	proto/Makefile	/^DUMPBIN = $/;"	m
+ECHO_C	Makefile	/^ECHO_C = \\c$/;"	m
+ECHO_C	event/Makefile	/^ECHO_C = \\c$/;"	m
+ECHO_C	hashkit/Makefile	/^ECHO_C = \\c$/;"	m
+ECHO_C	proto/Makefile	/^ECHO_C = \\c$/;"	m
+ECHO_N	Makefile	/^ECHO_N = $/;"	m
+ECHO_N	event/Makefile	/^ECHO_N = $/;"	m
+ECHO_N	hashkit/Makefile	/^ECHO_N = $/;"	m
+ECHO_N	proto/Makefile	/^ECHO_N = $/;"	m
+ECHO_T	Makefile	/^ECHO_T = $/;"	m
+ECHO_T	event/Makefile	/^ECHO_T = $/;"	m
+ECHO_T	hashkit/Makefile	/^ECHO_T = $/;"	m
+ECHO_T	proto/Makefile	/^ECHO_T = $/;"	m
+EGREP	Makefile	/^EGREP = \/usr\/bin\/grep -E$/;"	m
+EGREP	event/Makefile	/^EGREP = \/usr\/bin\/grep -E$/;"	m
+EGREP	hashkit/Makefile	/^EGREP = \/usr\/bin\/grep -E$/;"	m
+EGREP	proto/Makefile	/^EGREP = \/usr\/bin\/grep -E$/;"	m
+ETAGS	Makefile	/^ETAGS = etags$/;"	m
+ETAGS	event/Makefile	/^ETAGS = etags$/;"	m
+ETAGS	hashkit/Makefile	/^ETAGS = etags$/;"	m
+ETAGS	proto/Makefile	/^ETAGS = etags$/;"	m
+EVENT_ERR	event/nc_event.h	/^#define EVENT_ERR /;"	d
+EVENT_NONE	event/nc_event.h	/^#define EVENT_NONE /;"	d
+EVENT_READ	event/nc_event.h	/^#define EVENT_READ /;"	d
+EVENT_SIZE	event/nc_event.h	/^#define EVENT_SIZE /;"	d
+EVENT_WRITE	event/nc_event.h	/^#define EVENT_WRITE /;"	d
+EXEEXT	Makefile	/^EXEEXT = $/;"	m
+EXEEXT	event/Makefile	/^EXEEXT = $/;"	m
+EXEEXT	hashkit/Makefile	/^EXEEXT = $/;"	m
+EXEEXT	proto/Makefile	/^EXEEXT = $/;"	m
+F	hashkit/nc_md5.c	/^#define F(/;"	d	file:
+FGREP	Makefile	/^FGREP = \/usr\/bin\/grep -F$/;"	m
+FGREP	event/Makefile	/^FGREP = \/usr\/bin\/grep -F$/;"	m
+FGREP	hashkit/Makefile	/^FGREP = \/usr\/bin\/grep -F$/;"	m
+FGREP	proto/Makefile	/^FGREP = \/usr\/bin\/grep -F$/;"	m
+FNV_32_INIT	hashkit/nc_fnv.c	/^static uint32_t FNV_32_INIT = 2166136261UL;$/;"	v	file:
+FNV_32_PRIME	hashkit/nc_fnv.c	/^static uint32_t FNV_32_PRIME = 16777619;$/;"	v	file:
+FNV_64_INIT	hashkit/nc_fnv.c	/^static uint64_t FNV_64_INIT = UINT64_C(0xcbf29ce484222325);$/;"	v	file:
+FNV_64_PRIME	hashkit/nc_fnv.c	/^static uint64_t FNV_64_PRIME = UINT64_C(0x100000001b3);$/;"	v	file:
+G	hashkit/nc_md5.c	/^#define G(/;"	d	file:
+GET	hashkit/nc_md5.c	/^#define GET(/;"	d	file:
+GREP	Makefile	/^GREP = \/usr\/bin\/grep$/;"	m
+GREP	event/Makefile	/^GREP = \/usr\/bin\/grep$/;"	m
+GREP	hashkit/Makefile	/^GREP = \/usr\/bin\/grep$/;"	m
+GREP	proto/Makefile	/^GREP = \/usr\/bin\/grep$/;"	m
+H	hashkit/nc_md5.c	/^#define H(/;"	d	file:
+HASH_CODEC	hashkit/nc_hashkit.h	/^    HASH_CODEC( DEFINE_ACTION )$/;"	e	enum:hash_type
+HASH_CODEC	hashkit/nc_hashkit.h	/^#define HASH_CODEC(/;"	d
+HASH_SENTINEL	hashkit/nc_hashkit.h	/^    HASH_SENTINEL$/;"	e	enum:hash_type
+HEADERS	event/Makefile	/^HEADERS = $(noinst_HEADERS)$/;"	m
+HEADERS	hashkit/Makefile	/^HEADERS = $(noinst_HEADERS)$/;"	m
+HEADERS	proto/Makefile	/^HEADERS = $(noinst_HEADERS)$/;"	m
+I	hashkit/nc_md5.c	/^#define I(/;"	d	file:
+INSTALL	Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL	event/Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL	hashkit/Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL	proto/Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL_DATA	Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_DATA	event/Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_DATA	hashkit/Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_DATA	proto/Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_HEADER	Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_HEADER	event/Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_HEADER	hashkit/Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_HEADER	proto/Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_PROGRAM	Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_PROGRAM	event/Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_PROGRAM	hashkit/Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_PROGRAM	proto/Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	event/Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	hashkit/Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	proto/Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_STRIP_PROGRAM	Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+INSTALL_STRIP_PROGRAM	event/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+INSTALL_STRIP_PROGRAM	hashkit/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+INSTALL_STRIP_PROGRAM	proto/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+JENKINS_INITVAL	hashkit/nc_jenkins.c	/^#define JENKINS_INITVAL /;"	d	file:
+KETAMA_CONTINUUM_ADDITION	hashkit/nc_ketama.c	/^#define KETAMA_CONTINUUM_ADDITION /;"	d	file:
+KETAMA_MAX_HOSTLEN	hashkit/nc_ketama.c	/^#define KETAMA_MAX_HOSTLEN /;"	d	file:
+KETAMA_POINTS_PER_SERVER	hashkit/nc_ketama.c	/^#define KETAMA_POINTS_PER_SERVER /;"	d	file:
+LD	Makefile	/^LD = \/Library\/Developer\/CommandLineTools\/usr\/bin\/ld$/;"	m
+LD	event/Makefile	/^LD = \/Library\/Developer\/CommandLineTools\/usr\/bin\/ld$/;"	m
+LD	hashkit/Makefile	/^LD = \/Library\/Developer\/CommandLineTools\/usr\/bin\/ld$/;"	m
+LD	proto/Makefile	/^LD = \/Library\/Developer\/CommandLineTools\/usr\/bin\/ld$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
+LDFLAGS	event/Makefile	/^LDFLAGS = $/;"	m
+LDFLAGS	hashkit/Makefile	/^LDFLAGS = $/;"	m
+LDFLAGS	proto/Makefile	/^LDFLAGS = $/;"	m
+LF	nc_util.h	/^#define LF /;"	d
+LIBOBJS	Makefile	/^LIBOBJS = $/;"	m
+LIBOBJS	event/Makefile	/^LIBOBJS = $/;"	m
+LIBOBJS	hashkit/Makefile	/^LIBOBJS = $/;"	m
+LIBOBJS	proto/Makefile	/^LIBOBJS = $/;"	m
+LIBRARIES	event/Makefile	/^LIBRARIES = $(noinst_LIBRARIES)$/;"	m
+LIBRARIES	hashkit/Makefile	/^LIBRARIES = $(noinst_LIBRARIES)$/;"	m
+LIBRARIES	proto/Makefile	/^LIBRARIES = $(noinst_LIBRARIES)$/;"	m
+LIBS	Makefile	/^LIBS = -lpthread -lm $/;"	m
+LIBS	event/Makefile	/^LIBS = -lpthread -lm $/;"	m
+LIBS	hashkit/Makefile	/^LIBS = -lpthread -lm $/;"	m
+LIBS	proto/Makefile	/^LIBS = -lpthread -lm $/;"	m
+LIBTOOL	Makefile	/^LIBTOOL = $(SHELL) $(top_builddir)\/libtool$/;"	m
+LIBTOOL	event/Makefile	/^LIBTOOL = $(SHELL) $(top_builddir)\/libtool$/;"	m
+LIBTOOL	hashkit/Makefile	/^LIBTOOL = $(SHELL) $(top_builddir)\/libtool$/;"	m
+LIBTOOL	proto/Makefile	/^LIBTOOL = $(SHELL) $(top_builddir)\/libtool$/;"	m
+LINK	Makefile	/^LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LINK	event/Makefile	/^LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LINK	hashkit/Makefile	/^LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LINK	proto/Makefile	/^LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LIPO	Makefile	/^LIPO = lipo$/;"	m
+LIPO	event/Makefile	/^LIPO = lipo$/;"	m
+LIPO	hashkit/Makefile	/^LIPO = lipo$/;"	m
+LIPO	proto/Makefile	/^LIPO = lipo$/;"	m
+LIST_EMPTY	nc_queue.h	/^#define LIST_EMPTY(/;"	d
+LIST_ENTRY	nc_queue.h	/^#define LIST_ENTRY(/;"	d
+LIST_FIRST	nc_queue.h	/^#define LIST_FIRST(/;"	d
+LIST_FOREACH	nc_queue.h	/^#define LIST_FOREACH(/;"	d
+LIST_FOREACH_SAFE	nc_queue.h	/^#define LIST_FOREACH_SAFE(/;"	d
+LIST_HEAD	nc_queue.h	/^#define LIST_HEAD(/;"	d
+LIST_HEAD_INITIALIZER	nc_queue.h	/^#define LIST_HEAD_INITIALIZER(/;"	d
+LIST_INIT	nc_queue.h	/^#define LIST_INIT(/;"	d
+LIST_INSERT_AFTER	nc_queue.h	/^#define LIST_INSERT_AFTER(/;"	d
+LIST_INSERT_BEFORE	nc_queue.h	/^#define LIST_INSERT_BEFORE(/;"	d
+LIST_INSERT_HEAD	nc_queue.h	/^#define LIST_INSERT_HEAD(/;"	d
+LIST_NEXT	nc_queue.h	/^#define LIST_NEXT(/;"	d
+LIST_REMOVE	nc_queue.h	/^#define LIST_REMOVE(/;"	d
+LIST_SWAP	nc_queue.h	/^#define LIST_SWAP(/;"	d
+LN_S	Makefile	/^LN_S = ln -s$/;"	m
+LN_S	event/Makefile	/^LN_S = ln -s$/;"	m
+LN_S	hashkit/Makefile	/^LN_S = ln -s$/;"	m
+LN_S	proto/Makefile	/^LN_S = ln -s$/;"	m
+LOG_ALERT	nc_log.h	/^#define LOG_ALERT /;"	d
+LOG_CRIT	nc_log.h	/^#define LOG_CRIT /;"	d
+LOG_DEBUG	nc_log.h	/^#define LOG_DEBUG /;"	d
+LOG_EMERG	nc_log.h	/^#define LOG_EMERG /;"	d
+LOG_ERR	nc_log.h	/^#define LOG_ERR /;"	d
+LOG_INFO	nc_log.h	/^#define LOG_INFO /;"	d
+LOG_MAX_LEN	nc_log.h	/^#define LOG_MAX_LEN /;"	d
+LOG_NOTICE	nc_log.h	/^#define LOG_NOTICE /;"	d
+LOG_PVERB	nc_log.h	/^#define LOG_PVERB /;"	d
+LOG_VERB	nc_log.h	/^#define LOG_VERB /;"	d
+LOG_VVERB	nc_log.h	/^#define LOG_VVERB /;"	d
+LOG_VVVERB	nc_log.h	/^#define LOG_VVVERB /;"	d
+LOG_WARN	nc_log.h	/^#define LOG_WARN /;"	d
+LTCOMPILE	Makefile	/^LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LTCOMPILE	event/Makefile	/^LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LTCOMPILE	hashkit/Makefile	/^LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LTCOMPILE	proto/Makefile	/^LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\$/;"	m
+LTLIBOBJS	Makefile	/^LTLIBOBJS = $/;"	m
+LTLIBOBJS	event/Makefile	/^LTLIBOBJS = $/;"	m
+LTLIBOBJS	hashkit/Makefile	/^LTLIBOBJS = $/;"	m
+LTLIBOBJS	proto/Makefile	/^LTLIBOBJS = $/;"	m
+LT_SYS_LIBRARY_PATH	Makefile	/^LT_SYS_LIBRARY_PATH = $/;"	m
+LT_SYS_LIBRARY_PATH	event/Makefile	/^LT_SYS_LIBRARY_PATH = $/;"	m
+LT_SYS_LIBRARY_PATH	hashkit/Makefile	/^LT_SYS_LIBRARY_PATH = $/;"	m
+LT_SYS_LIBRARY_PATH	proto/Makefile	/^LT_SYS_LIBRARY_PATH = $/;"	m
+MAINTAINERCLEANFILES	Makefile	/^MAINTAINERCLEANFILES = Makefile.in$/;"	m
+MAINTAINERCLEANFILES	event/Makefile	/^MAINTAINERCLEANFILES = Makefile.in$/;"	m
+MAINTAINERCLEANFILES	hashkit/Makefile	/^MAINTAINERCLEANFILES = Makefile.in$/;"	m
+MAINTAINERCLEANFILES	proto/Makefile	/^MAINTAINERCLEANFILES = Makefile.in$/;"	m
+MAKEINFO	Makefile	/^MAKEINFO = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing makeinfo$/;"	m
+MAKEINFO	event/Makefile	/^MAKEINFO = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing makeinfo$/;"	m
+MAKEINFO	hashkit/Makefile	/^MAKEINFO = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing makeinfo$/;"	m
+MAKEINFO	proto/Makefile	/^MAKEINFO = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/missing makeinfo$/;"	m
+MANIFEST_TOOL	Makefile	/^MANIFEST_TOOL = :$/;"	m
+MANIFEST_TOOL	event/Makefile	/^MANIFEST_TOOL = :$/;"	m
+MANIFEST_TOOL	hashkit/Makefile	/^MANIFEST_TOOL = :$/;"	m
+MANIFEST_TOOL	proto/Makefile	/^MANIFEST_TOOL = :$/;"	m
+MAX	nc_util.h	/^#define MAX(/;"	d
+MAX_SECTION_NAME_N	nc_conf.c	/^#define MAX_SECTION_NAME_N /;"	d	file:
+MBUF_HSIZE	nc_mbuf.h	/^#define MBUF_HSIZE /;"	d
+MBUF_MAGIC	nc_mbuf.h	/^#define MBUF_MAGIC /;"	d
+MBUF_MAX_SIZE	nc_mbuf.h	/^#define MBUF_MAX_SIZE /;"	d
+MBUF_MIN_SIZE	nc_mbuf.h	/^#define MBUF_MIN_SIZE /;"	d
+MBUF_SIZE	nc_mbuf.h	/^#define MBUF_SIZE /;"	d
+MD5_CTX	hashkit/nc_md5.c	/^} MD5_CTX;$/;"	t	typeref:struct:__anon1	file:
+MD5_Final	hashkit/nc_md5.c	/^MD5_Final(unsigned char *result, MD5_CTX *ctx)$/;"	f
+MD5_Init	hashkit/nc_md5.c	/^MD5_Init(MD5_CTX *ctx)$/;"	f
+MD5_Update	hashkit/nc_md5.c	/^MD5_Update(MD5_CTX *ctx, void *data, unsigned long size)$/;"	f
+MD5_u32plus	hashkit/nc_md5.c	/^typedef unsigned int MD5_u32plus;$/;"	t	file:
+MEMCACHE_MAX_KEY_LENGTH	proto/nc_memcache.c	/^#define MEMCACHE_MAX_KEY_LENGTH /;"	d	file:
+MIN	nc_util.h	/^#define MIN(/;"	d
+MKDIR_P	Makefile	/^MKDIR_P = ..\/config\/install-sh -c -d$/;"	m
+MKDIR_P	event/Makefile	/^MKDIR_P = ..\/..\/config\/install-sh -c -d$/;"	m
+MKDIR_P	hashkit/Makefile	/^MKDIR_P = ..\/..\/config\/install-sh -c -d$/;"	m
+MKDIR_P	proto/Makefile	/^MKDIR_P = ..\/..\/config\/install-sh -c -d$/;"	m
+MODULA_CONTINUUM_ADDITION	hashkit/nc_modula.c	/^#define MODULA_CONTINUUM_ADDITION /;"	d	file:
+MODULA_POINTS_PER_SERVER	hashkit/nc_modula.c	/^#define MODULA_POINTS_PER_SERVER /;"	d	file:
+MSG_PARSE_AGAIN	nc_message.h	/^    MSG_PARSE_AGAIN,                      \/* incomplete -> parse again *\/$/;"	e	enum:msg_parse_result
+MSG_PARSE_ERROR	nc_message.h	/^    MSG_PARSE_ERROR,                      \/* parsing error *\/$/;"	e	enum:msg_parse_result
+MSG_PARSE_OK	nc_message.h	/^    MSG_PARSE_OK,                         \/* parsing ok *\/$/;"	e	enum:msg_parse_result
+MSG_PARSE_REPAIR	nc_message.h	/^    MSG_PARSE_REPAIR,                     \/* more to parse -> repair parsed & unparsed data *\/$/;"	e	enum:msg_parse_result
+MSG_TYPE_CODEC	nc_message.h	/^    MSG_TYPE_CODEC(DEFINE_ACTION)$/;"	e	enum:msg_type
+MSG_TYPE_CODEC	nc_message.h	/^#define MSG_TYPE_CODEC(/;"	d
+NC_ALIGN	nc_util.h	/^#define NC_ALIGN(/;"	d
+NC_ALIGNMENT	nc_util.h	/^#define NC_ALIGNMENT /;"	d
+NC_ALIGN_PTR	nc_util.h	/^#define NC_ALIGN_PTR(/;"	d
+NC_ASSERT_LOG	nc_core.h	/^# define NC_ASSERT_LOG /;"	d
+NC_ASSERT_PANIC	nc_core.h	/^# define NC_ASSERT_PANIC /;"	d
+NC_CMD_QUIT	nc_process.h	/^#define NC_CMD_QUIT /;"	d
+NC_CMD_TERMINATE	nc_process.h	/^#define NC_CMD_TERMINATE /;"	d
+NC_CONF_PATH	nc.c	/^#define NC_CONF_PATH /;"	d	file:
+NC_DEBUG_LOG	nc_core.h	/^# define NC_DEBUG_LOG /;"	d
+NC_EAGAIN	nc_core.h	/^#define NC_EAGAIN /;"	d
+NC_ENOMEM	nc_core.h	/^#define NC_ENOMEM /;"	d
+NC_ERROR	nc_core.h	/^#define NC_ERROR /;"	d
+NC_HAVE_BACKTRACE	nc_core.h	/^# define NC_HAVE_BACKTRACE /;"	d
+NC_HAVE_EPOLL	nc_core.h	/^# define NC_HAVE_EPOLL /;"	d
+NC_HAVE_EVENT_PORTS	nc_core.h	/^# define NC_HAVE_EVENT_PORTS /;"	d
+NC_HAVE_KQUEUE	nc_core.h	/^# define NC_HAVE_KQUEUE /;"	d
+NC_HAVE_REUSEPORT	nc_core.h	/^#define NC_HAVE_REUSEPORT$/;"	d
+NC_INET4_ADDRSTRLEN	nc_util.h	/^#define NC_INET4_ADDRSTRLEN /;"	d
+NC_INET6_ADDRSTRLEN	nc_util.h	/^#define NC_INET6_ADDRSTRLEN /;"	d
+NC_INET_ADDRSTRLEN	nc_util.h	/^#define NC_INET_ADDRSTRLEN /;"	d
+NC_IOV_MAX	nc_message.c	/^#define NC_IOV_MAX /;"	d	file:
+NC_LITTLE_ENDIAN	nc_core.h	/^# define NC_LITTLE_ENDIAN /;"	d
+NC_LOG_DEFAULT	nc.c	/^#define NC_LOG_DEFAULT /;"	d	file:
+NC_LOG_MAX	nc.c	/^#define NC_LOG_MAX /;"	d	file:
+NC_LOG_MIN	nc.c	/^#define NC_LOG_MIN /;"	d	file:
+NC_LOG_PATH	nc.c	/^#define NC_LOG_PATH /;"	d	file:
+NC_MAXHOSTNAMELEN	nc_util.h	/^#define NC_MAXHOSTNAMELEN /;"	d
+NC_MBUF_MAX_SIZE	nc.c	/^#define NC_MBUF_MAX_SIZE /;"	d	file:
+NC_MBUF_MIN_SIZE	nc.c	/^#define NC_MBUF_MIN_SIZE /;"	d	file:
+NC_MBUF_SIZE	nc.c	/^#define NC_MBUF_SIZE /;"	d	file:
+NC_OK	nc_core.h	/^#define NC_OK /;"	d
+NC_PID_FILE	nc.c	/^#define NC_PID_FILE /;"	d	file:
+NC_STATS	nc_core.h	/^# define NC_STATS /;"	d
+NC_STATS_ADDR	nc.c	/^#define NC_STATS_ADDR /;"	d	file:
+NC_STATS_INTERVAL	nc.c	/^#define NC_STATS_INTERVAL /;"	d	file:
+NC_STATS_PORT	nc.c	/^#define NC_STATS_PORT /;"	d	file:
+NC_UINT16_MAXLEN	nc_util.h	/^#define NC_UINT16_MAXLEN /;"	d
+NC_UINT32_MAXLEN	nc_util.h	/^#define NC_UINT32_MAXLEN /;"	d
+NC_UINT64_MAXLEN	nc_util.h	/^#define NC_UINT64_MAXLEN /;"	d
+NC_UINT8_MAXLEN	nc_util.h	/^#define NC_UINT8_MAXLEN /;"	d
+NC_UINTMAX_MAXLEN	nc_util.h	/^#define NC_UINTMAX_MAXLEN /;"	d
+NC_UNIX_ADDRSTRLEN	nc_util.h	/^#define NC_UNIX_ADDRSTRLEN /;"	d
+NELEMS	nc_util.h	/^#define NELEMS(/;"	d
+NM	Makefile	/^NM = \/usr\/bin\/nm -B$/;"	m
+NM	event/Makefile	/^NM = \/usr\/bin\/nm -B$/;"	m
+NM	hashkit/Makefile	/^NM = \/usr\/bin\/nm -B$/;"	m
+NM	proto/Makefile	/^NM = \/usr\/bin\/nm -B$/;"	m
+NMEDIT	Makefile	/^NMEDIT = nmedit$/;"	m
+NMEDIT	event/Makefile	/^NMEDIT = nmedit$/;"	m
+NMEDIT	hashkit/Makefile	/^NMEDIT = nmedit$/;"	m
+NMEDIT	proto/Makefile	/^NMEDIT = nmedit$/;"	m
+NORMAL_INSTALL	Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_INSTALL	event/Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_INSTALL	hashkit/Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_INSTALL	proto/Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_UNINSTALL	Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+NORMAL_UNINSTALL	event/Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+NORMAL_UNINSTALL	hashkit/Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+NORMAL_UNINSTALL	proto/Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+NOT_REACHED	nc_util.h	/^#define NOT_REACHED(/;"	d
+OBJDUMP	Makefile	/^OBJDUMP = objdump$/;"	m
+OBJDUMP	event/Makefile	/^OBJDUMP = objdump$/;"	m
+OBJDUMP	hashkit/Makefile	/^OBJDUMP = objdump$/;"	m
+OBJDUMP	proto/Makefile	/^OBJDUMP = objdump$/;"	m
+OBJEXT	Makefile	/^OBJEXT = o$/;"	m
+OBJEXT	event/Makefile	/^OBJEXT = o$/;"	m
+OBJEXT	hashkit/Makefile	/^OBJEXT = o$/;"	m
+OBJEXT	proto/Makefile	/^OBJEXT = o$/;"	m
+OTOOL	Makefile	/^OTOOL = otool$/;"	m
+OTOOL	event/Makefile	/^OTOOL = otool$/;"	m
+OTOOL	hashkit/Makefile	/^OTOOL = otool$/;"	m
+OTOOL	proto/Makefile	/^OTOOL = otool$/;"	m
+OTOOL64	Makefile	/^OTOOL64 = :$/;"	m
+OTOOL64	event/Makefile	/^OTOOL64 = :$/;"	m
+OTOOL64	hashkit/Makefile	/^OTOOL64 = :$/;"	m
+OTOOL64	proto/Makefile	/^OTOOL64 = :$/;"	m
+PACKAGE	Makefile	/^PACKAGE = nutcracker$/;"	m
+PACKAGE	event/Makefile	/^PACKAGE = nutcracker$/;"	m
+PACKAGE	hashkit/Makefile	/^PACKAGE = nutcracker$/;"	m
+PACKAGE	proto/Makefile	/^PACKAGE = nutcracker$/;"	m
+PACKAGE_BUGREPORT	Makefile	/^PACKAGE_BUGREPORT = manj@cs.stanford.edu$/;"	m
+PACKAGE_BUGREPORT	event/Makefile	/^PACKAGE_BUGREPORT = manj@cs.stanford.edu$/;"	m
+PACKAGE_BUGREPORT	hashkit/Makefile	/^PACKAGE_BUGREPORT = manj@cs.stanford.edu$/;"	m
+PACKAGE_BUGREPORT	proto/Makefile	/^PACKAGE_BUGREPORT = manj@cs.stanford.edu$/;"	m
+PACKAGE_NAME	Makefile	/^PACKAGE_NAME = nutcracker$/;"	m
+PACKAGE_NAME	event/Makefile	/^PACKAGE_NAME = nutcracker$/;"	m
+PACKAGE_NAME	hashkit/Makefile	/^PACKAGE_NAME = nutcracker$/;"	m
+PACKAGE_NAME	proto/Makefile	/^PACKAGE_NAME = nutcracker$/;"	m
+PACKAGE_STRING	Makefile	/^PACKAGE_STRING = nutcracker 0.4.1$/;"	m
+PACKAGE_STRING	event/Makefile	/^PACKAGE_STRING = nutcracker 0.4.1$/;"	m
+PACKAGE_STRING	hashkit/Makefile	/^PACKAGE_STRING = nutcracker 0.4.1$/;"	m
+PACKAGE_STRING	proto/Makefile	/^PACKAGE_STRING = nutcracker 0.4.1$/;"	m
+PACKAGE_TARNAME	Makefile	/^PACKAGE_TARNAME = nutcracker$/;"	m
+PACKAGE_TARNAME	event/Makefile	/^PACKAGE_TARNAME = nutcracker$/;"	m
+PACKAGE_TARNAME	hashkit/Makefile	/^PACKAGE_TARNAME = nutcracker$/;"	m
+PACKAGE_TARNAME	proto/Makefile	/^PACKAGE_TARNAME = nutcracker$/;"	m
+PACKAGE_URL	Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_URL	event/Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_URL	hashkit/Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_URL	proto/Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_VERSION	Makefile	/^PACKAGE_VERSION = 0.4.1$/;"	m
+PACKAGE_VERSION	event/Makefile	/^PACKAGE_VERSION = 0.4.1$/;"	m
+PACKAGE_VERSION	hashkit/Makefile	/^PACKAGE_VERSION = 0.4.1$/;"	m
+PACKAGE_VERSION	proto/Makefile	/^PACKAGE_VERSION = 0.4.1$/;"	m
+PATH_SEPARATOR	Makefile	/^PATH_SEPARATOR = :$/;"	m
+PATH_SEPARATOR	event/Makefile	/^PATH_SEPARATOR = :$/;"	m
+PATH_SEPARATOR	hashkit/Makefile	/^PATH_SEPARATOR = :$/;"	m
+PATH_SEPARATOR	proto/Makefile	/^PATH_SEPARATOR = :$/;"	m
+POST_INSTALL	Makefile	/^POST_INSTALL = :$/;"	m
+POST_INSTALL	event/Makefile	/^POST_INSTALL = :$/;"	m
+POST_INSTALL	hashkit/Makefile	/^POST_INSTALL = :$/;"	m
+POST_INSTALL	proto/Makefile	/^POST_INSTALL = :$/;"	m
+POST_UNINSTALL	Makefile	/^POST_UNINSTALL = :$/;"	m
+POST_UNINSTALL	event/Makefile	/^POST_UNINSTALL = :$/;"	m
+POST_UNINSTALL	hashkit/Makefile	/^POST_UNINSTALL = :$/;"	m
+POST_UNINSTALL	proto/Makefile	/^POST_UNINSTALL = :$/;"	m
+PRE_INSTALL	Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_INSTALL	event/Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_INSTALL	hashkit/Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_INSTALL	proto/Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_UNINSTALL	Makefile	/^PRE_UNINSTALL = :$/;"	m
+PRE_UNINSTALL	event/Makefile	/^PRE_UNINSTALL = :$/;"	m
+PRE_UNINSTALL	hashkit/Makefile	/^PRE_UNINSTALL = :$/;"	m
+PRE_UNINSTALL	proto/Makefile	/^PRE_UNINSTALL = :$/;"	m
+PROGRAMS	Makefile	/^PROGRAMS = $(sbin_PROGRAMS)$/;"	m
+QMD_LIST_CHECK_HEAD	nc_queue.h	/^#define QMD_LIST_CHECK_HEAD(/;"	d
+QMD_LIST_CHECK_NEXT	nc_queue.h	/^#define QMD_LIST_CHECK_NEXT(/;"	d
+QMD_LIST_CHECK_PREV	nc_queue.h	/^#define QMD_LIST_CHECK_PREV(/;"	d
+QMD_SAVELINK	nc_queue.h	/^#define QMD_SAVELINK(/;"	d
+QMD_TAILQ_CHECK_HEAD	nc_queue.h	/^#define QMD_TAILQ_CHECK_HEAD(/;"	d
+QMD_TAILQ_CHECK_NEXT	nc_queue.h	/^#define QMD_TAILQ_CHECK_NEXT(/;"	d
+QMD_TAILQ_CHECK_PREV	nc_queue.h	/^#define QMD_TAILQ_CHECK_PREV(/;"	d
+QMD_TAILQ_CHECK_TAIL	nc_queue.h	/^#define QMD_TAILQ_CHECK_TAIL(/;"	d
+QMD_TRACE_ELEM	nc_queue.h	/^#define QMD_TRACE_ELEM(/;"	d
+QMD_TRACE_HEAD	nc_queue.h	/^#define QMD_TRACE_HEAD(/;"	d
+QUEUE_MACRO_ASSERT	nc_queue.h	/^# define QUEUE_MACRO_ASSERT /;"	d
+QUEUE_MACRO_SCRUB	nc_queue.h	/^#define QUEUE_MACRO_SCRUB /;"	d
+QUEUE_MACRO_TRACE	nc_queue.h	/^# define QUEUE_MACRO_TRACE /;"	d
+RANDOM_CONTINUUM_ADDITION	hashkit/nc_random.c	/^#define RANDOM_CONTINUUM_ADDITION /;"	d	file:
+RANDOM_POINTS_PER_SERVER	hashkit/nc_random.c	/^#define RANDOM_POINTS_PER_SERVER /;"	d	file:
+RANLIB	Makefile	/^RANLIB = ranlib$/;"	m
+RANLIB	event/Makefile	/^RANLIB = ranlib$/;"	m
+RANLIB	hashkit/Makefile	/^RANLIB = ranlib$/;"	m
+RANLIB	proto/Makefile	/^RANLIB = ranlib$/;"	m
+RECURSIVE_CLEAN_TARGETS	Makefile	/^RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\\$/;"	m
+RECURSIVE_TARGETS	Makefile	/^RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \\$/;"	m
+RESERVED_FDS	nc_core.h	/^#define RESERVED_FDS /;"	d
+ROLE_MASTER	nc_core.h	/^#define ROLE_MASTER /;"	d
+ROLE_WORKER	nc_core.h	/^#define ROLE_WORKER /;"	d
+RSP_STRING	proto/nc_redis.c	/^#define RSP_STRING(/;"	d	file:
+SED	Makefile	/^SED = \/usr\/bin\/sed$/;"	m
+SED	event/Makefile	/^SED = \/usr\/bin\/sed$/;"	m
+SED	hashkit/Makefile	/^SED = \/usr\/bin\/sed$/;"	m
+SED	proto/Makefile	/^SED = \/usr\/bin\/sed$/;"	m
+SET	hashkit/nc_md5.c	/^#define SET(/;"	d	file:
+SET_MAKE	Makefile	/^SET_MAKE = $/;"	m
+SET_MAKE	event/Makefile	/^SET_MAKE = $/;"	m
+SET_MAKE	hashkit/Makefile	/^SET_MAKE = $/;"	m
+SET_MAKE	proto/Makefile	/^SET_MAKE = $/;"	m
+SHELL	Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	event/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	hashkit/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SHELL	proto/Makefile	/^SHELL = \/bin\/sh$/;"	m
+SLIST_EMPTY	nc_queue.h	/^#define SLIST_EMPTY(/;"	d
+SLIST_ENTRY	nc_queue.h	/^#define SLIST_ENTRY(/;"	d
+SLIST_FIRST	nc_queue.h	/^#define SLIST_FIRST(/;"	d
+SLIST_FOREACH	nc_queue.h	/^#define SLIST_FOREACH(/;"	d
+SLIST_FOREACH_PREVPTR	nc_queue.h	/^#define SLIST_FOREACH_PREVPTR(/;"	d
+SLIST_FOREACH_SAFE	nc_queue.h	/^#define SLIST_FOREACH_SAFE(/;"	d
+SLIST_HEAD	nc_queue.h	/^#define SLIST_HEAD(/;"	d
+SLIST_HEAD_INITIALIZER	nc_queue.h	/^#define SLIST_HEAD_INITIALIZER(/;"	d
+SLIST_INIT	nc_queue.h	/^#define SLIST_INIT(/;"	d
+SLIST_INSERT_AFTER	nc_queue.h	/^#define SLIST_INSERT_AFTER(/;"	d
+SLIST_INSERT_HEAD	nc_queue.h	/^#define SLIST_INSERT_HEAD(/;"	d
+SLIST_NEXT	nc_queue.h	/^#define SLIST_NEXT(/;"	d
+SLIST_REMOVE	nc_queue.h	/^#define SLIST_REMOVE(/;"	d
+SLIST_REMOVE_AFTER	nc_queue.h	/^#define SLIST_REMOVE_AFTER(/;"	d
+SLIST_REMOVE_HEAD	nc_queue.h	/^#define SLIST_REMOVE_HEAD(/;"	d
+SOURCES	Makefile	/^SOURCES = $(nutcracker_SOURCES)$/;"	m
+SOURCES	event/Makefile	/^SOURCES = $(libevent_a_SOURCES)$/;"	m
+SOURCES	hashkit/Makefile	/^SOURCES = $(libhashkit_a_SOURCES)$/;"	m
+SOURCES	proto/Makefile	/^SOURCES = $(libproto_a_SOURCES)$/;"	m
+SQUARE	nc_util.h	/^#define SQUARE(/;"	d
+STAILQ_CONCAT	nc_queue.h	/^#define STAILQ_CONCAT(/;"	d
+STAILQ_EMPTY	nc_queue.h	/^#define STAILQ_EMPTY(/;"	d
+STAILQ_ENTRY	nc_queue.h	/^#define STAILQ_ENTRY(/;"	d
+STAILQ_FIRST	nc_queue.h	/^#define STAILQ_FIRST(/;"	d
+STAILQ_FOREACH	nc_queue.h	/^#define STAILQ_FOREACH(/;"	d
+STAILQ_FOREACH_SAFE	nc_queue.h	/^#define STAILQ_FOREACH_SAFE(/;"	d
+STAILQ_HEAD	nc_queue.h	/^#define STAILQ_HEAD(/;"	d
+STAILQ_HEAD_INITIALIZER	nc_queue.h	/^#define STAILQ_HEAD_INITIALIZER(/;"	d
+STAILQ_INIT	nc_queue.h	/^#define STAILQ_INIT(/;"	d
+STAILQ_INSERT_AFTER	nc_queue.h	/^#define STAILQ_INSERT_AFTER(/;"	d
+STAILQ_INSERT_HEAD	nc_queue.h	/^#define STAILQ_INSERT_HEAD(/;"	d
+STAILQ_INSERT_TAIL	nc_queue.h	/^#define STAILQ_INSERT_TAIL(/;"	d
+STAILQ_LAST	nc_queue.h	/^#define STAILQ_LAST(/;"	d
+STAILQ_NEXT	nc_queue.h	/^#define STAILQ_NEXT(/;"	d
+STAILQ_REMOVE	nc_queue.h	/^#define STAILQ_REMOVE(/;"	d
+STAILQ_REMOVE_AFTER	nc_queue.h	/^#define STAILQ_REMOVE_AFTER(/;"	d
+STAILQ_REMOVE_HEAD	nc_queue.h	/^#define STAILQ_REMOVE_HEAD(/;"	d
+STAILQ_SWAP	nc_queue.h	/^#define STAILQ_SWAP(/;"	d
+STATS_ADDR	nc_stats.h	/^#define STATS_ADDR /;"	d
+STATS_COUNTER	nc_stats.h	/^    STATS_COUNTER,    \/* monotonic accumulator *\/$/;"	e	enum:stats_type
+STATS_GAUGE	nc_stats.h	/^    STATS_GAUGE,      \/* non-monotonic accumulator *\/$/;"	e	enum:stats_type
+STATS_INTERVAL	nc_stats.h	/^#define STATS_INTERVAL /;"	d
+STATS_INVALID	nc_stats.h	/^    STATS_INVALID,$/;"	e	enum:stats_type
+STATS_POOL_CODEC	nc_stats.h	/^    STATS_POOL_CODEC(DEFINE_ACTION)$/;"	e	enum:stats_pool_field
+STATS_POOL_CODEC	nc_stats.h	/^#define STATS_POOL_CODEC(/;"	d
+STATS_POOL_NFIELD	nc_stats.h	/^    STATS_POOL_NFIELD$/;"	e	enum:stats_pool_field
+STATS_PORT	nc_stats.h	/^#define STATS_PORT /;"	d
+STATS_SENTINEL	nc_stats.h	/^    STATS_SENTINEL$/;"	e	enum:stats_type
+STATS_SERVER_CODEC	nc_stats.h	/^    STATS_SERVER_CODEC(DEFINE_ACTION)$/;"	e	enum:stats_server_field
+STATS_SERVER_CODEC	nc_stats.h	/^#define STATS_SERVER_CODEC(/;"	d
+STATS_SERVER_NFIELD	nc_stats.h	/^    STATS_SERVER_NFIELD$/;"	e	enum:stats_server_field
+STATS_TIMESTAMP	nc_stats.h	/^    STATS_TIMESTAMP,  \/* monotonic timestamp (in nsec) *\/$/;"	e	enum:stats_type
+STDDEV	nc_util.h	/^#define STDDEV(/;"	d
+STEP	hashkit/nc_md5.c	/^#define STEP(/;"	d	file:
+STRIP	Makefile	/^STRIP = strip$/;"	m
+STRIP	event/Makefile	/^STRIP = strip$/;"	m
+STRIP	hashkit/Makefile	/^STRIP = strip$/;"	m
+STRIP	proto/Makefile	/^STRIP = strip$/;"	m
+SUBDIRS	Makefile	/^SUBDIRS = hashkit proto event$/;"	m
+TAILQ_CONCAT	nc_queue.h	/^#define TAILQ_CONCAT(/;"	d
+TAILQ_EMPTY	nc_queue.h	/^#define TAILQ_EMPTY(/;"	d
+TAILQ_ENTRY	nc_queue.h	/^#define TAILQ_ENTRY(/;"	d
+TAILQ_FIRST	nc_queue.h	/^#define TAILQ_FIRST(/;"	d
+TAILQ_FOREACH	nc_queue.h	/^#define TAILQ_FOREACH(/;"	d
+TAILQ_FOREACH_REVERSE	nc_queue.h	/^#define TAILQ_FOREACH_REVERSE(/;"	d
+TAILQ_FOREACH_REVERSE_SAFE	nc_queue.h	/^#define TAILQ_FOREACH_REVERSE_SAFE(/;"	d
+TAILQ_FOREACH_SAFE	nc_queue.h	/^#define TAILQ_FOREACH_SAFE(/;"	d
+TAILQ_HEAD	nc_queue.h	/^#define TAILQ_HEAD(/;"	d
+TAILQ_HEAD_INITIALIZER	nc_queue.h	/^#define TAILQ_HEAD_INITIALIZER(/;"	d
+TAILQ_INIT	nc_queue.h	/^#define TAILQ_INIT(/;"	d
+TAILQ_INSERT_AFTER	nc_queue.h	/^#define TAILQ_INSERT_AFTER(/;"	d
+TAILQ_INSERT_BEFORE	nc_queue.h	/^#define TAILQ_INSERT_BEFORE(/;"	d
+TAILQ_INSERT_HEAD	nc_queue.h	/^#define TAILQ_INSERT_HEAD(/;"	d
+TAILQ_INSERT_TAIL	nc_queue.h	/^#define TAILQ_INSERT_TAIL(/;"	d
+TAILQ_LAST	nc_queue.h	/^#define TAILQ_LAST(/;"	d
+TAILQ_NEXT	nc_queue.h	/^#define TAILQ_NEXT(/;"	d
+TAILQ_PREV	nc_queue.h	/^#define TAILQ_PREV(/;"	d
+TAILQ_REMOVE	nc_queue.h	/^#define TAILQ_REMOVE(/;"	d
+TAILQ_SWAP	nc_queue.h	/^#define TAILQ_SWAP(/;"	d
+TRACEBUF	nc_queue.h	/^#define TRACEBUF /;"	d
+TRACEBUF	nc_queue.h	/^#define TRACEBUF$/;"	d
+TRASHIT	nc_queue.h	/^#define TRASHIT(/;"	d
+VAR	nc_util.h	/^#define VAR(/;"	d
+VERSION	Makefile	/^VERSION = 0.4.1$/;"	m
+VERSION	event/Makefile	/^VERSION = 0.4.1$/;"	m
+VERSION	hashkit/Makefile	/^VERSION = 0.4.1$/;"	m
+VERSION	proto/Makefile	/^VERSION = 0.4.1$/;"	m
+_NC_ARRAY_H_	nc_array.h	/^#define _NC_ARRAY_H_$/;"	d
+_NC_CHANNEL_H_	nc_channel.h	/^#define _NC_CHANNEL_H_$/;"	d
+_NC_CLIENT_H_	nc_client.h	/^#define _NC_CLIENT_H_$/;"	d
+_NC_CONF_H_	nc_conf.h	/^#define _NC_CONF_H_$/;"	d
+_NC_CONNECTION_H_	nc_connection.h	/^#define _NC_CONNECTION_H_$/;"	d
+_NC_CORE_H_	nc_core.h	/^#define _NC_CORE_H_$/;"	d
+_NC_EVENT_H_	event/nc_event.h	/^#define _NC_EVENT_H_$/;"	d
+_NC_HASHKIT_H_	hashkit/nc_hashkit.h	/^#define _NC_HASHKIT_H_$/;"	d
+_NC_LOG_H_	nc_log.h	/^#define _NC_LOG_H_$/;"	d
+_NC_MBUF_H_	nc_mbuf.h	/^#define _NC_MBUF_H_$/;"	d
+_NC_MESSAGE_H_	nc_message.h	/^#define _NC_MESSAGE_H_$/;"	d
+_NC_PROCESS_H	nc_process.h	/^#define _NC_PROCESS_H$/;"	d
+_NC_PROTO_H_	proto/nc_proto.h	/^#define _NC_PROTO_H_$/;"	d
+_NC_PROXY_H_	nc_proxy.h	/^#define _NC_PROXY_H_$/;"	d
+_NC_QUEUE_H_	nc_queue.h	/^#define _NC_QUEUE_H_$/;"	d
+_NC_RBTREE_	nc_rbtree.h	/^#define _NC_RBTREE_$/;"	d
+_NC_SERVER_H_	nc_server.h	/^#define _NC_SERVER_H_$/;"	d
+_NC_SIGNAL_H_	nc_signal.h	/^#define _NC_SIGNAL_H_$/;"	d
+_NC_STATS_H_	nc_stats.h	/^#define _NC_STATS_H_$/;"	d
+_NC_STRING_H_	nc_string.h	/^#define _NC_STRING_H_$/;"	d
+_NC_UTIL_H_	nc_util.h	/^#define _NC_UTIL_H_$/;"	d
+__offsetof	nc_queue.h	/^#define __offsetof(/;"	d
+_conn_get	nc_connection.c	/^_conn_get(void)$/;"	f	file:
+_log	nc_log.c	/^_log(const char *file, int line, int panic, const char *fmt, ...)$/;"	f
+_log_hexdump	nc_log.c	/^_log_hexdump(const char *file, int line, char *data, int datalen,$/;"	f
+_log_safe	nc_log.c	/^_log_safe(const char *fmt, ...)$/;"	f
+_log_stderr	nc_log.c	/^_log_stderr(const char *fmt, ...)$/;"	f
+_log_stderr_safe	nc_log.c	/^_log_stderr_safe(const char *fmt, ...)$/;"	f
+_mbuf_get	nc_mbuf.c	/^_mbuf_get(void)$/;"	f	file:
+_msg_get	nc_message.c	/^_msg_get(void)$/;"	f	file:
+_nc_alloc	nc_util.c	/^_nc_alloc(size_t size, const char *name, int line)$/;"	f
+_nc_atoi	nc_util.c	/^_nc_atoi(uint8_t *line, size_t n)$/;"	f
+_nc_calloc	nc_util.c	/^_nc_calloc(size_t nmemb, size_t size, const char *name, int line)$/;"	f
+_nc_free	nc_util.c	/^_nc_free(void *ptr, const char *name, int line)$/;"	f
+_nc_realloc	nc_util.c	/^_nc_realloc(void *ptr, size_t size, const char *name, int line)$/;"	f
+_nc_recvn	nc_util.c	/^_nc_recvn(int sd, void *vptr, size_t n)$/;"	f
+_nc_sendn	nc_util.c	/^_nc_sendn(int sd, const void *vptr, size_t n)$/;"	f
+_nc_strchr	nc_string.h	/^_nc_strchr(uint8_t *p, uint8_t *last, uint8_t c)$/;"	f
+_nc_strrchr	nc_string.h	/^_nc_strrchr(uint8_t *p, uint8_t *start, uint8_t c)$/;"	f
+_nc_zalloc	nc_util.c	/^_nc_zalloc(size_t size, const char *name, int line)$/;"	f
+_safe_check_longlong	nc_string.c	/^_safe_check_longlong(const char *fmt, int32_t * have_longlong)$/;"	f	file:
+_safe_itoa	nc_string.c	/^_safe_itoa(int base, int64_t val, char *buf)$/;"	f	file:
+_safe_snprintf	nc_string.c	/^_safe_snprintf(char *to, size_t n, const char *fmt, ...)$/;"	f
+_safe_utoa	nc_string.c	/^_safe_utoa(int _base, uint64_t val, char *buf)$/;"	f	file:
+_safe_vsnprintf	nc_string.c	/^_safe_vsnprintf(char *to, size_t size, const char *format, va_list ap)$/;"	f
+_scnprintf	nc_util.c	/^_scnprintf(char *buf, size_t size, const char *fmt, ...)$/;"	f
+_stats_pool_decr	nc_stats.c	/^_stats_pool_decr(struct context *ctx, struct server_pool *pool,$/;"	f
+_stats_pool_decr_by	nc_stats.c	/^_stats_pool_decr_by(struct context *ctx, struct server_pool *pool,$/;"	f
+_stats_pool_incr	nc_stats.c	/^_stats_pool_incr(struct context *ctx, struct server_pool *pool,$/;"	f
+_stats_pool_incr_by	nc_stats.c	/^_stats_pool_incr_by(struct context *ctx, struct server_pool *pool,$/;"	f
+_stats_pool_set_ts	nc_stats.c	/^_stats_pool_set_ts(struct context *ctx, struct server_pool *pool,$/;"	f
+_stats_server_decr	nc_stats.c	/^_stats_server_decr(struct context *ctx, struct server *server,$/;"	f
+_stats_server_decr_by	nc_stats.c	/^_stats_server_decr_by(struct context *ctx, struct server *server,$/;"	f
+_stats_server_incr	nc_stats.c	/^_stats_server_incr(struct context *ctx, struct server *server,$/;"	f
+_stats_server_incr_by	nc_stats.c	/^_stats_server_incr_by(struct context *ctx, struct server *server,$/;"	f
+_stats_server_set_ts	nc_stats.c	/^_stats_server_set_ts(struct context *ctx, struct server *server,$/;"	f
+_vscnprintf	nc_util.c	/^_vscnprintf(char *buf, size_t size, const char *fmt, va_list args)$/;"	f
+a	hashkit/nc_md5.c	/^    MD5_u32plus a, b, c, d;$/;"	m	struct:__anon1	file:
+abs_builddir	Makefile	/^abs_builddir = \/Users\/hulk\/code\/c_code\/twemproxy\/src$/;"	m
+abs_builddir	event/Makefile	/^abs_builddir = \/Users\/hulk\/code\/c_code\/twemproxy\/src\/event$/;"	m
+abs_builddir	hashkit/Makefile	/^abs_builddir = \/Users\/hulk\/code\/c_code\/twemproxy\/src\/hashkit$/;"	m
+abs_builddir	proto/Makefile	/^abs_builddir = \/Users\/hulk\/code\/c_code\/twemproxy\/src\/proto$/;"	m
+abs_srcdir	Makefile	/^abs_srcdir = \/Users\/hulk\/code\/c_code\/twemproxy\/src$/;"	m
+abs_srcdir	event/Makefile	/^abs_srcdir = \/Users\/hulk\/code\/c_code\/twemproxy\/src\/event$/;"	m
+abs_srcdir	hashkit/Makefile	/^abs_srcdir = \/Users\/hulk\/code\/c_code\/twemproxy\/src\/hashkit$/;"	m
+abs_srcdir	proto/Makefile	/^abs_srcdir = \/Users\/hulk\/code\/c_code\/twemproxy\/src\/proto$/;"	m
+abs_top_builddir	Makefile	/^abs_top_builddir = \/Users\/hulk\/code\/c_code\/twemproxy$/;"	m
+abs_top_builddir	event/Makefile	/^abs_top_builddir = \/Users\/hulk\/code\/c_code\/twemproxy$/;"	m
+abs_top_builddir	hashkit/Makefile	/^abs_top_builddir = \/Users\/hulk\/code\/c_code\/twemproxy$/;"	m
+abs_top_builddir	proto/Makefile	/^abs_top_builddir = \/Users\/hulk\/code\/c_code\/twemproxy$/;"	m
+abs_top_srcdir	Makefile	/^abs_top_srcdir = \/Users\/hulk\/code\/c_code\/twemproxy$/;"	m
+abs_top_srcdir	event/Makefile	/^abs_top_srcdir = \/Users\/hulk\/code\/c_code\/twemproxy$/;"	m
+abs_top_srcdir	hashkit/Makefile	/^abs_top_srcdir = \/Users\/hulk\/code\/c_code\/twemproxy$/;"	m
+abs_top_srcdir	proto/Makefile	/^abs_top_srcdir = \/Users\/hulk\/code\/c_code\/twemproxy$/;"	m
+ac_ct_AR	Makefile	/^ac_ct_AR = ar$/;"	m
+ac_ct_AR	event/Makefile	/^ac_ct_AR = ar$/;"	m
+ac_ct_AR	hashkit/Makefile	/^ac_ct_AR = ar$/;"	m
+ac_ct_AR	proto/Makefile	/^ac_ct_AR = ar$/;"	m
+ac_ct_CC	Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CC	event/Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CC	hashkit/Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CC	proto/Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CXX	Makefile	/^ac_ct_CXX = g++$/;"	m
+ac_ct_CXX	event/Makefile	/^ac_ct_CXX = g++$/;"	m
+ac_ct_CXX	hashkit/Makefile	/^ac_ct_CXX = g++$/;"	m
+ac_ct_CXX	proto/Makefile	/^ac_ct_CXX = g++$/;"	m
+ac_ct_DUMPBIN	Makefile	/^ac_ct_DUMPBIN = $/;"	m
+ac_ct_DUMPBIN	event/Makefile	/^ac_ct_DUMPBIN = $/;"	m
+ac_ct_DUMPBIN	hashkit/Makefile	/^ac_ct_DUMPBIN = $/;"	m
+ac_ct_DUMPBIN	proto/Makefile	/^ac_ct_DUMPBIN = $/;"	m
+active	nc_connection.h	/^    conn_active_t       active;          \/* active? handler *\/$/;"	m	struct:conn
+add_auth	nc_message.h	/^    msg_add_auth_t       add_auth;        \/* add auth message when we forward msg *\/$/;"	m	struct:msg
+addr	nc_connection.h	/^    struct sockaddr     *addr;           \/* socket address (ref in server or server_pool) *\/$/;"	m	struct:conn	typeref:struct:conn::sockaddr
+addr	nc_stats.h	/^    struct string       addr;            \/* stats monitoring address *\/$/;"	m	struct:stats	typeref:struct:stats::string
+addr	nc_util.h	/^    } addr;$/;"	m	struct:sockinfo	typeref:union:sockinfo::__anon3
+addrlen	nc_connection.h	/^    socklen_t           addrlen;         \/* socket length *\/$/;"	m	struct:conn
+addrlen	nc_util.h	/^    socklen_t addrlen;             \/* socket address length *\/$/;"	m	struct:sockinfo
+addrstr	nc_conf.h	/^    struct string   addrstr;    \/* hostname *\/$/;"	m	struct:conf_server	typeref:struct:conf_server::string
+addrstr	nc_server.h	/^    struct string      addrstr;              \/* pool address - hostname:port (ref in conf_pool) *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::string
+addrstr	nc_server.h	/^    struct string      addrstr;       \/* hostname (ref in conf_server) *\/$/;"	m	struct:server	typeref:struct:server::string
+aggregate	nc_stats.h	/^    volatile int        aggregate;       \/* shadow (b) aggregate? *\/$/;"	m	struct:stats
+am__DIST_COMMON	Makefile	/^am__DIST_COMMON = $(srcdir)\/Makefile.in $(top_srcdir)\/config\/depcomp$/;"	m
+am__DIST_COMMON	event/Makefile	/^am__DIST_COMMON = $(srcdir)\/Makefile.in $(top_srcdir)\/config\/depcomp$/;"	m
+am__DIST_COMMON	hashkit/Makefile	/^am__DIST_COMMON = $(srcdir)\/Makefile.in $(top_srcdir)\/config\/depcomp$/;"	m
+am__DIST_COMMON	proto/Makefile	/^am__DIST_COMMON = $(srcdir)\/Makefile.in $(top_srcdir)\/config\/depcomp$/;"	m
+am__aclocal_m4_deps	Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/m4\/libtool.m4 \\$/;"	m
+am__aclocal_m4_deps	event/Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/m4\/libtool.m4 \\$/;"	m
+am__aclocal_m4_deps	hashkit/Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/m4\/libtool.m4 \\$/;"	m
+am__aclocal_m4_deps	proto/Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/m4\/libtool.m4 \\$/;"	m
+am__append_1	Makefile	/^am__append_1 = -D_GNU_SOURCE$/;"	m
+am__can_run_installinfo	Makefile	/^am__can_run_installinfo = \\$/;"	m
+am__can_run_installinfo	event/Makefile	/^am__can_run_installinfo = \\$/;"	m
+am__can_run_installinfo	hashkit/Makefile	/^am__can_run_installinfo = \\$/;"	m
+am__can_run_installinfo	proto/Makefile	/^am__can_run_installinfo = \\$/;"	m
+am__cd	Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__cd	event/Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__cd	hashkit/Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__cd	proto/Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__configure_deps	Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__configure_deps	event/Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__configure_deps	hashkit/Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__configure_deps	proto/Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__define_uniq_tagged_files	Makefile	/^am__define_uniq_tagged_files = \\$/;"	m
+am__define_uniq_tagged_files	event/Makefile	/^am__define_uniq_tagged_files = \\$/;"	m
+am__define_uniq_tagged_files	hashkit/Makefile	/^am__define_uniq_tagged_files = \\$/;"	m
+am__define_uniq_tagged_files	proto/Makefile	/^am__define_uniq_tagged_files = \\$/;"	m
+am__depfiles_maybe	Makefile	/^am__depfiles_maybe = depfiles$/;"	m
+am__depfiles_maybe	event/Makefile	/^am__depfiles_maybe = depfiles$/;"	m
+am__depfiles_maybe	hashkit/Makefile	/^am__depfiles_maybe = depfiles$/;"	m
+am__depfiles_maybe	proto/Makefile	/^am__depfiles_maybe = depfiles$/;"	m
+am__include	Makefile	/^am__include = include$/;"	m
+am__include	event/Makefile	/^am__include = include$/;"	m
+am__include	hashkit/Makefile	/^am__include = include$/;"	m
+am__include	proto/Makefile	/^am__include = include$/;"	m
+am__installdirs	Makefile	/^am__installdirs = "$(DESTDIR)$(sbindir)"$/;"	m
+am__is_gnu_make	Makefile	/^am__is_gnu_make = { \\$/;"	m
+am__is_gnu_make	event/Makefile	/^am__is_gnu_make = { \\$/;"	m
+am__is_gnu_make	hashkit/Makefile	/^am__is_gnu_make = { \\$/;"	m
+am__is_gnu_make	proto/Makefile	/^am__is_gnu_make = { \\$/;"	m
+am__leading_dot	Makefile	/^am__leading_dot = .$/;"	m
+am__leading_dot	event/Makefile	/^am__leading_dot = .$/;"	m
+am__leading_dot	hashkit/Makefile	/^am__leading_dot = .$/;"	m
+am__leading_dot	proto/Makefile	/^am__leading_dot = .$/;"	m
+am__make_dryrun	Makefile	/^am__make_dryrun = (target_option=n; $(am__make_running_with_option))$/;"	m
+am__make_dryrun	event/Makefile	/^am__make_dryrun = (target_option=n; $(am__make_running_with_option))$/;"	m
+am__make_dryrun	hashkit/Makefile	/^am__make_dryrun = (target_option=n; $(am__make_running_with_option))$/;"	m
+am__make_dryrun	proto/Makefile	/^am__make_dryrun = (target_option=n; $(am__make_running_with_option))$/;"	m
+am__make_keepgoing	Makefile	/^am__make_keepgoing = (target_option=k; $(am__make_running_with_option))$/;"	m
+am__make_keepgoing	event/Makefile	/^am__make_keepgoing = (target_option=k; $(am__make_running_with_option))$/;"	m
+am__make_keepgoing	hashkit/Makefile	/^am__make_keepgoing = (target_option=k; $(am__make_running_with_option))$/;"	m
+am__make_keepgoing	proto/Makefile	/^am__make_keepgoing = (target_option=k; $(am__make_running_with_option))$/;"	m
+am__make_running_with_option	Makefile	/^am__make_running_with_option = \\$/;"	m
+am__make_running_with_option	event/Makefile	/^am__make_running_with_option = \\$/;"	m
+am__make_running_with_option	hashkit/Makefile	/^am__make_running_with_option = \\$/;"	m
+am__make_running_with_option	proto/Makefile	/^am__make_running_with_option = \\$/;"	m
+am__mv	Makefile	/^am__mv = mv -f$/;"	m
+am__mv	event/Makefile	/^am__mv = mv -f$/;"	m
+am__mv	hashkit/Makefile	/^am__mv = mv -f$/;"	m
+am__mv	proto/Makefile	/^am__mv = mv -f$/;"	m
+am__quote	Makefile	/^am__quote = $/;"	m
+am__quote	event/Makefile	/^am__quote = $/;"	m
+am__quote	hashkit/Makefile	/^am__quote = $/;"	m
+am__quote	proto/Makefile	/^am__quote = $/;"	m
+am__recursive_targets	Makefile	/^am__recursive_targets = \\$/;"	m
+am__relativize	Makefile	/^am__relativize = \\$/;"	m
+am__tagged_files	Makefile	/^am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)$/;"	m
+am__tagged_files	event/Makefile	/^am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)$/;"	m
+am__tagged_files	hashkit/Makefile	/^am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)$/;"	m
+am__tagged_files	proto/Makefile	/^am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)$/;"	m
+am__tar	Makefile	/^am__tar = $${TAR-tar} chof - "$$tardir"$/;"	m
+am__tar	event/Makefile	/^am__tar = $${TAR-tar} chof - "$$tardir"$/;"	m
+am__tar	hashkit/Makefile	/^am__tar = $${TAR-tar} chof - "$$tardir"$/;"	m
+am__tar	proto/Makefile	/^am__tar = $${TAR-tar} chof - "$$tardir"$/;"	m
+am__uniquify_input	Makefile	/^am__uniquify_input = $(AWK) '\\$/;"	m
+am__uniquify_input	event/Makefile	/^am__uniquify_input = $(AWK) '\\$/;"	m
+am__uniquify_input	hashkit/Makefile	/^am__uniquify_input = $(AWK) '\\$/;"	m
+am__uniquify_input	proto/Makefile	/^am__uniquify_input = $(AWK) '\\$/;"	m
+am__untar	Makefile	/^am__untar = $${TAR-tar} xf -$/;"	m
+am__untar	event/Makefile	/^am__untar = $${TAR-tar} xf -$/;"	m
+am__untar	hashkit/Makefile	/^am__untar = $${TAR-tar} xf -$/;"	m
+am__untar	proto/Makefile	/^am__untar = $${TAR-tar} xf -$/;"	m
+am__v_AR_	event/Makefile	/^am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_AR_	hashkit/Makefile	/^am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_AR_	proto/Makefile	/^am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_AR_0	event/Makefile	/^am__v_AR_0 = @echo "  AR      " $@;$/;"	m
+am__v_AR_0	hashkit/Makefile	/^am__v_AR_0 = @echo "  AR      " $@;$/;"	m
+am__v_AR_0	proto/Makefile	/^am__v_AR_0 = @echo "  AR      " $@;$/;"	m
+am__v_AR_1	event/Makefile	/^am__v_AR_1 = $/;"	m
+am__v_AR_1	hashkit/Makefile	/^am__v_AR_1 = $/;"	m
+am__v_AR_1	proto/Makefile	/^am__v_AR_1 = $/;"	m
+am__v_CCLD_	Makefile	/^am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CCLD_	event/Makefile	/^am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CCLD_	hashkit/Makefile	/^am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CCLD_	proto/Makefile	/^am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CCLD_0	Makefile	/^am__v_CCLD_0 = @echo "  CCLD    " $@;$/;"	m
+am__v_CCLD_0	event/Makefile	/^am__v_CCLD_0 = @echo "  CCLD    " $@;$/;"	m
+am__v_CCLD_0	hashkit/Makefile	/^am__v_CCLD_0 = @echo "  CCLD    " $@;$/;"	m
+am__v_CCLD_0	proto/Makefile	/^am__v_CCLD_0 = @echo "  CCLD    " $@;$/;"	m
+am__v_CCLD_1	Makefile	/^am__v_CCLD_1 = $/;"	m
+am__v_CCLD_1	event/Makefile	/^am__v_CCLD_1 = $/;"	m
+am__v_CCLD_1	hashkit/Makefile	/^am__v_CCLD_1 = $/;"	m
+am__v_CCLD_1	proto/Makefile	/^am__v_CCLD_1 = $/;"	m
+am__v_CC_	Makefile	/^am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CC_	event/Makefile	/^am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CC_	hashkit/Makefile	/^am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CC_	proto/Makefile	/^am__v_CC_ = $(am__v_CC_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_CC_0	Makefile	/^am__v_CC_0 = @echo "  CC      " $@;$/;"	m
+am__v_CC_0	event/Makefile	/^am__v_CC_0 = @echo "  CC      " $@;$/;"	m
+am__v_CC_0	hashkit/Makefile	/^am__v_CC_0 = @echo "  CC      " $@;$/;"	m
+am__v_CC_0	proto/Makefile	/^am__v_CC_0 = @echo "  CC      " $@;$/;"	m
+am__v_CC_1	Makefile	/^am__v_CC_1 = $/;"	m
+am__v_CC_1	event/Makefile	/^am__v_CC_1 = $/;"	m
+am__v_CC_1	hashkit/Makefile	/^am__v_CC_1 = $/;"	m
+am__v_CC_1	proto/Makefile	/^am__v_CC_1 = $/;"	m
+am__v_GEN_	Makefile	/^am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_GEN_	event/Makefile	/^am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_GEN_	hashkit/Makefile	/^am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_GEN_	proto/Makefile	/^am__v_GEN_ = $(am__v_GEN_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_GEN_0	Makefile	/^am__v_GEN_0 = @echo "  GEN     " $@;$/;"	m
+am__v_GEN_0	event/Makefile	/^am__v_GEN_0 = @echo "  GEN     " $@;$/;"	m
+am__v_GEN_0	hashkit/Makefile	/^am__v_GEN_0 = @echo "  GEN     " $@;$/;"	m
+am__v_GEN_0	proto/Makefile	/^am__v_GEN_0 = @echo "  GEN     " $@;$/;"	m
+am__v_GEN_1	Makefile	/^am__v_GEN_1 = $/;"	m
+am__v_GEN_1	event/Makefile	/^am__v_GEN_1 = $/;"	m
+am__v_GEN_1	hashkit/Makefile	/^am__v_GEN_1 = $/;"	m
+am__v_GEN_1	proto/Makefile	/^am__v_GEN_1 = $/;"	m
+am__v_P_	Makefile	/^am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_P_	event/Makefile	/^am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_P_	hashkit/Makefile	/^am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_P_	proto/Makefile	/^am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_P_0	Makefile	/^am__v_P_0 = false$/;"	m
+am__v_P_0	event/Makefile	/^am__v_P_0 = false$/;"	m
+am__v_P_0	hashkit/Makefile	/^am__v_P_0 = false$/;"	m
+am__v_P_0	proto/Makefile	/^am__v_P_0 = false$/;"	m
+am__v_P_1	Makefile	/^am__v_P_1 = :$/;"	m
+am__v_P_1	event/Makefile	/^am__v_P_1 = :$/;"	m
+am__v_P_1	hashkit/Makefile	/^am__v_P_1 = :$/;"	m
+am__v_P_1	proto/Makefile	/^am__v_P_1 = :$/;"	m
+am__v_at_	Makefile	/^am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_at_	event/Makefile	/^am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_at_	hashkit/Makefile	/^am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_at_	proto/Makefile	/^am__v_at_ = $(am__v_at_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_at_0	Makefile	/^am__v_at_0 = @$/;"	m
+am__v_at_0	event/Makefile	/^am__v_at_0 = @$/;"	m
+am__v_at_0	hashkit/Makefile	/^am__v_at_0 = @$/;"	m
+am__v_at_0	proto/Makefile	/^am__v_at_0 = @$/;"	m
+am__v_at_1	Makefile	/^am__v_at_1 = $/;"	m
+am__v_at_1	event/Makefile	/^am__v_at_1 = $/;"	m
+am__v_at_1	hashkit/Makefile	/^am__v_at_1 = $/;"	m
+am__v_at_1	proto/Makefile	/^am__v_at_1 = $/;"	m
+am__v_lt_	Makefile	/^am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_lt_	event/Makefile	/^am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_lt_	hashkit/Makefile	/^am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_lt_	proto/Makefile	/^am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))$/;"	m
+am__v_lt_0	Makefile	/^am__v_lt_0 = --silent$/;"	m
+am__v_lt_0	event/Makefile	/^am__v_lt_0 = --silent$/;"	m
+am__v_lt_0	hashkit/Makefile	/^am__v_lt_0 = --silent$/;"	m
+am__v_lt_0	proto/Makefile	/^am__v_lt_0 = --silent$/;"	m
+am__v_lt_1	Makefile	/^am__v_lt_1 = $/;"	m
+am__v_lt_1	event/Makefile	/^am__v_lt_1 = $/;"	m
+am__v_lt_1	hashkit/Makefile	/^am__v_lt_1 = $/;"	m
+am__v_lt_1	proto/Makefile	/^am__v_lt_1 = $/;"	m
+am_libevent_a_OBJECTS	event/Makefile	/^am_libevent_a_OBJECTS = nc_epoll.$(OBJEXT) nc_kqueue.$(OBJEXT) \\$/;"	m
+am_libhashkit_a_OBJECTS	hashkit/Makefile	/^am_libhashkit_a_OBJECTS = nc_crc16.$(OBJEXT) nc_crc32.$(OBJEXT) \\$/;"	m
+am_libproto_a_OBJECTS	proto/Makefile	/^am_libproto_a_OBJECTS = nc_memcache.$(OBJEXT) nc_redis.$(OBJEXT)$/;"	m
+am_nutcracker_OBJECTS	Makefile	/^am_nutcracker_OBJECTS = nc_core.$(OBJEXT) nc_connection.$(OBJEXT) \\$/;"	m
+arg	nc_conf.h	/^    struct array       arg;              \/* string[] (parsed {key, value} pairs) *\/$/;"	m	struct:conf	typeref:struct:conf::array
+array	nc_array.h	/^struct array {$/;"	s
+array_compare_t	nc_array.h	/^typedef int (*array_compare_t)(const void *, const void *);$/;"	t
+array_create	nc_array.c	/^array_create(uint32_t n, size_t size)$/;"	f
+array_deinit	nc_array.c	/^array_deinit(struct array *a)$/;"	f
+array_destroy	nc_array.c	/^array_destroy(struct array *a)$/;"	f
+array_each	nc_array.c	/^array_each(struct array *a, array_each_t func, void *data)$/;"	f
+array_each_t	nc_array.h	/^typedef rstatus_t (*array_each_t)(void *, void *);$/;"	t
+array_get	nc_array.c	/^array_get(struct array *a, uint32_t idx)$/;"	f
+array_idx	nc_array.c	/^array_idx(struct array *a, void *elem)$/;"	f
+array_init	nc_array.c	/^array_init(struct array *a, uint32_t n, size_t size)$/;"	f
+array_n	nc_array.h	/^array_n(const struct array *a)$/;"	f
+array_null	nc_array.h	/^array_null(struct array *a)$/;"	f
+array_pop	nc_array.c	/^array_pop(struct array *a)$/;"	f
+array_push	nc_array.c	/^array_push(struct array *a)$/;"	f
+array_set	nc_array.h	/^array_set(struct array *a, void *elem, size_t size, uint32_t nalloc)$/;"	f
+array_sort	nc_array.c	/^array_sort(struct array *a, array_compare_t compare)$/;"	f
+array_swap	nc_array.c	/^array_swap(struct array *a, struct array *b)$/;"	f
+array_top	nc_array.c	/^array_top(struct array *a)$/;"	f
+authenticated	nc_connection.h	/^    unsigned            authenticated:1; \/* authenticated? *\/$/;"	m	struct:conn
+auto_eject_hosts	nc_conf.h	/^    int                auto_eject_hosts;      \/* auto_eject_hosts: *\/$/;"	m	struct:conf_pool
+auto_eject_hosts	nc_server.h	/^    unsigned           auto_eject_hosts:1;   \/* auto_eject_hosts? *\/$/;"	m	struct:server_pool
+b	hashkit/nc_md5.c	/^    MD5_u32plus a, b, c, d;$/;"	m	struct:__anon1	file:
+backlog	nc_conf.h	/^    int                backlog;               \/* backlog: *\/$/;"	m	struct:conf_pool
+backlog	nc_server.h	/^    int                backlog;              \/* listen backlog *\/$/;"	m	struct:server_pool
+bindir	Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+bindir	event/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+bindir	hashkit/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+bindir	proto/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+block	hashkit/nc_md5.c	/^    MD5_u32plus block[16];$/;"	m	struct:__anon1	file:
+body	hashkit/nc_md5.c	/^body(MD5_CTX *ctx, void *data, unsigned long size)$/;"	f	file:
+buf	nc_stats.h	/^    struct stats_buffer buf;             \/* output buffer *\/$/;"	m	struct:stats	typeref:struct:stats::stats_buffer
+buffer	hashkit/nc_md5.c	/^    unsigned char buffer[64];$/;"	m	struct:__anon1	file:
+build	Makefile	/^build = x86_64-apple-darwin16.7.0$/;"	m
+build	event/Makefile	/^build = x86_64-apple-darwin16.7.0$/;"	m
+build	hashkit/Makefile	/^build = x86_64-apple-darwin16.7.0$/;"	m
+build	proto/Makefile	/^build = x86_64-apple-darwin16.7.0$/;"	m
+build_alias	Makefile	/^build_alias = $/;"	m
+build_alias	event/Makefile	/^build_alias = $/;"	m
+build_alias	hashkit/Makefile	/^build_alias = $/;"	m
+build_alias	proto/Makefile	/^build_alias = $/;"	m
+build_cpu	Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	event/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	hashkit/Makefile	/^build_cpu = x86_64$/;"	m
+build_cpu	proto/Makefile	/^build_cpu = x86_64$/;"	m
+build_os	Makefile	/^build_os = darwin16.7.0$/;"	m
+build_os	event/Makefile	/^build_os = darwin16.7.0$/;"	m
+build_os	hashkit/Makefile	/^build_os = darwin16.7.0$/;"	m
+build_os	proto/Makefile	/^build_os = darwin16.7.0$/;"	m
+build_triplet	Makefile	/^build_triplet = x86_64-apple-darwin16.7.0$/;"	m
+build_triplet	event/Makefile	/^build_triplet = x86_64-apple-darwin16.7.0$/;"	m
+build_triplet	hashkit/Makefile	/^build_triplet = x86_64-apple-darwin16.7.0$/;"	m
+build_triplet	proto/Makefile	/^build_triplet = x86_64-apple-darwin16.7.0$/;"	m
+build_vendor	Makefile	/^build_vendor = apple$/;"	m
+build_vendor	event/Makefile	/^build_vendor = apple$/;"	m
+build_vendor	hashkit/Makefile	/^build_vendor = apple$/;"	m
+build_vendor	proto/Makefile	/^build_vendor = apple$/;"	m
+builddir	Makefile	/^builddir = .$/;"	m
+builddir	event/Makefile	/^builddir = .$/;"	m
+builddir	hashkit/Makefile	/^builddir = .$/;"	m
+builddir	proto/Makefile	/^builddir = .$/;"	m
+c	hashkit/nc_md5.c	/^    MD5_u32plus a, b, c, d;$/;"	m	struct:__anon1	file:
+c_conn_q	nc_server.h	/^    struct conn_tqh    c_conn_q;             \/* client connection q *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::conn_tqh
+c_tqe	nc_message.h	/^    TAILQ_ENTRY(msg)     c_tqe;           \/* link in client q *\/$/;"	m	struct:msg
+cb	event/nc_event.h	/^    event_cb_t         cb;      \/* event callback *\/$/;"	m	struct:event_base
+cb	event/nc_event.h	/^    event_cb_t    cb;          \/* event callback *\/$/;"	m	struct:event_base
+cb	event/nc_event.h	/^    event_cb_t   cb;      \/* event callback *\/$/;"	m	struct:event_base
+cb	event/nc_event.h	/^    event_cb_t cb;$/;"	m	struct:ev_data
+cf	nc_core.h	/^    struct conf        *cf;         \/* configuration *\/$/;"	m	struct:context	typeref:struct:context::conf
+chan	nc_core.h	/^    struct channel*  chan;$/;"	m	struct:instance	typeref:struct:instance::channel
+chan_msg	nc_channel.h	/^struct chan_msg {$/;"	s
+change	event/nc_event.h	/^    struct kevent  *change;     \/* change[] - events we want to monitor *\/$/;"	m	struct:event_base	typeref:struct:event_base::kevent
+channel	nc_channel.h	/^struct channel {$/;"	s
+channel_error	nc_channel.c	/^channel_error(void *evb, void *priv)$/;"	f	file:
+channel_event_cb	nc_channel.c	/^channel_event_cb(void *evb, void *priv, uint32_t events)$/;"	f	file:
+channel_recv	nc_channel.c	/^channel_recv(void *evb, void *priv)$/;"	f	file:
+channel_send	nc_channel.c	/^channel_send(void  *evb, void *priv)$/;"	f	file:
+client	nc_connection.h	/^    unsigned            client:1;        \/* client? or server? *\/$/;"	m	struct:conn
+client_active	nc_client.c	/^client_active(struct conn *conn)$/;"	f
+client_close	nc_client.c	/^client_close(struct context *ctx, struct conn *conn)$/;"	f
+client_close_stats	nc_client.c	/^client_close_stats(struct context *ctx, struct server_pool *pool, err_t err,$/;"	f	file:
+client_connections	nc_conf.h	/^    int                client_connections;    \/* client_connections: *\/$/;"	m	struct:conf_pool
+client_connections	nc_server.h	/^    uint32_t           client_connections;   \/* maximum # client connection *\/$/;"	m	struct:server_pool
+client_ref	nc_client.c	/^client_ref(struct conn *conn, void *owner)$/;"	f
+client_unref	nc_client.c	/^client_unref(struct conn *conn)$/;"	f
+close	nc_connection.h	/^    conn_close_t        close;           \/* close handler *\/$/;"	m	struct:conn
+color	nc_rbtree.h	/^    uint8_t       color;     \/* red | black *\/$/;"	m	struct:rbnode
+command	nc_channel.h	/^    int command;$/;"	m	struct:chan_msg
+command	nc_conf.h	/^struct command {$/;"	s
+conf	nc_conf.h	/^struct conf {$/;"	s
+conf_add_server	nc_conf.c	/^conf_add_server(struct conf *cf, struct command *cmd, void *conf)$/;"	f
+conf_begin_parse	nc_conf.c	/^conf_begin_parse(struct conf *cf)$/;"	f	file:
+conf_create	nc_conf.c	/^conf_create(char *filename)$/;"	f
+conf_destroy	nc_conf.c	/^conf_destroy(struct conf *cf)$/;"	f
+conf_dump	nc_conf.c	/^conf_dump(struct conf *cf)$/;"	f	file:
+conf_end_parse	nc_conf.c	/^conf_end_parse(struct conf *cf)$/;"	f	file:
+conf_event_done	nc_conf.c	/^conf_event_done(struct conf *cf)$/;"	f	file:
+conf_event_next	nc_conf.c	/^conf_event_next(struct conf *cf)$/;"	f	file:
+conf_filename	nc_core.h	/^    char             *conf_filename;              \/* configuration filename *\/$/;"	m	struct:instance
+conf_global	nc_conf.h	/^struct conf_global {$/;"	s
+conf_global_commands	nc_conf.c	/^static struct command conf_global_commands[] = {$/;"	v	typeref:struct:command	file:
+conf_handler	nc_conf.c	/^conf_handler(struct conf *cf, void *data)$/;"	f	file:
+conf_listen	nc_conf.h	/^struct conf_listen {$/;"	s
+conf_open	nc_conf.c	/^conf_open(char *filename)$/;"	f	file:
+conf_parse	nc_conf.c	/^conf_parse(struct conf *cf)$/;"	f	file:
+conf_parse_global_section	nc_conf.c	/^conf_parse_global_section(struct conf *cf)$/;"	f	file:
+conf_parse_pools_section	nc_conf.c	/^conf_parse_pools_section(struct conf *cf, void *data)$/;"	f	file:
+conf_pool	nc_conf.h	/^struct conf_pool {$/;"	s
+conf_pool_commands	nc_conf.c	/^static struct command conf_pool_commands[] = {$/;"	v	typeref:struct:command	file:
+conf_pool_deinit	nc_conf.c	/^conf_pool_deinit(struct conf_pool *cp)$/;"	f	file:
+conf_pool_each_transform	nc_conf.c	/^conf_pool_each_transform(void *elem, void *data)$/;"	f
+conf_pool_init	nc_conf.c	/^conf_pool_init(struct conf_pool *cp, struct string *name)$/;"	f	file:
+conf_pool_listen_cmp	nc_conf.c	/^conf_pool_listen_cmp(const void *t1, const void *t2)$/;"	f	file:
+conf_pool_name_cmp	nc_conf.c	/^conf_pool_name_cmp(const void *t1, const void *t2)$/;"	f	file:
+conf_pop_scalar	nc_conf.c	/^conf_pop_scalar(struct conf *cf)$/;"	f	file:
+conf_post_validate	nc_conf.c	/^conf_post_validate(struct conf *cf)$/;"	f	file:
+conf_pre_validate	nc_conf.c	/^conf_pre_validate(struct conf *cf)$/;"	f	file:
+conf_push_scalar	nc_conf.c	/^conf_push_scalar(struct conf *cf)$/;"	f	file:
+conf_server	nc_conf.h	/^struct conf_server {$/;"	s
+conf_server_deinit	nc_conf.c	/^conf_server_deinit(struct conf_server *cs)$/;"	f	file:
+conf_server_each_transform	nc_conf.c	/^conf_server_each_transform(void *elem, void *data)$/;"	f
+conf_server_init	nc_conf.c	/^conf_server_init(struct conf_server *cs)$/;"	f	file:
+conf_server_name_cmp	nc_conf.c	/^conf_server_name_cmp(const void *t1, const void *t2)$/;"	f	file:
+conf_set_bool	nc_conf.c	/^conf_set_bool(struct conf *cf, struct command *cmd, void *conf)$/;"	f
+conf_set_distribution	nc_conf.c	/^conf_set_distribution(struct conf *cf, struct command *cmd, void *conf)$/;"	f
+conf_set_hash	nc_conf.c	/^conf_set_hash(struct conf *cf, struct command *cmd, void *conf)$/;"	f
+conf_set_hashtag	nc_conf.c	/^conf_set_hashtag(struct conf *cf, struct command *cmd, void *conf)$/;"	f
+conf_set_listen	nc_conf.c	/^conf_set_listen(struct conf *cf, struct command *cmd, void *conf)$/;"	f
+conf_set_num	nc_conf.c	/^conf_set_num(struct conf *cf, struct command *cmd, void *conf)$/;"	f
+conf_set_string	nc_conf.c	/^conf_set_string(struct conf *cf, struct command *cmd, void *conf)$/;"	f
+conf_token_done	nc_conf.c	/^conf_token_done(struct conf *cf)$/;"	f	file:
+conf_token_next	nc_conf.c	/^conf_token_next(struct conf *cf)$/;"	f	file:
+conf_validate_document	nc_conf.c	/^conf_validate_document(struct conf *cf)$/;"	f	file:
+conf_validate_pool	nc_conf.c	/^conf_validate_pool(struct conf *cf, struct conf_pool *cp)$/;"	f	file:
+conf_validate_server	nc_conf.c	/^conf_validate_server(struct conf *cf, struct conf_pool *cp)$/;"	f	file:
+conf_validate_structure	nc_conf.c	/^conf_validate_structure(struct conf *cf)$/;"	f	file:
+conf_validate_tokens	nc_conf.c	/^conf_validate_tokens(struct conf *cf)$/;"	f	file:
+conf_yaml_deinit	nc_conf.c	/^conf_yaml_deinit(struct conf *cf)$/;"	f	file:
+conf_yaml_init	nc_conf.c	/^conf_yaml_init(struct conf *cf)$/;"	f	file:
+conn	nc_connection.h	/^struct conn {$/;"	s
+conn_active_t	nc_connection.h	/^typedef bool (*conn_active_t)(struct conn *);$/;"	t
+conn_authenticated	nc_connection.c	/^conn_authenticated(struct conn *conn)$/;"	f
+conn_close_t	nc_connection.h	/^typedef void (*conn_close_t)(struct context *, struct conn *);$/;"	t
+conn_deinit	nc_connection.c	/^conn_deinit(void)$/;"	f
+conn_free	nc_connection.c	/^conn_free(struct conn *conn)$/;"	f	file:
+conn_get	nc_connection.c	/^conn_get(void *owner, bool client, bool redis)$/;"	f
+conn_get_proxy	nc_connection.c	/^conn_get_proxy(void *owner)$/;"	f
+conn_init	nc_connection.c	/^conn_init(void)$/;"	f
+conn_msgq_t	nc_connection.h	/^typedef void (*conn_msgq_t)(struct context *, struct conn *, struct msg *);$/;"	t
+conn_ncurr_cconn	nc_connection.c	/^conn_ncurr_cconn(void)$/;"	f
+conn_ncurr_conn	nc_connection.c	/^conn_ncurr_conn(void)$/;"	f
+conn_ntotal_conn	nc_connection.c	/^conn_ntotal_conn(void)$/;"	f
+conn_post_connect_t	nc_connection.h	/^typedef void (*conn_post_connect_t)(struct context *ctx, struct conn *, struct server *server);$/;"	t
+conn_put	nc_connection.c	/^conn_put(struct conn *conn)$/;"	f
+conn_recv	nc_connection.c	/^conn_recv(struct conn *conn, void *buf, size_t size)$/;"	f
+conn_recv_done_t	nc_connection.h	/^typedef void (*conn_recv_done_t)(struct context *, struct conn *, struct msg *, struct msg *);$/;"	t
+conn_recv_next_t	nc_connection.h	/^typedef struct msg* (*conn_recv_next_t)(struct context *, struct conn *, bool);$/;"	t	typeref:struct:conn_recv_next_t
+conn_recv_t	nc_connection.h	/^typedef rstatus_t (*conn_recv_t)(struct context *, struct conn*);$/;"	t
+conn_ref_t	nc_connection.h	/^typedef void (*conn_ref_t)(struct conn *, void *);$/;"	t
+conn_send_done_t	nc_connection.h	/^typedef void (*conn_send_done_t)(struct context *, struct conn *, struct msg *);$/;"	t
+conn_send_next_t	nc_connection.h	/^typedef struct msg* (*conn_send_next_t)(struct context *, struct conn *);$/;"	t	typeref:struct:conn_send_next_t
+conn_send_t	nc_connection.h	/^typedef rstatus_t (*conn_send_t)(struct context *, struct conn*);$/;"	t
+conn_sendv	nc_connection.c	/^conn_sendv(struct conn *conn, struct array *sendv, size_t nsend)$/;"	f
+conn_swallow_msg_t	nc_connection.h	/^typedef void (*conn_swallow_msg_t)(struct conn *, struct msg *, struct msg *);$/;"	t
+conn_to_ctx	nc_connection.c	/^conn_to_ctx(struct conn *conn)$/;"	f
+conn_tqe	nc_connection.h	/^    TAILQ_ENTRY(conn)   conn_tqe;        \/* link in server_pool \/ server \/ free q *\/$/;"	m	struct:conn
+conn_unref_t	nc_connection.h	/^typedef void (*conn_unref_t)(struct conn *);$/;"	t
+connected	nc_connection.h	/^    unsigned            connected:1;     \/* connected? *\/$/;"	m	struct:conn
+connecting	nc_connection.h	/^    unsigned            connecting:1;    \/* connecting? *\/$/;"	m	struct:conn
+context	nc_core.h	/^struct context {$/;"	s
+continuum	nc_server.h	/^    struct continuum   *continuum;           \/* continuum *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::continuum
+continuum	nc_server.h	/^struct continuum {$/;"	s
+core_calc_connections	nc_core.c	/^core_calc_connections(struct context *ctx)$/;"	f	file:
+core_close	nc_core.c	/^core_close(struct context *ctx, struct conn *conn)$/;"	f	file:
+core_core	nc_core.c	/^core_core(void *evb, void *arg, uint32_t events)$/;"	f
+core_ctx_create	nc_core.c	/^core_ctx_create(struct instance *nci) {$/;"	f
+core_ctx_destroy	nc_core.c	/^core_ctx_destroy(struct context *ctx)$/;"	f	file:
+core_error	nc_core.c	/^core_error(struct context *ctx, struct conn *conn)$/;"	f	file:
+core_init_instance	nc_core.c	/^core_init_instance(struct instance *nci){$/;"	f
+core_init_listener	nc_core.c	/^core_init_listener(struct instance *nci) {$/;"	f
+core_loop	nc_core.c	/^core_loop(struct context *ctx)$/;"	f
+core_recv	nc_core.c	/^core_recv(struct context *ctx, struct conn *conn)$/;"	f	file:
+core_send	nc_core.c	/^core_send(struct context *ctx, struct conn *conn)$/;"	f	file:
+core_start	nc_core.c	/^core_start(struct instance *nci)$/;"	f
+core_stop	nc_core.c	/^core_stop(struct context *ctx)$/;"	f
+core_timeout	nc_core.c	/^core_timeout(struct context *ctx)$/;"	f	file:
+counter	nc_stats.h	/^        int64_t   counter;      \/* accumulating counter *\/$/;"	m	union:stats_metric::__anon2
+crc16tab	hashkit/nc_crc16.c	/^static const uint16_t crc16tab[256] = {$/;"	v	file:
+crc32tab	hashkit/nc_crc32.c	/^static const uint32_t crc32tab[256] = {$/;"	v	file:
+ctx	nc_core.h	/^    struct context   *ctx;                        \/* active context *\/$/;"	m	struct:instance	typeref:struct:instance::context
+ctx	nc_server.h	/^    struct context     *ctx;                 \/* owner context *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::context
+ctx_id	nc_core.c	/^static uint32_t ctx_id; \/* context generation *\/$/;"	v	file:
+current	nc_stats.h	/^    struct array        current;         \/* stats_pool[] (a) *\/$/;"	m	struct:stats	typeref:struct:stats::array
+d	hashkit/nc_md5.c	/^    MD5_u32plus a, b, c, d;$/;"	m	struct:__anon1	file:
+daemonize	nc.c	/^static int daemonize;$/;"	v	file:
+data	nc_rbtree.h	/^    void          *data;     \/* opaque data *\/$/;"	m	struct:rbnode
+data	nc_stats.h	/^    uint8_t  *data; \/* buffer data *\/$/;"	m	struct:stats_buffer
+data	nc_string.h	/^    uint8_t  *data; \/* string data *\/$/;"	m	struct:string
+datadir	Makefile	/^datadir = ${datarootdir}$/;"	m
+datadir	event/Makefile	/^datadir = ${datarootdir}$/;"	m
+datadir	hashkit/Makefile	/^datadir = ${datarootdir}$/;"	m
+datadir	proto/Makefile	/^datadir = ${datarootdir}$/;"	m
+datarootdir	Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+datarootdir	event/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+datarootdir	hashkit/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+datarootdir	proto/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+depcomp	Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/config\/depcomp$/;"	m
+depcomp	event/Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/config\/depcomp$/;"	m
+depcomp	hashkit/Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/config\/depcomp$/;"	m
+depcomp	proto/Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/config\/depcomp$/;"	m
+depth	nc_conf.h	/^    uint32_t           depth;            \/* parsed tree depth *\/$/;"	m	struct:conf
+dequeue_inq	nc_connection.h	/^    conn_msgq_t         dequeue_inq;     \/* connection inq msg dequeue handler *\/$/;"	m	struct:conn
+dequeue_outq	nc_connection.h	/^    conn_msgq_t         dequeue_outq;    \/* connection outq msg dequeue handler *\/$/;"	m	struct:conn
+desc	nc_stats.c	/^    char *desc; \/* stats description *\/$/;"	m	struct:stats_desc	file:
+describe_stats	nc.c	/^static int describe_stats;$/;"	v	file:
+dist_strings	nc_conf.c	/^static struct string dist_strings[] = {$/;"	v	typeref:struct:string	file:
+dist_type	hashkit/nc_hashkit.h	/^typedef enum dist_type {$/;"	g
+dist_type	nc_server.h	/^    int                dist_type;            \/* distribution type (dist_type_t) *\/$/;"	m	struct:server_pool
+dist_type_t	hashkit/nc_hashkit.h	/^} dist_type_t;$/;"	t	typeref:enum:dist_type
+distribution	nc_conf.h	/^    dist_type_t        distribution;          \/* distribution: *\/$/;"	m	struct:conf_pool
+docdir	Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+docdir	event/Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+docdir	hashkit/Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+docdir	proto/Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+done	nc_connection.h	/^    unsigned            done:1;          \/* done? aka close? *\/$/;"	m	struct:conn
+done	nc_message.h	/^    unsigned             done:1;          \/* done? *\/$/;"	m	struct:msg
+dvidir	Makefile	/^dvidir = ${docdir}$/;"	m
+dvidir	event/Makefile	/^dvidir = ${docdir}$/;"	m
+dvidir	hashkit/Makefile	/^dvidir = ${docdir}$/;"	m
+dvidir	proto/Makefile	/^dvidir = ${docdir}$/;"	m
+elem	nc_array.h	/^    void     *elem;  \/* element *\/$/;"	m	struct:array
+end	nc_mbuf.h	/^    uint8_t            *end;    \/* end of buffer (const) *\/$/;"	m	struct:mbuf
+end	nc_message.h	/^    uint8_t              *end;            \/* end marker (memcache) *\/$/;"	m	struct:msg
+end	nc_message.h	/^    uint8_t             *end;             \/* key end pos *\/$/;"	m	struct:keypos
+enqueue_inq	nc_connection.h	/^    conn_msgq_t         enqueue_inq;     \/* connection inq msg enqueue handler *\/$/;"	m	struct:conn
+enqueue_outq	nc_connection.h	/^    conn_msgq_t         enqueue_outq;    \/* connection outq msg enqueue handler *\/$/;"	m	struct:conn
+eof	nc_connection.h	/^    unsigned            eof:1;           \/* eof? aka passive close? *\/$/;"	m	struct:conn
+ep	event/nc_event.h	/^    int                 ep;      \/* epoll descriptor *\/$/;"	m	struct:event_base
+err	nc_connection.h	/^    err_t               err;             \/* connection errno *\/$/;"	m	struct:conn
+err	nc_message.h	/^    err_t                err;             \/* errno on error? *\/$/;"	m	struct:msg
+err_t	nc_core.h	/^typedef int err_t;     \/* error type *\/$/;"	t
+error	nc_message.h	/^    unsigned             error:1;         \/* error? *\/$/;"	m	struct:msg
+ev_data	event/nc_event.h	/^struct ev_data {$/;"	s
+evb	nc_core.h	/^    struct event_base  *evb;        \/* event base *\/$/;"	m	struct:context	typeref:struct:context::event_base
+evd	event/nc_event.h	/^    struct ev_data     *evd;    \/* event_data[] - data that stored for event *\/$/;"	m	struct:event_base	typeref:struct:event_base::ev_data
+evd	event/nc_event.h	/^    struct ev_data *evd;        \/* event_data[] - data that stored for event *\/$/;"	m	struct:event_base	typeref:struct:event_base::ev_data
+event	event/nc_event.h	/^    port_event_t *event;  \/* event[] - events that were triggered *\/$/;"	m	struct:event_base
+event	event/nc_event.h	/^    struct epoll_event *event;  \/* event[] - events that were triggered *\/$/;"	m	struct:event_base	typeref:struct:event_base::epoll_event
+event	event/nc_event.h	/^    struct kevent  *event;      \/* event[] - events that were triggered *\/$/;"	m	struct:event_base	typeref:struct:event_base::kevent
+event	nc_conf.h	/^    yaml_event_t       event;            \/* yaml event *\/$/;"	m	struct:conf
+event_add	event/nc_epoll.c	/^event_add(struct event_base *evb, int fd, int mask, event_cb_t cb, void *priv)$/;"	f
+event_add	event/nc_kqueue.c	/^event_add(struct event_base *evb, int fd, int mask, event_cb_t cb, void *priv)$/;"	f
+event_add_conn	event/nc_epoll.c	/^event_add_conn(struct event_base *evb, struct conn *c)$/;"	f
+event_add_conn	event/nc_evport.c	/^event_add_conn(struct event_base *evb, struct conn *c)$/;"	f
+event_add_conn	event/nc_kqueue.c	/^event_add_conn(struct event_base *evb, struct conn *c)$/;"	f
+event_add_in	event/nc_epoll.c	/^event_add_in(struct event_base *evb, struct conn *c)$/;"	f
+event_add_in	event/nc_evport.c	/^event_add_in(struct event_base *evb, struct conn *c)$/;"	f
+event_add_in	event/nc_kqueue.c	/^event_add_in(struct event_base *evb, struct conn *c)$/;"	f
+event_add_out	event/nc_epoll.c	/^event_add_out(struct event_base *evb, struct conn *c)$/;"	f
+event_add_out	event/nc_evport.c	/^event_add_out(struct event_base *evb, struct conn *c)$/;"	f
+event_add_out	event/nc_kqueue.c	/^event_add_out(struct event_base *evb, struct conn *c)$/;"	f
+event_base	event/nc_event.h	/^struct event_base {$/;"	s
+event_base_create	event/nc_epoll.c	/^event_base_create(int nevent, event_cb_t cb)$/;"	f
+event_base_create	event/nc_evport.c	/^event_base_create(int nevent, event_cb_t cb)$/;"	f
+event_base_create	event/nc_kqueue.c	/^event_base_create(int nevent, event_cb_t cb)$/;"	f
+event_base_destroy	event/nc_epoll.c	/^event_base_destroy(struct event_base *evb)$/;"	f
+event_base_destroy	event/nc_evport.c	/^event_base_destroy(struct event_base *evb)$/;"	f
+event_base_destroy	event/nc_kqueue.c	/^event_base_destroy(struct event_base *evb)$/;"	f
+event_base_need_resize	event/nc_epoll.c	/^event_base_need_resize(struct event_base *evb, int fd)$/;"	f	file:
+event_base_need_resize	event/nc_kqueue.c	/^event_base_need_resize(struct event_base *evb, int fd)$/;"	f	file:
+event_cb_t	event/nc_event.h	/^typedef int (*event_cb_t)(void *, void *, uint32_t);$/;"	t
+event_del	event/nc_epoll.c	/^event_del(struct event_base *evb, int fd, int delmask)$/;"	f
+event_del	event/nc_kqueue.c	/^event_del(struct event_base *evb, int fd, int mask)$/;"	f
+event_del_conn	event/nc_epoll.c	/^event_del_conn(struct event_base *evb, struct conn *c)$/;"	f
+event_del_conn	event/nc_evport.c	/^event_del_conn(struct event_base *evb, struct conn *c)$/;"	f
+event_del_conn	event/nc_kqueue.c	/^event_del_conn(struct event_base *evb, struct conn *c)$/;"	f
+event_del_in	event/nc_epoll.c	/^event_del_in(struct event_base *evb, struct conn *c)$/;"	f
+event_del_in	event/nc_evport.c	/^event_del_in(struct event_base *evb, struct conn *c)$/;"	f
+event_del_in	event/nc_kqueue.c	/^event_del_in(struct event_base *evb, struct conn *c)$/;"	f
+event_del_out	event/nc_epoll.c	/^event_del_out(struct event_base *evb, struct conn *c)$/;"	f
+event_del_out	event/nc_evport.c	/^event_del_out(struct event_base *evb, struct conn *c)$/;"	f
+event_del_out	event/nc_kqueue.c	/^event_del_out(struct event_base *evb, struct conn *c)$/;"	f
+event_loop_stats	event/nc_epoll.c	/^event_loop_stats(event_stats_cb_t cb, void *arg)$/;"	f
+event_loop_stats	event/nc_evport.c	/^event_loop_stats(event_stats_cb_t cb, void *arg)$/;"	f
+event_loop_stats	event/nc_kqueue.c	/^event_loop_stats(event_stats_cb_t cb, void *arg)$/;"	f
+event_reassociate	event/nc_evport.c	/^event_reassociate(struct event_base *evb, struct conn *c)$/;"	f	file:
+event_stats_cb_t	event/nc_event.h	/^typedef void (*event_stats_cb_t)(void *, void *);$/;"	t
+event_wait	event/nc_epoll.c	/^event_wait(struct event_base *evb, int timeout)$/;"	f
+event_wait	event/nc_evport.c	/^event_wait(struct event_base *evb, int timeout)$/;"	f
+event_wait	event/nc_kqueue.c	/^event_wait(struct event_base *evb, int timeout)$/;"	f
+events	nc_connection.h	/^    uint32_t            events;          \/* connection io events *\/$/;"	m	struct:conn
+evp	event/nc_event.h	/^    int          evp;     \/* event port descriptor *\/$/;"	m	struct:event_base
+exec_prefix	Makefile	/^exec_prefix = ${prefix}$/;"	m
+exec_prefix	event/Makefile	/^exec_prefix = ${prefix}$/;"	m
+exec_prefix	hashkit/Makefile	/^exec_prefix = ${prefix}$/;"	m
+exec_prefix	proto/Makefile	/^exec_prefix = ${prefix}$/;"	m
+failure	nc_message.h	/^    msg_failure_t        failure;         \/* transient failure response? *\/$/;"	m	struct:msg
+failure_count	nc_server.h	/^    uint32_t           failure_count; \/* # consecutive failures *\/$/;"	m	struct:server
+family	nc_connection.h	/^    int                 family;          \/* socket address family *\/$/;"	m	struct:conn
+family	nc_util.h	/^    int       family;              \/* socket address family *\/$/;"	m	struct:sockinfo
+fd	nc_log.h	/^    int  fd;     \/* log file descriptor *\/$/;"	m	struct:logger
+fdone	nc_message.h	/^    unsigned             fdone:1;         \/* all fragments are done? *\/$/;"	m	struct:msg
+fds	nc_channel.h	/^    int fds[2];$/;"	m	struct:channel
+ferror	nc_message.h	/^    unsigned             ferror:1;        \/* one or more fragments are in error? *\/$/;"	m	struct:msg
+fh	nc_conf.h	/^    FILE               *fh;              \/* file handle *\/$/;"	m	struct:conf
+final	hashkit/nc_jenkins.c	/^#define final(/;"	d	file:
+flags	nc_signal.h	/^    int  flags;$/;"	m	struct:signal
+fname	nc_conf.h	/^    char               *fname;           \/* file name (ref in argv[]) *\/$/;"	m	struct:conf
+frag_id	nc_message.c	/^static uint64_t frag_id;         \/* fragment id counter *\/$/;"	v	file:
+frag_id	nc_message.h	/^    uint64_t             frag_id;         \/* id of fragmented message *\/$/;"	m	struct:msg
+frag_owner	nc_message.h	/^    struct msg           *frag_owner;     \/* owner of fragment message *\/$/;"	m	struct:msg	typeref:struct:msg::msg
+frag_seq	nc_message.h	/^    struct msg           **frag_seq;      \/* sequence of fragment message, map from keys to fragments*\/$/;"	m	struct:msg	typeref:struct:msg::msg
+fragment	nc_message.h	/^    msg_fragment_t       fragment;        \/* message fragment *\/$/;"	m	struct:msg
+free_connq	nc_connection.c	/^static struct conn_tqh free_connq; \/* free conn q *\/$/;"	v	typeref:struct:conn_tqh	file:
+free_mbufq	nc_mbuf.c	/^static struct mhdr free_mbufq; \/* free mbuf q *\/$/;"	v	typeref:struct:mhdr	file:
+free_msgq	nc_message.c	/^static struct msg_tqh free_msgq; \/* free msg q *\/$/;"	v	typeref:struct:msg_tqh	file:
+get16bits	hashkit/nc_hsieh.c	/^#define get16bits(/;"	d	file:
+get16bits	hashkit/nc_hsieh.c	/^#undef get16bits$/;"	d	file:
+global	nc_conf.h	/^    struct conf_global global;           \/\/ global conf$/;"	m	struct:conf	typeref:struct:conf::conf_global
+handler	nc_signal.h	/^    void (*handler)(int signo);$/;"	m	struct:signal
+hash	nc_conf.h	/^    hash_type_t        hash;                  \/* hash: *\/$/;"	m	struct:conf_pool
+hash_algos	nc_conf.c	/^static hash_t hash_algos[] = {$/;"	v	file:
+hash_crc16	hashkit/nc_crc16.c	/^hash_crc16(const char *key, size_t key_length)$/;"	f
+hash_crc32	hashkit/nc_crc32.c	/^hash_crc32(const char *key, size_t key_length)$/;"	f
+hash_crc32a	hashkit/nc_crc32.c	/^hash_crc32a(const char *key, size_t key_length)$/;"	f
+hash_fnv1_32	hashkit/nc_fnv.c	/^hash_fnv1_32(const char *key, size_t key_length)$/;"	f
+hash_fnv1_64	hashkit/nc_fnv.c	/^hash_fnv1_64(const char *key, size_t key_length)$/;"	f
+hash_fnv1a_32	hashkit/nc_fnv.c	/^hash_fnv1a_32(const char *key, size_t key_length)$/;"	f
+hash_fnv1a_64	hashkit/nc_fnv.c	/^hash_fnv1a_64(const char *key, size_t key_length)$/;"	f
+hash_hsieh	hashkit/nc_hsieh.c	/^hash_hsieh(const char *key, size_t key_length)$/;"	f
+hash_jenkins	hashkit/nc_jenkins.c	/^hash_jenkins(const char *key, size_t length)$/;"	f
+hash_md5	hashkit/nc_md5.c	/^hash_md5(const char *key, size_t key_length)$/;"	f
+hash_murmur	hashkit/nc_murmur.c	/^hash_murmur(const char *key, size_t length)$/;"	f
+hash_one_at_a_time	hashkit/nc_one_at_a_time.c	/^hash_one_at_a_time(const char *key, size_t key_length)$/;"	f
+hash_strings	nc_conf.c	/^static struct string hash_strings[] = {$/;"	v	typeref:struct:string	file:
+hash_t	nc_server.h	/^typedef uint32_t (*hash_t)(const char *, size_t);$/;"	t
+hash_tag	nc_conf.h	/^    struct string      hash_tag;              \/* hash_tag: *\/$/;"	m	struct:conf_pool	typeref:struct:conf_pool::string
+hash_tag	nc_server.h	/^    struct string      hash_tag;             \/* key hash tag (ref in conf_pool) *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::string
+hash_type	hashkit/nc_hashkit.h	/^typedef enum hash_type {$/;"	g
+hash_type_t	hashkit/nc_hashkit.h	/^} hash_type_t;$/;"	t	typeref:enum:hash_type
+hashmask	hashkit/nc_jenkins.c	/^#define hashmask(/;"	d	file:
+hashsize	hashkit/nc_jenkins.c	/^#define hashsize(/;"	d	file:
+hi	hashkit/nc_md5.c	/^    MD5_u32plus lo, hi;$/;"	m	struct:__anon1	file:
+host	Makefile	/^host = x86_64-apple-darwin16.7.0$/;"	m
+host	event/Makefile	/^host = x86_64-apple-darwin16.7.0$/;"	m
+host	hashkit/Makefile	/^host = x86_64-apple-darwin16.7.0$/;"	m
+host	proto/Makefile	/^host = x86_64-apple-darwin16.7.0$/;"	m
+host_alias	Makefile	/^host_alias = $/;"	m
+host_alias	event/Makefile	/^host_alias = $/;"	m
+host_alias	hashkit/Makefile	/^host_alias = $/;"	m
+host_alias	proto/Makefile	/^host_alias = $/;"	m
+host_cpu	Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	event/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	hashkit/Makefile	/^host_cpu = x86_64$/;"	m
+host_cpu	proto/Makefile	/^host_cpu = x86_64$/;"	m
+host_os	Makefile	/^host_os = darwin16.7.0$/;"	m
+host_os	event/Makefile	/^host_os = darwin16.7.0$/;"	m
+host_os	hashkit/Makefile	/^host_os = darwin16.7.0$/;"	m
+host_os	proto/Makefile	/^host_os = darwin16.7.0$/;"	m
+host_triplet	Makefile	/^host_triplet = x86_64-apple-darwin16.7.0$/;"	m
+host_triplet	event/Makefile	/^host_triplet = x86_64-apple-darwin16.7.0$/;"	m
+host_triplet	hashkit/Makefile	/^host_triplet = x86_64-apple-darwin16.7.0$/;"	m
+host_triplet	proto/Makefile	/^host_triplet = x86_64-apple-darwin16.7.0$/;"	m
+host_vendor	Makefile	/^host_vendor = apple$/;"	m
+host_vendor	event/Makefile	/^host_vendor = apple$/;"	m
+host_vendor	hashkit/Makefile	/^host_vendor = apple$/;"	m
+host_vendor	proto/Makefile	/^host_vendor = apple$/;"	m
+hostname	nc_core.h	/^    char             hostname[NC_MAXHOSTNAMELEN]; \/* hostname *\/$/;"	m	struct:instance
+htmldir	Makefile	/^htmldir = ${docdir}$/;"	m
+htmldir	event/Makefile	/^htmldir = ${docdir}$/;"	m
+htmldir	hashkit/Makefile	/^htmldir = ${docdir}$/;"	m
+htmldir	proto/Makefile	/^htmldir = ${docdir}$/;"	m
+id	nc_core.h	/^    uint32_t           id;          \/* unique context id *\/$/;"	m	struct:context
+id	nc_message.h	/^    uint64_t             id;              \/* message id *\/$/;"	m	struct:msg
+idx	nc_server.h	/^    uint32_t           idx;                  \/* pool index *\/$/;"	m	struct:server_pool
+idx	nc_server.h	/^    uint32_t           idx;           \/* server index *\/$/;"	m	struct:server
+imsg_q	nc_connection.h	/^    struct msg_tqh      imsg_q;          \/* incoming request Q *\/$/;"	m	struct:conn	typeref:struct:conn::msg_tqh
+in	nc_util.h	/^        struct sockaddr_in  in;    \/* ipv4 socket address *\/$/;"	m	union:sockinfo::__anon3	typeref:struct:sockinfo::__anon3::sockaddr_in
+in6	nc_util.h	/^        struct sockaddr_in6 in6;   \/* ipv6 socket address *\/$/;"	m	union:sockinfo::__anon3	typeref:struct:sockinfo::__anon3::sockaddr_in6
+includedir	Makefile	/^includedir = ${prefix}\/include$/;"	m
+includedir	event/Makefile	/^includedir = ${prefix}\/include$/;"	m
+includedir	hashkit/Makefile	/^includedir = ${prefix}\/include$/;"	m
+includedir	proto/Makefile	/^includedir = ${prefix}\/include$/;"	m
+index	nc_server.h	/^    uint32_t index;  \/* server index *\/$/;"	m	struct:continuum
+info	nc_conf.h	/^    struct sockinfo info;       \/* connect socket info *\/$/;"	m	struct:conf_server	typeref:struct:conf_server::sockinfo
+info	nc_conf.h	/^    struct sockinfo info;    \/* listen socket info *\/$/;"	m	struct:conf_listen	typeref:struct:conf_listen::sockinfo
+info	nc_server.h	/^    struct sockinfo    info;                 \/* listen socket info *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::sockinfo
+info	nc_server.h	/^    struct sockinfo    info;          \/* server socket info *\/$/;"	m	struct:server	typeref:struct:server::sockinfo
+infodir	Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+infodir	event/Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+infodir	hashkit/Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+infodir	proto/Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+install_sh	Makefile	/^install_sh = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/install-sh$/;"	m
+install_sh	event/Makefile	/^install_sh = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/install-sh$/;"	m
+install_sh	hashkit/Makefile	/^install_sh = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/install-sh$/;"	m
+install_sh	proto/Makefile	/^install_sh = ${SHELL} \/Users\/hulk\/code\/c_code\/twemproxy\/config\/install-sh$/;"	m
+install_sh_DATA	Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_DATA	event/Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_DATA	hashkit/Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_DATA	proto/Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_PROGRAM	Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_PROGRAM	event/Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_PROGRAM	hashkit/Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_PROGRAM	proto/Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	event/Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	hashkit/Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	proto/Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+instance	nc_core.h	/^struct instance {$/;"	s
+integer	nc_message.h	/^    uint32_t             integer;         \/* integer reply value (redis) *\/$/;"	m	struct:msg
+interval	nc_stats.h	/^    int                 interval;        \/* stats aggregation interval *\/$/;"	m	struct:stats
+ketama_dispatch	hashkit/nc_ketama.c	/^ketama_dispatch(struct continuum *continuum, uint32_t ncontinuum, uint32_t hash)$/;"	f
+ketama_hash	hashkit/nc_ketama.c	/^ketama_hash(const char *key, size_t key_length, uint32_t alignment)$/;"	f	file:
+ketama_item_cmp	hashkit/nc_ketama.c	/^ketama_item_cmp(const void *t1, const void *t2)$/;"	f	file:
+ketama_update	hashkit/nc_ketama.c	/^ketama_update(struct server_pool *pool)$/;"	f
+key	nc_rbtree.h	/^    int64_t       key;       \/* key for ordering *\/$/;"	m	struct:rbnode
+key_hash	nc_server.h	/^    hash_t             key_hash;             \/* key hasher *\/$/;"	m	struct:server_pool
+key_hash_type	nc_server.h	/^    int                key_hash_type;        \/* key hash type (hash_type_t) *\/$/;"	m	struct:server_pool
+keypos	nc_message.h	/^struct keypos {$/;"	s
+keys	nc_message.h	/^    struct array         *keys;           \/* array of keypos, for req *\/$/;"	m	struct:msg	typeref:struct:msg::array
+kq	event/nc_event.h	/^    int            kq;          \/* kernel event queue descriptor *\/$/;"	m	struct:event_base
+last	nc_mbuf.h	/^    uint8_t            *last;   \/* write marker *\/$/;"	m	struct:mbuf
+lastfile	nc_queue.h	/^    char *lastfile;$/;"	m	struct:qm_trace
+lastline	nc_queue.h	/^    int  lastline;$/;"	m	struct:qm_trace
+left	nc_rbtree.h	/^    struct rbnode *left;     \/* left link *\/$/;"	m	struct:rbnode	typeref:struct:rbnode::rbnode
+len	nc_stats.h	/^    size_t   len;   \/* buffer length *\/$/;"	m	struct:stats_buffer
+len	nc_string.h	/^    uint32_t len;   \/* string length *\/$/;"	m	struct:string
+level	nc_log.h	/^    int  level;  \/* log level *\/$/;"	m	struct:logger
+libdir	Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libdir	event/Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libdir	hashkit/Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libdir	proto/Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libevent_a_AR	event/Makefile	/^libevent_a_AR = $(AR) $(ARFLAGS)$/;"	m
+libevent_a_LIBADD	event/Makefile	/^libevent_a_LIBADD =$/;"	m
+libevent_a_OBJECTS	event/Makefile	/^libevent_a_OBJECTS = $(am_libevent_a_OBJECTS)$/;"	m
+libevent_a_SOURCES	event/Makefile	/^libevent_a_SOURCES = \\$/;"	m
+libexecdir	Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+libexecdir	event/Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+libexecdir	hashkit/Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+libexecdir	proto/Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+libhashkit_a_AR	hashkit/Makefile	/^libhashkit_a_AR = $(AR) $(ARFLAGS)$/;"	m
+libhashkit_a_LIBADD	hashkit/Makefile	/^libhashkit_a_LIBADD =$/;"	m
+libhashkit_a_OBJECTS	hashkit/Makefile	/^libhashkit_a_OBJECTS = $(am_libhashkit_a_OBJECTS)$/;"	m
+libhashkit_a_SOURCES	hashkit/Makefile	/^libhashkit_a_SOURCES = \\$/;"	m
+libproto_a_AR	proto/Makefile	/^libproto_a_AR = $(AR) $(ARFLAGS)$/;"	m
+libproto_a_LIBADD	proto/Makefile	/^libproto_a_LIBADD =$/;"	m
+libproto_a_OBJECTS	proto/Makefile	/^libproto_a_OBJECTS = $(am_libproto_a_OBJECTS)$/;"	m
+libproto_a_SOURCES	proto/Makefile	/^libproto_a_SOURCES = \\$/;"	m
+listen	nc_conf.h	/^    struct conf_listen listen;                \/* listen: *\/$/;"	m	struct:conf_pool	typeref:struct:conf_pool::conf_listen
+lo	hashkit/nc_md5.c	/^    MD5_u32plus lo, hi;$/;"	m	struct:__anon1	file:
+localedir	Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localedir	event/Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localedir	hashkit/Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localedir	proto/Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localstatedir	Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+localstatedir	event/Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+localstatedir	hashkit/Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+localstatedir	proto/Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+log_debug	nc_log.h	/^#define log_debug(/;"	d
+log_deinit	nc_log.c	/^log_deinit(void)$/;"	f
+log_error	nc_log.h	/^#define log_error(/;"	d
+log_filename	nc_core.h	/^    char             *log_filename;               \/* log filename *\/$/;"	m	struct:instance
+log_hexdump	nc_log.h	/^#define log_hexdump(/;"	d
+log_init	nc_log.c	/^log_init(int level, char *name)$/;"	f
+log_level	nc_core.h	/^    int              log_level;                   \/* log level *\/$/;"	m	struct:instance
+log_level_down	nc_log.c	/^log_level_down(void)$/;"	f
+log_level_set	nc_log.c	/^log_level_set(int level)$/;"	f
+log_level_up	nc_log.c	/^log_level_up(void)$/;"	f
+log_loggable	nc_log.c	/^log_loggable(int level)$/;"	f
+log_panic	nc_log.h	/^#define log_panic(/;"	d
+log_reopen	nc_log.c	/^log_reopen(void)$/;"	f
+log_safe	nc_log.h	/^#define log_safe(/;"	d
+log_stacktrace	nc_log.c	/^log_stacktrace(void)$/;"	f
+log_stderr	nc_log.h	/^#define log_stderr(/;"	d
+log_stderr_safe	nc_log.h	/^#define log_stderr_safe(/;"	d
+log_warn	nc_log.h	/^#define log_warn(/;"	d
+loga	nc_log.h	/^#define loga(/;"	d
+loga_hexdump	nc_log.h	/^#define loga_hexdump(/;"	d
+logger	nc_log.c	/^static struct logger logger;$/;"	v	typeref:struct:logger	file:
+logger	nc_log.h	/^struct logger {$/;"	s
+long_options	nc.c	/^static struct option long_options[] = {$/;"	v	typeref:struct:option	file:
+m_tqe	nc_message.h	/^    TAILQ_ENTRY(msg)     m_tqe;           \/* link in send q \/ free q *\/$/;"	m	struct:msg
+magic	nc_mbuf.h	/^    uint32_t           magic;   \/* mbuf magic (const) *\/$/;"	m	struct:mbuf
+main	nc.c	/^main(int argc, char **argv)$/;"	f
+mandir	Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+mandir	event/Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+mandir	hashkit/Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+mandir	proto/Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+mask	event/nc_event.h	/^    int        mask;$/;"	m	struct:ev_data
+max_ncconn	nc_core.h	/^    uint32_t           max_ncconn;  \/* max # client connections *\/$/;"	m	struct:context
+max_nfd	nc_core.h	/^    uint32_t           max_nfd;     \/* max # files *\/$/;"	m	struct:context
+max_nsconn	nc_core.h	/^    uint32_t           max_nsconn;  \/* max # server connections *\/$/;"	m	struct:context
+max_timeout	nc_core.h	/^    int                max_timeout; \/* max timeout in msec *\/$/;"	m	struct:context
+mbuf	nc_mbuf.h	/^struct mbuf {$/;"	s
+mbuf_chunk_size	nc_core.h	/^    size_t           mbuf_chunk_size;             \/* mbuf chunk size *\/$/;"	m	struct:instance
+mbuf_chunk_size	nc_mbuf.c	/^static size_t mbuf_chunk_size; \/* mbuf chunk size - header + data (const) *\/$/;"	v	file:
+mbuf_copy	nc_mbuf.c	/^mbuf_copy(struct mbuf *mbuf, uint8_t *pos, size_t n)$/;"	f
+mbuf_copy_t	nc_mbuf.h	/^typedef void (*mbuf_copy_t)(struct mbuf *, void *);$/;"	t
+mbuf_data_size	nc_mbuf.c	/^mbuf_data_size(void)$/;"	f
+mbuf_deinit	nc_mbuf.c	/^mbuf_deinit(void)$/;"	f
+mbuf_empty	nc_mbuf.h	/^mbuf_empty(struct mbuf *mbuf)$/;"	f
+mbuf_free	nc_mbuf.c	/^mbuf_free(struct mbuf *mbuf)$/;"	f	file:
+mbuf_full	nc_mbuf.h	/^mbuf_full(struct mbuf *mbuf)$/;"	f
+mbuf_get	nc_mbuf.c	/^mbuf_get(void)$/;"	f
+mbuf_init	nc_mbuf.c	/^mbuf_init(struct instance *nci)$/;"	f
+mbuf_insert	nc_mbuf.c	/^mbuf_insert(struct mhdr *mhdr, struct mbuf *mbuf)$/;"	f
+mbuf_length	nc_mbuf.c	/^mbuf_length(struct mbuf *mbuf)$/;"	f
+mbuf_offset	nc_mbuf.c	/^static size_t mbuf_offset;     \/* mbuf offset in chunk (const) *\/$/;"	v	file:
+mbuf_put	nc_mbuf.c	/^mbuf_put(struct mbuf *mbuf)$/;"	f
+mbuf_remove	nc_mbuf.c	/^mbuf_remove(struct mhdr *mhdr, struct mbuf *mbuf)$/;"	f
+mbuf_rewind	nc_mbuf.c	/^mbuf_rewind(struct mbuf *mbuf)$/;"	f
+mbuf_size	nc_mbuf.c	/^mbuf_size(struct mbuf *mbuf)$/;"	f
+mbuf_split	nc_mbuf.c	/^mbuf_split(struct mhdr *h, uint8_t *pos, mbuf_copy_t cb, void *cbarg)$/;"	f
+md5_signature	hashkit/nc_md5.c	/^md5_signature(unsigned char *key, unsigned long length, unsigned char *result)$/;"	f
+memcache_add_auth	proto/nc_memcache.c	/^memcache_add_auth(struct context *ctx, struct conn *c_conn, struct conn *s_conn)$/;"	f
+memcache_append_key	proto/nc_memcache.c	/^memcache_append_key(struct msg *r, uint8_t *key, uint32_t keylen)$/;"	f	file:
+memcache_arithmetic	proto/nc_memcache.c	/^memcache_arithmetic(struct msg *r)$/;"	f	file:
+memcache_cas	proto/nc_memcache.c	/^memcache_cas(struct msg *r)$/;"	f	file:
+memcache_copy_bulk	proto/nc_memcache.c	/^memcache_copy_bulk(struct msg *dst, struct msg *src)$/;"	f	file:
+memcache_delete	proto/nc_memcache.c	/^memcache_delete(struct msg *r)$/;"	f	file:
+memcache_failure	proto/nc_memcache.c	/^memcache_failure(struct msg *r)$/;"	f
+memcache_fragment	proto/nc_memcache.c	/^memcache_fragment(struct msg *r, uint32_t ncontinuum, struct msg_tqh *frag_msgq)$/;"	f
+memcache_fragment_retrieval	proto/nc_memcache.c	/^memcache_fragment_retrieval(struct msg *r, uint32_t ncontinuum,$/;"	f	file:
+memcache_parse_req	proto/nc_memcache.c	/^memcache_parse_req(struct msg *r)$/;"	f
+memcache_parse_rsp	proto/nc_memcache.c	/^memcache_parse_rsp(struct msg *r)$/;"	f
+memcache_post_coalesce	proto/nc_memcache.c	/^memcache_post_coalesce(struct msg *request)$/;"	f
+memcache_post_connect	proto/nc_memcache.c	/^memcache_post_connect(struct context *ctx, struct conn *conn, struct server *server)$/;"	f
+memcache_pre_coalesce	proto/nc_memcache.c	/^memcache_pre_coalesce(struct msg *r)$/;"	f
+memcache_reply	proto/nc_memcache.c	/^memcache_reply(struct msg *r)$/;"	f
+memcache_retrieval	proto/nc_memcache.c	/^memcache_retrieval(struct msg *r)$/;"	f	file:
+memcache_storage	proto/nc_memcache.c	/^memcache_storage(struct msg *r)$/;"	f	file:
+memcache_swallow_msg	proto/nc_memcache.c	/^memcache_swallow_msg(struct conn *conn, struct msg *pmsg, struct msg *msg)$/;"	f
+memcache_touch	proto/nc_memcache.c	/^memcache_touch(struct msg *r)$/;"	f	file:
+metric	nc_stats.h	/^    struct array  metric; \/* stats_metric[] for pool codec *\/$/;"	m	struct:stats_pool	typeref:struct:stats_pool::array
+metric	nc_stats.h	/^    struct array  metric; \/* stats_metric[] for server codec *\/$/;"	m	struct:stats_server	typeref:struct:stats_server::array
+mhdr	nc_message.h	/^    struct mhdr          mhdr;            \/* message mbuf header *\/$/;"	m	struct:msg	typeref:struct:msg::mhdr
+mix	hashkit/nc_jenkins.c	/^#define mix(/;"	d	file:
+mkdir_p	Makefile	/^mkdir_p = $(MKDIR_P)$/;"	m
+mkdir_p	event/Makefile	/^mkdir_p = $(MKDIR_P)$/;"	m
+mkdir_p	hashkit/Makefile	/^mkdir_p = $(MKDIR_P)$/;"	m
+mkdir_p	proto/Makefile	/^mkdir_p = $(MKDIR_P)$/;"	m
+mkinstalldirs	Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+mkinstalldirs	event/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+mkinstalldirs	hashkit/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+mkinstalldirs	proto/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+mlen	nc_message.h	/^    uint32_t             mlen;            \/* message length *\/$/;"	m	struct:msg
+modula_dispatch	hashkit/nc_modula.c	/^modula_dispatch(struct continuum *continuum, uint32_t ncontinuum, uint32_t hash)$/;"	f
+modula_update	hashkit/nc_modula.c	/^modula_update(struct server_pool *pool)$/;"	f
+msg	nc_message.h	/^struct msg {$/;"	s
+msg_add_auth_t	nc_message.h	/^typedef rstatus_t (*msg_add_auth_t)(struct context *ctx, struct conn *c_conn, struct conn *s_conn);$/;"	t
+msg_append	nc_message.c	/^msg_append(struct msg *msg, uint8_t *pos, size_t n)$/;"	f
+msg_backend_idx	nc_message.c	/^msg_backend_idx(struct msg *msg, uint8_t *key, uint32_t keylen)$/;"	f
+msg_coalesce_t	nc_message.h	/^typedef void (*msg_coalesce_t)(struct msg *r);$/;"	t
+msg_deinit	nc_message.c	/^msg_deinit(void)$/;"	f
+msg_dump	nc_message.c	/^msg_dump(struct msg *msg, int level)$/;"	f
+msg_empty	nc_message.c	/^msg_empty(struct msg *msg)$/;"	f
+msg_ensure_mbuf	nc_message.c	/^msg_ensure_mbuf(struct msg *msg, size_t len)$/;"	f
+msg_failure_t	nc_message.h	/^typedef bool (*msg_failure_t)(struct msg *r);$/;"	t
+msg_fragment_t	nc_message.h	/^typedef rstatus_t (*msg_fragment_t)(struct msg *, uint32_t, struct msg_tqh *);$/;"	t
+msg_free	nc_message.c	/^msg_free(struct msg *msg)$/;"	f	file:
+msg_from_rbe	nc_message.c	/^msg_from_rbe(struct rbnode *node)$/;"	f	file:
+msg_gen_frag_id	nc_message.c	/^msg_gen_frag_id(void)$/;"	f
+msg_get	nc_message.c	/^msg_get(struct conn *conn, bool request, bool redis)$/;"	f
+msg_get_error	nc_message.c	/^msg_get_error(bool redis, err_t err)$/;"	f
+msg_id	nc_message.c	/^static uint64_t msg_id;          \/* message id counter *\/$/;"	v	file:
+msg_init	nc_message.c	/^msg_init(void)$/;"	f
+msg_parse	nc_message.c	/^msg_parse(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+msg_parse_result	nc_message.h	/^typedef enum msg_parse_result {$/;"	g
+msg_parse_result_t	nc_message.h	/^} msg_parse_result_t;$/;"	t	typeref:enum:msg_parse_result
+msg_parse_t	nc_message.h	/^typedef void (*msg_parse_t)(struct msg *);$/;"	t
+msg_parsed	nc_message.c	/^msg_parsed(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+msg_prepend	nc_message.c	/^msg_prepend(struct msg *msg, uint8_t *pos, size_t n)$/;"	f
+msg_prepend_format	nc_message.c	/^msg_prepend_format(struct msg *msg, const char *fmt, ...)$/;"	f
+msg_put	nc_message.c	/^msg_put(struct msg *msg)$/;"	f
+msg_recv	nc_message.c	/^msg_recv(struct context *ctx, struct conn *conn)$/;"	f
+msg_recv_chain	nc_message.c	/^msg_recv_chain(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+msg_repair	nc_message.c	/^msg_repair(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+msg_reply_t	nc_message.h	/^typedef rstatus_t (*msg_reply_t)(struct msg *r);$/;"	t
+msg_send	nc_message.c	/^msg_send(struct context *ctx, struct conn *conn)$/;"	f
+msg_send_chain	nc_message.c	/^msg_send_chain(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+msg_tmo_delete	nc_message.c	/^msg_tmo_delete(struct msg *msg)$/;"	f
+msg_tmo_insert	nc_message.c	/^msg_tmo_insert(struct msg *msg, struct conn *conn)$/;"	f
+msg_tmo_min	nc_message.c	/^msg_tmo_min(void)$/;"	f
+msg_type	nc_message.h	/^typedef enum msg_type {$/;"	g
+msg_type_string	nc_message.c	/^msg_type_string(msg_type_t type)$/;"	f
+msg_type_strings	nc_message.c	/^static struct string msg_type_strings[] = {$/;"	v	typeref:struct:string	file:
+msg_type_t	nc_message.h	/^} msg_type_t;$/;"	t	typeref:enum:msg_type
+nalloc	nc_array.h	/^    uint32_t nalloc; \/* # allocated element *\/$/;"	m	struct:array
+name	nc_conf.h	/^    struct string      name;                  \/* pool name (root node) *\/$/;"	m	struct:conf_pool	typeref:struct:conf_pool::string
+name	nc_conf.h	/^    struct string   name;       \/* hostname:port or [name] *\/$/;"	m	struct:conf_server	typeref:struct:conf_server::string
+name	nc_conf.h	/^    struct string   name;    \/* hostname:port *\/$/;"	m	struct:conf_listen	typeref:struct:conf_listen::string
+name	nc_conf.h	/^    struct string name;$/;"	m	struct:command	typeref:struct:command::string
+name	nc_log.h	/^    char *name;  \/* log file name *\/$/;"	m	struct:logger
+name	nc_server.h	/^    struct string      name;                 \/* pool name (ref in conf_pool) *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::string
+name	nc_server.h	/^    struct string      name;          \/* hostname:port or [name] (ref in conf_server) *\/$/;"	m	struct:server	typeref:struct:server::string
+name	nc_stats.c	/^    char *name; \/* stats name *\/$/;"	m	struct:stats_desc	file:
+name	nc_stats.h	/^    struct string name;         \/* name (ref) *\/$/;"	m	struct:stats_metric	typeref:struct:stats_metric::string
+name	nc_stats.h	/^    struct string name;   \/* pool name (ref) *\/$/;"	m	struct:stats_pool	typeref:struct:stats_pool::string
+name	nc_stats.h	/^    struct string name;   \/* server name (ref) *\/$/;"	m	struct:stats_server	typeref:struct:stats_server::string
+narg	nc_message.h	/^    uint32_t             narg;            \/* # arguments (redis) *\/$/;"	m	struct:msg
+narg_end	nc_message.h	/^    uint8_t              *narg_end;       \/* narg end (redis) *\/$/;"	m	struct:msg
+narg_start	nc_message.h	/^    uint8_t              *narg_start;     \/* narg start (redis) *\/$/;"	m	struct:msg
+nc_add_channel_event	nc_channel.c	/^nc_add_channel_event(struct event_base *evb, int fd)$/;"	f
+nc_alloc	nc_util.h	/^#define nc_alloc(/;"	d
+nc_alloc_channel	nc_channel.c	/^nc_alloc_channel(void)$/;"	f
+nc_assert	nc_util.c	/^nc_assert(const char *cond, const char *file, int line, int panic)$/;"	f
+nc_atoi	nc_util.h	/^#define nc_atoi(/;"	d
+nc_calloc	nc_util.h	/^#define nc_calloc(/;"	d
+nc_clone_instance	nc_process.c	/^nc_clone_instance(struct instance *parent_nci)$/;"	f	file:
+nc_close_channel	nc_channel.c	/^nc_close_channel(struct channel *ch)$/;"	f
+nc_close_other_proxies	nc_process.c	/^nc_close_other_proxies(struct array *workers, struct instance *self)$/;"	f	file:
+nc_close_other_proxy	nc_process.c	/^nc_close_other_proxy(void *elem, void *data)$/;"	f	file:
+nc_conn_q	nc_server.h	/^    uint32_t           nc_conn_q;            \/* # client connection *\/$/;"	m	struct:server_pool
+nc_create_pidfile	nc.c	/^nc_create_pidfile(struct instance *nci)$/;"	f	file:
+nc_daemonize	nc.c	/^nc_daemonize(int dump_core)$/;"	f	file:
+nc_dealloc_channel	nc_channel.c	/^nc_dealloc_channel(struct channel *ch)$/;"	f
+nc_free	nc_util.h	/^#define nc_free(/;"	d
+nc_get_options	nc.c	/^nc_get_options(int argc, char **argv, struct instance *nci)$/;"	f	file:
+nc_get_rcvbuf	nc_util.c	/^nc_get_rcvbuf(int sd)$/;"	f
+nc_get_sndbuf	nc_util.c	/^nc_get_sndbuf(int sd)$/;"	f
+nc_get_soerror	nc_util.c	/^nc_get_soerror(int sd)$/;"	f
+nc_gethostname	nc_util.h	/^#define nc_gethostname(/;"	d
+nc_memchr	nc_string.h	/^#define nc_memchr(/;"	d
+nc_memcpy	nc_string.h	/^#define nc_memcpy(/;"	d
+nc_memmove	nc_string.h	/^#define nc_memmove(/;"	d
+nc_migrate_proxies	nc_process.c	/^nc_migrate_proxies(struct context *dst, struct context *src)$/;"	f	file:
+nc_msec_now	nc_util.c	/^nc_msec_now(void)$/;"	f
+nc_multi_processes_cycle	nc_process.c	/^nc_multi_processes_cycle(struct instance *parent_nci)$/;"	f
+nc_post_run	nc.c	/^nc_post_run(struct instance *nci)$/;"	f	file:
+nc_pre_run	nc.c	/^nc_pre_run(struct instance *nci)$/;"	f	file:
+nc_print_done	nc.c	/^nc_print_done(void)$/;"	f	file:
+nc_print_run	nc.c	/^nc_print_run(struct instance *nci)$/;"	f	file:
+nc_read	nc_util.h	/^#define nc_read(/;"	d
+nc_read_channel	nc_channel.c	/^nc_read_channel(int fd, struct chan_msg *chmsg)$/;"	f
+nc_readv	nc_util.h	/^#define nc_readv(/;"	d
+nc_realloc	nc_util.h	/^#define nc_realloc(/;"	d
+nc_recvn	nc_util.h	/^#define nc_recvn(/;"	d
+nc_reload_config	nc_process.c	/^nc_reload_config(void)$/;"	f
+nc_remove_pidfile	nc.c	/^nc_remove_pidfile(struct instance *nci)$/;"	f	file:
+nc_resolve	nc_util.c	/^nc_resolve(struct string *name, int port, struct sockinfo *si)$/;"	f
+nc_resolve_inet	nc_util.c	/^nc_resolve_inet(struct string *name, int port, struct sockinfo *si)$/;"	f	file:
+nc_resolve_unix	nc_util.c	/^nc_resolve_unix(struct string *name, struct sockinfo *si)$/;"	f	file:
+nc_run	nc.c	/^nc_run(struct instance *nci)$/;"	f	file:
+nc_safe_snprintf	nc_string.h	/^#define nc_safe_snprintf(/;"	d
+nc_safe_vsnprintf	nc_string.h	/^#define nc_safe_vsnprintf(/;"	d
+nc_scnprintf	nc_string.h	/^#define nc_scnprintf(/;"	d
+nc_sendn	nc_util.h	/^#define nc_sendn(/;"	d
+nc_set_blocking	nc_util.c	/^nc_set_blocking(int sd)$/;"	f
+nc_set_default_options	nc.c	/^nc_set_default_options(struct instance *nci)$/;"	f	file:
+nc_set_linger	nc_util.c	/^nc_set_linger(int sd, int timeout)$/;"	f
+nc_set_nonblocking	nc_util.c	/^nc_set_nonblocking(int sd)$/;"	f
+nc_set_rcvbuf	nc_util.c	/^nc_set_rcvbuf(int sd, int size)$/;"	f
+nc_set_reuseaddr	nc_util.c	/^nc_set_reuseaddr(int sd)$/;"	f
+nc_set_reuseport	nc_util.c	/^nc_set_reuseport(int sd)$/;"	f
+nc_set_sndbuf	nc_util.c	/^nc_set_sndbuf(int sd, int size)$/;"	f
+nc_set_tcpkeepalive	nc_util.c	/^nc_set_tcpkeepalive(int sd)$/;"	f
+nc_set_tcpnodelay	nc_util.c	/^nc_set_tcpnodelay(int sd)$/;"	f
+nc_set_timer	nc_util.c	/^nc_set_timer(int ms, int interval)$/;"	f
+nc_setup_listener_for_workers	nc_process.c	/^nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)$/;"	f	file:
+nc_show_usage	nc.c	/^nc_show_usage(void)$/;"	f	file:
+nc_shutdown_workers	nc_process.c	/^nc_shutdown_workers(struct array *workers)$/;"	f	file:
+nc_single_process_cycle	nc_process.c	/^nc_single_process_cycle(struct instance *nci)$/;"	f
+nc_snprintf	nc_string.h	/^#define nc_snprintf(/;"	d
+nc_spawn_workers	nc_process.c	/^nc_spawn_workers(struct array *workers)$/;"	f	file:
+nc_stacktrace	nc_util.c	/^nc_stacktrace(int skip_count)$/;"	f
+nc_stacktrace_fd	nc_util.c	/^nc_stacktrace_fd(int fd)$/;"	f
+nc_strchr	nc_string.h	/^#define nc_strchr(/;"	d
+nc_strftime	nc_string.h	/^#define nc_strftime(/;"	d
+nc_strlen	nc_string.h	/^#define nc_strlen(/;"	d
+nc_strncmp	nc_string.h	/^#define nc_strncmp(/;"	d
+nc_strndup	nc_string.h	/^#define nc_strndup(/;"	d
+nc_strrchr	nc_string.h	/^#define nc_strrchr(/;"	d
+nc_test_conf	nc.c	/^nc_test_conf(struct instance *nci)$/;"	f	file:
+nc_unresolve_addr	nc_util.c	/^nc_unresolve_addr(struct sockaddr *addr, socklen_t addrlen)$/;"	f
+nc_unresolve_desc	nc_util.c	/^nc_unresolve_desc(int sd)$/;"	f
+nc_unresolve_peer_desc	nc_util.c	/^nc_unresolve_peer_desc(int sd)$/;"	f
+nc_usec_now	nc_util.c	/^nc_usec_now(void)$/;"	f
+nc_valid_port	nc_util.c	/^nc_valid_port(int n)$/;"	f
+nc_vscnprintf	nc_string.h	/^#define nc_vscnprintf(/;"	d
+nc_vsnprintf	nc_string.h	/^#define nc_vsnprintf(/;"	d
+nc_worker_process	nc_process.c	/^nc_worker_process(int worker_id, struct instance *nci)$/;"	f	file:
+nc_write	nc_util.h	/^#define nc_write(/;"	d
+nc_write_channel	nc_channel.c	/^nc_write_channel(int fd, struct chan_msg *chmsg)$/;"	f
+nc_writev	nc_util.h	/^#define nc_writev(/;"	d
+nc_zalloc	nc_util.h	/^#define nc_zalloc(/;"	d
+nchange	event/nc_event.h	/^    int            nchange;     \/* # change *\/$/;"	m	struct:event_base
+ncontinuum	nc_server.h	/^    uint32_t           ncontinuum;           \/* # continuum points *\/$/;"	m	struct:server_pool
+ncurr_cconn	nc_connection.c	/^static uint32_t ncurr_cconn;       \/* current # client connections *\/$/;"	v	file:
+ncurr_conn	nc_connection.c	/^static uint32_t ncurr_conn;        \/* current # connections *\/$/;"	v	file:
+ncurr_conn_str	nc_stats.h	/^    struct string       ncurr_conn_str;  \/* curr connections string *\/$/;"	m	struct:stats	typeref:struct:stats::string
+nelem	nc_array.h	/^    uint32_t nelem;  \/* # element *\/$/;"	m	struct:array
+nerror	nc_log.h	/^    int  nerror; \/* # log error *\/$/;"	m	struct:logger
+nevd	event/nc_event.h	/^    int                nevd;    \/* # event data *\/$/;"	m	struct:event_base
+nevd	event/nc_event.h	/^    int            nevd;        \/* # event data *\/$/;"	m	struct:event_base
+nevent	event/nc_event.h	/^    int                nevent;  \/* # event *\/$/;"	m	struct:event_base
+nevent	event/nc_event.h	/^    int            nevent;      \/* # event *\/$/;"	m	struct:event_base
+nevent	event/nc_event.h	/^    int          nevent;  \/* # event *\/$/;"	m	struct:event_base
+next	nc_mbuf.h	/^    STAILQ_ENTRY(mbuf) next;    \/* next mbuf *\/$/;"	m	struct:mbuf
+next_rebuild	nc_server.h	/^    int64_t            next_rebuild;         \/* next distribution rebuild time in usec *\/$/;"	m	struct:server_pool
+next_retry	nc_server.h	/^    int64_t            next_retry;    \/* next retry time in usec *\/$/;"	m	struct:server
+nfrag	nc_message.h	/^    uint32_t             nfrag;           \/* # fragment *\/$/;"	m	struct:msg
+nfrag_done	nc_message.h	/^    uint32_t             nfrag_done;      \/* # fragment done *\/$/;"	m	struct:msg
+nfree_connq	nc_connection.c	/^static uint32_t nfree_connq;       \/* # free conn q *\/$/;"	v	file:
+nfree_mbufq	nc_mbuf.c	/^static uint32_t nfree_mbufq;   \/* # free mbuf *\/$/;"	v	file:
+nfree_msgq	nc_message.c	/^static uint32_t nfree_msgq;      \/* # free msg q *\/$/;"	v	file:
+nlive_server	nc_server.h	/^    uint32_t           nlive_server;         \/* # live server *\/$/;"	m	struct:server_pool
+noforward	nc_message.h	/^    unsigned             noforward:1;     \/* not need forward (example: ping) *\/$/;"	m	struct:msg
+noinst_HEADERS	event/Makefile	/^noinst_HEADERS = nc_event.h$/;"	m
+noinst_HEADERS	hashkit/Makefile	/^noinst_HEADERS = nc_hashkit.h$/;"	m
+noinst_HEADERS	proto/Makefile	/^noinst_HEADERS = nc_proto.h$/;"	m
+noinst_LIBRARIES	event/Makefile	/^noinst_LIBRARIES = libevent.a$/;"	m
+noinst_LIBRARIES	hashkit/Makefile	/^noinst_LIBRARIES = libhashkit.a$/;"	m
+noinst_LIBRARIES	proto/Makefile	/^noinst_LIBRARIES = libproto.a$/;"	m
+noreply	nc_message.h	/^    unsigned             noreply:1;       \/* noreply? *\/$/;"	m	struct:msg
+nprocessed	event/nc_event.h	/^    int            nprocessed;  \/* # event processed from event[] *\/$/;"	m	struct:event_base
+nreturned	event/nc_event.h	/^    int            nreturned;   \/* # event placed in event[] *\/$/;"	m	struct:event_base
+ns_conn_q	nc_server.h	/^    uint32_t           ns_conn_q;     \/* # server connection *\/$/;"	m	struct:server
+nserver_continuum	nc_server.h	/^    uint32_t           nserver_continuum;    \/* # servers - live and dead on continuum (const) *\/$/;"	m	struct:server_pool
+ntotal_conn	nc_connection.c	/^static uint64_t ntotal_conn;       \/* total # connections counter from start *\/$/;"	v	file:
+ntotal_conn_str	nc_stats.h	/^    struct string       ntotal_conn_str; \/* total connections string *\/$/;"	m	struct:stats	typeref:struct:stats::string
+null_array	nc_array.h	/^#define null_array /;"	d
+null_command	nc_conf.h	/^#define null_command /;"	d
+null_string	nc_string.h	/^#define null_string /;"	d
+nutcracker_DEPENDENCIES	Makefile	/^nutcracker_DEPENDENCIES = $(top_builddir)\/src\/hashkit\/libhashkit.a \\$/;"	m
+nutcracker_LDADD	Makefile	/^nutcracker_LDADD = $(top_builddir)\/src\/hashkit\/libhashkit.a \\$/;"	m
+nutcracker_OBJECTS	Makefile	/^nutcracker_OBJECTS = $(am_nutcracker_OBJECTS)$/;"	m
+nutcracker_SOURCES	Makefile	/^nutcracker_SOURCES = \\$/;"	m
+offset	nc_conf.h	/^    int           offset;$/;"	m	struct:command
+oldincludedir	Makefile	/^oldincludedir = \/usr\/include$/;"	m
+oldincludedir	event/Makefile	/^oldincludedir = \/usr\/include$/;"	m
+oldincludedir	hashkit/Makefile	/^oldincludedir = \/usr\/include$/;"	m
+oldincludedir	proto/Makefile	/^oldincludedir = \/usr\/include$/;"	m
+omsg_q	nc_connection.h	/^    struct msg_tqh      omsg_q;          \/* outstanding request Q *\/$/;"	m	struct:conn	typeref:struct:conn::msg_tqh
+owner	nc_connection.h	/^    void                *owner;          \/* connection owner - server_pool \/ server *\/$/;"	m	struct:conn
+owner	nc_message.h	/^    struct conn          *owner;          \/* message owner - client | server *\/$/;"	m	struct:msg	typeref:struct:msg::conn
+owner	nc_server.h	/^    struct server_pool *owner;        \/* owner pool *\/$/;"	m	struct:server	typeref:struct:server::server_pool
+p_conn	nc_server.h	/^    struct conn        *p_conn;              \/* proxy connection (listener) *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::conn
+parent	nc_rbtree.h	/^    struct rbnode *parent;   \/* parent link *\/$/;"	m	struct:rbnode	typeref:struct:rbnode::rbnode
+parsed	nc_conf.h	/^    unsigned           parsed:1;         \/* parsed? *\/$/;"	m	struct:conf
+parser	nc_conf.h	/^    yaml_parser_t      parser;           \/* yaml parser *\/$/;"	m	struct:conf
+parser	nc_message.h	/^    msg_parse_t          parser;          \/* message parser *\/$/;"	m	struct:msg
+pdfdir	Makefile	/^pdfdir = ${docdir}$/;"	m
+pdfdir	event/Makefile	/^pdfdir = ${docdir}$/;"	m
+pdfdir	hashkit/Makefile	/^pdfdir = ${docdir}$/;"	m
+pdfdir	proto/Makefile	/^pdfdir = ${docdir}$/;"	m
+peer	nc_message.h	/^    struct msg           *peer;           \/* message peer *\/$/;"	m	struct:msg	typeref:struct:msg::msg
+perm	nc_conf.h	/^    mode_t          perm;    \/* socket permissions *\/$/;"	m	struct:conf_listen
+perm	nc_server.h	/^    mode_t             perm;                 \/* socket permission *\/$/;"	m	struct:server_pool
+pid	nc_core.h	/^    pid_t            pid;                         \/* process id *\/$/;"	m	struct:instance
+pid_filename	nc_core.h	/^    char             *pid_filename;               \/* pid filename *\/$/;"	m	struct:instance
+pidfile	nc_core.h	/^    unsigned         pidfile:1;                   \/* pid file created? *\/$/;"	m	struct:instance
+pkgdatadir	Makefile	/^pkgdatadir = $(datadir)\/nutcracker$/;"	m
+pkgdatadir	event/Makefile	/^pkgdatadir = $(datadir)\/nutcracker$/;"	m
+pkgdatadir	hashkit/Makefile	/^pkgdatadir = $(datadir)\/nutcracker$/;"	m
+pkgdatadir	proto/Makefile	/^pkgdatadir = $(datadir)\/nutcracker$/;"	m
+pkgincludedir	Makefile	/^pkgincludedir = $(includedir)\/nutcracker$/;"	m
+pkgincludedir	event/Makefile	/^pkgincludedir = $(includedir)\/nutcracker$/;"	m
+pkgincludedir	hashkit/Makefile	/^pkgincludedir = $(includedir)\/nutcracker$/;"	m
+pkgincludedir	proto/Makefile	/^pkgincludedir = $(includedir)\/nutcracker$/;"	m
+pkglibdir	Makefile	/^pkglibdir = $(libdir)\/nutcracker$/;"	m
+pkglibdir	event/Makefile	/^pkglibdir = $(libdir)\/nutcracker$/;"	m
+pkglibdir	hashkit/Makefile	/^pkglibdir = $(libdir)\/nutcracker$/;"	m
+pkglibdir	proto/Makefile	/^pkglibdir = $(libdir)\/nutcracker$/;"	m
+pkglibexecdir	Makefile	/^pkglibexecdir = $(libexecdir)\/nutcracker$/;"	m
+pkglibexecdir	event/Makefile	/^pkglibexecdir = $(libexecdir)\/nutcracker$/;"	m
+pkglibexecdir	hashkit/Makefile	/^pkglibexecdir = $(libexecdir)\/nutcracker$/;"	m
+pkglibexecdir	proto/Makefile	/^pkglibexecdir = $(libexecdir)\/nutcracker$/;"	m
+pm_myrole	nc_process.c	/^char pm_myrole = ROLE_MASTER;$/;"	v
+pm_quit	nc_process.c	/^bool pm_quit = false;$/;"	v
+pm_reload	nc_process.c	/^bool pm_reload = false;$/;"	v
+pm_respawn	nc_process.c	/^bool pm_respawn = false;$/;"	v
+pm_terminate	nc_process.c	/^bool pm_terminate= false;$/;"	v
+pname	nc_conf.h	/^    struct string   pname;      \/* server: as "hostname:port:weight" *\/$/;"	m	struct:conf_server	typeref:struct:conf_server::string
+pname	nc_conf.h	/^    struct string   pname;   \/* listen: as "hostname:port" *\/$/;"	m	struct:conf_listen	typeref:struct:conf_listen::string
+pname	nc_server.h	/^    struct string      pname;         \/* hostname:port:weight (ref in conf_server) *\/$/;"	m	struct:server	typeref:struct:server::string
+pool	nc_conf.h	/^    struct array       pool;             \/* conf_pool[] (parsed pools) *\/$/;"	m	struct:conf	typeref:struct:conf::array
+pool	nc_core.h	/^    struct array       pool;        \/* server_pool[] *\/$/;"	m	struct:context	typeref:struct:context::array
+port	nc_conf.h	/^    int             port;       \/* port *\/$/;"	m	struct:conf_server
+port	nc_conf.h	/^    int             port;    \/* port *\/$/;"	m	struct:conf_listen
+port	nc_server.h	/^    uint16_t           port;                 \/* port *\/$/;"	m	struct:server_pool
+port	nc_server.h	/^    uint16_t           port;          \/* port *\/$/;"	m	struct:server
+port	nc_stats.h	/^    uint16_t            port;            \/* stats monitoring port *\/$/;"	m	struct:stats
+pos	nc_mbuf.h	/^    uint8_t            *pos;    \/* read marker *\/$/;"	m	struct:mbuf
+pos	nc_message.h	/^    uint8_t              *pos;            \/* parser position marker *\/$/;"	m	struct:msg
+post_coalesce	nc_message.h	/^    msg_coalesce_t       post_coalesce;   \/* message post-coalesce *\/$/;"	m	struct:msg
+post_connect	nc_connection.h	/^    conn_post_connect_t post_connect;    \/* post connect handler *\/$/;"	m	struct:conn
+pre_coalesce	nc_message.h	/^    msg_coalesce_t       pre_coalesce;    \/* message pre-coalesce *\/$/;"	m	struct:msg
+preconnect	nc_conf.h	/^    int                preconnect;            \/* preconnect: *\/$/;"	m	struct:conf_pool
+preconnect	nc_server.h	/^    unsigned           preconnect:1;         \/* preconnect? *\/$/;"	m	struct:server_pool
+prefix	Makefile	/^prefix = \/usr\/local$/;"	m
+prefix	event/Makefile	/^prefix = \/usr\/local$/;"	m
+prefix	hashkit/Makefile	/^prefix = \/usr\/local$/;"	m
+prefix	proto/Makefile	/^prefix = \/usr\/local$/;"	m
+prevfile	nc_queue.h	/^    char *prevfile;$/;"	m	struct:qm_trace
+prevline	nc_queue.h	/^    int  prevline;$/;"	m	struct:qm_trace
+priv	event/nc_event.h	/^    void       *priv;$/;"	m	struct:ev_data
+program_transform_name	Makefile	/^program_transform_name = s,x,x,$/;"	m
+program_transform_name	event/Makefile	/^program_transform_name = s,x,x,$/;"	m
+program_transform_name	hashkit/Makefile	/^program_transform_name = s,x,x,$/;"	m
+program_transform_name	proto/Makefile	/^program_transform_name = s,x,x,$/;"	m
+proxy	nc_connection.h	/^    unsigned            proxy:1;         \/* proxy? *\/$/;"	m	struct:conn
+proxy_accept	nc_proxy.c	/^proxy_accept(struct context *ctx, struct conn *p)$/;"	f	file:
+proxy_close	nc_proxy.c	/^proxy_close(struct context *ctx, struct conn *conn)$/;"	f
+proxy_deinit	nc_proxy.c	/^proxy_deinit(struct context *ctx)$/;"	f
+proxy_each_deinit	nc_proxy.c	/^proxy_each_deinit(void *elem, void *data)$/;"	f
+proxy_each_init	nc_proxy.c	/^proxy_each_init(void *elem, void *data)$/;"	f
+proxy_each_post_init	nc_proxy.c	/^proxy_each_post_init(void *elem, void *data)$/;"	f
+proxy_init	nc_proxy.c	/^proxy_init(struct context *ctx)$/;"	f
+proxy_listen	nc_proxy.c	/^proxy_listen(struct context *ctx, struct conn *p)$/;"	f	file:
+proxy_post_init	nc_proxy.c	/^proxy_post_init(struct context *ctx)$/;"	f
+proxy_recv	nc_proxy.c	/^proxy_recv(struct context *ctx, struct conn *conn)$/;"	f
+proxy_ref	nc_proxy.c	/^proxy_ref(struct conn *conn, void *owner)$/;"	f
+proxy_reuse	nc_proxy.c	/^proxy_reuse(struct conn *p)$/;"	f	file:
+proxy_unref	nc_proxy.c	/^proxy_unref(struct conn *conn)$/;"	f
+psdir	Makefile	/^psdir = ${docdir}$/;"	m
+psdir	event/Makefile	/^psdir = ${docdir}$/;"	m
+psdir	hashkit/Makefile	/^psdir = ${docdir}$/;"	m
+psdir	proto/Makefile	/^psdir = ${docdir}$/;"	m
+qm_trace	nc_queue.h	/^struct qm_trace {$/;"	s
+quit	nc_message.h	/^    unsigned             quit:1;          \/* quit request? *\/$/;"	m	struct:msg
+random_dispatch	hashkit/nc_random.c	/^random_dispatch(struct continuum *continuum, uint32_t ncontinuum, uint32_t hash)$/;"	f
+random_update	hashkit/nc_random.c	/^random_update(struct server_pool *pool)$/;"	f
+rbnode	nc_rbtree.h	/^struct rbnode {$/;"	s
+rbtree	nc_rbtree.h	/^struct rbtree {$/;"	s
+rbtree_black	nc_rbtree.h	/^#define rbtree_black(/;"	d
+rbtree_copy_color	nc_rbtree.h	/^#define rbtree_copy_color(/;"	d
+rbtree_delete	nc_rbtree.c	/^rbtree_delete(struct rbtree *tree, struct rbnode *node)$/;"	f
+rbtree_init	nc_rbtree.c	/^rbtree_init(struct rbtree *tree, struct rbnode *node)$/;"	f
+rbtree_insert	nc_rbtree.c	/^rbtree_insert(struct rbtree *tree, struct rbnode *node)$/;"	f
+rbtree_is_black	nc_rbtree.h	/^#define rbtree_is_black(/;"	d
+rbtree_is_red	nc_rbtree.h	/^#define rbtree_is_red(/;"	d
+rbtree_left_rotate	nc_rbtree.c	/^rbtree_left_rotate(struct rbnode **root, struct rbnode *sentinel,$/;"	f	file:
+rbtree_min	nc_rbtree.c	/^rbtree_min(struct rbtree *tree)$/;"	f
+rbtree_node_init	nc_rbtree.c	/^rbtree_node_init(struct rbnode *node)$/;"	f
+rbtree_node_min	nc_rbtree.c	/^rbtree_node_min(struct rbnode *node, struct rbnode *sentinel)$/;"	f	file:
+rbtree_red	nc_rbtree.h	/^#define rbtree_red(/;"	d
+rbtree_right_rotate	nc_rbtree.c	/^rbtree_right_rotate(struct rbnode **root, struct rbnode *sentinel,$/;"	f	file:
+recv	nc_connection.h	/^    conn_recv_t         recv;            \/* recv (read) handler *\/$/;"	m	struct:conn
+recv_active	nc_connection.h	/^    unsigned            recv_active:1;   \/* recv active? *\/$/;"	m	struct:conn
+recv_bytes	nc_connection.h	/^    size_t              recv_bytes;      \/* received (read) bytes *\/$/;"	m	struct:conn
+recv_done	nc_connection.h	/^    conn_recv_done_t    recv_done;       \/* read done handler *\/$/;"	m	struct:conn
+recv_next	nc_connection.h	/^    conn_recv_next_t    recv_next;       \/* recv next message handler *\/$/;"	m	struct:conn
+recv_ready	nc_connection.h	/^    unsigned            recv_ready:1;    \/* recv ready? *\/$/;"	m	struct:conn
+redis	nc_conf.h	/^    int                redis;                 \/* redis: *\/$/;"	m	struct:conf_pool
+redis	nc_connection.h	/^    unsigned            redis:1;         \/* redis? *\/$/;"	m	struct:conn
+redis	nc_message.h	/^    unsigned             redis:1;         \/* redis? *\/$/;"	m	struct:msg
+redis	nc_server.h	/^    unsigned           redis:1;              \/* redis? *\/$/;"	m	struct:server_pool
+redis_add_auth	proto/nc_redis.c	/^redis_add_auth(struct context *ctx, struct conn *c_conn, struct conn *s_conn)$/;"	f
+redis_append_key	proto/nc_redis.c	/^redis_append_key(struct msg *r, uint8_t *key, uint32_t keylen)$/;"	f	file:
+redis_arg0	proto/nc_redis.c	/^redis_arg0(struct msg *r)$/;"	f	file:
+redis_arg1	proto/nc_redis.c	/^redis_arg1(struct msg *r)$/;"	f	file:
+redis_arg2	proto/nc_redis.c	/^redis_arg2(struct msg *r)$/;"	f	file:
+redis_arg3	proto/nc_redis.c	/^redis_arg3(struct msg *r)$/;"	f	file:
+redis_argeval	proto/nc_redis.c	/^redis_argeval(struct msg *r)$/;"	f	file:
+redis_argkvx	proto/nc_redis.c	/^redis_argkvx(struct msg *r)$/;"	f	file:
+redis_argn	proto/nc_redis.c	/^redis_argn(struct msg *r)$/;"	f	file:
+redis_argx	proto/nc_redis.c	/^redis_argx(struct msg *r)$/;"	f	file:
+redis_argz	proto/nc_redis.c	/^redis_argz(struct msg *r)$/;"	f	file:
+redis_auth	nc_conf.h	/^    struct string      redis_auth;            \/* redis_auth: redis auth password (matches requirepass on redis) *\/$/;"	m	struct:conf_pool	typeref:struct:conf_pool::string
+redis_auth	nc_server.h	/^    struct string      redis_auth;           \/* redis_auth password (matches requirepass on redis) *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::string
+redis_copy_bulk	proto/nc_redis.c	/^redis_copy_bulk(struct msg *dst, struct msg *src)$/;"	f	file:
+redis_db	nc_conf.h	/^    int                redis_db;              \/* redis_db: redis db *\/$/;"	m	struct:conf_pool
+redis_db	nc_server.h	/^    int                redis_db;             \/* redis database to connect to *\/$/;"	m	struct:server_pool
+redis_error	proto/nc_redis.c	/^redis_error(struct msg *r)$/;"	f	file:
+redis_failure	proto/nc_redis.c	/^redis_failure(struct msg *r)$/;"	f
+redis_fragment	proto/nc_redis.c	/^redis_fragment(struct msg *r, uint32_t ncontinuum, struct msg_tqh *frag_msgq)$/;"	f
+redis_fragment_argx	proto/nc_redis.c	/^redis_fragment_argx(struct msg *r, uint32_t ncontinuum, struct msg_tqh *frag_msgq,$/;"	f	file:
+redis_handle_auth_req	proto/nc_redis.c	/^redis_handle_auth_req(struct msg *req, struct msg *rsp)$/;"	f	file:
+redis_parse_req	proto/nc_redis.c	/^redis_parse_req(struct msg *r)$/;"	f
+redis_parse_rsp	proto/nc_redis.c	/^redis_parse_rsp(struct msg *r)$/;"	f
+redis_post_coalesce	proto/nc_redis.c	/^redis_post_coalesce(struct msg *r)$/;"	f
+redis_post_coalesce_del	proto/nc_redis.c	/^redis_post_coalesce_del(struct msg *request)$/;"	f
+redis_post_coalesce_mget	proto/nc_redis.c	/^redis_post_coalesce_mget(struct msg *request)$/;"	f	file:
+redis_post_coalesce_mset	proto/nc_redis.c	/^redis_post_coalesce_mset(struct msg *request)$/;"	f
+redis_post_connect	proto/nc_redis.c	/^redis_post_connect(struct context *ctx, struct conn *conn, struct server *server)$/;"	f
+redis_pre_coalesce	proto/nc_redis.c	/^redis_pre_coalesce(struct msg *r)$/;"	f
+redis_reply	proto/nc_redis.c	/^redis_reply(struct msg *r)$/;"	f
+redis_swallow_msg	proto/nc_redis.c	/^redis_swallow_msg(struct conn *conn, struct msg *pmsg, struct msg *msg)$/;"	f
+ref	nc_connection.h	/^    conn_ref_t          ref;             \/* connection reference handler *\/$/;"	m	struct:conn
+reply	nc_message.h	/^    msg_reply_t          reply;           \/* generate message reply (example: ping) *\/$/;"	m	struct:msg
+req_client_dequeue_omsgq	nc_request.c	/^req_client_dequeue_omsgq(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+req_client_enqueue_omsgq	nc_request.c	/^req_client_enqueue_omsgq(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+req_done	nc_request.c	/^req_done(struct conn *conn, struct msg *msg)$/;"	f
+req_error	nc_request.c	/^req_error(struct conn *conn, struct msg *msg)$/;"	f
+req_filter	nc_request.c	/^req_filter(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+req_forward	nc_request.c	/^req_forward(struct context *ctx, struct conn *c_conn, struct msg *msg)$/;"	f	file:
+req_forward_error	nc_request.c	/^req_forward_error(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+req_forward_stats	nc_request.c	/^req_forward_stats(struct context *ctx, struct server *server, struct msg *msg)$/;"	f	file:
+req_get	nc_request.c	/^req_get(struct conn *conn)$/;"	f
+req_log	nc_request.c	/^req_log(struct msg *req)$/;"	f	file:
+req_make_reply	nc_request.c	/^req_make_reply(struct context *ctx, struct conn *conn, struct msg *req)$/;"	f	file:
+req_put	nc_request.c	/^req_put(struct msg *msg)$/;"	f
+req_recv_done	nc_request.c	/^req_recv_done(struct context *ctx, struct conn *conn, struct msg *msg,$/;"	f
+req_recv_next	nc_request.c	/^req_recv_next(struct context *ctx, struct conn *conn, bool alloc)$/;"	f
+req_send_done	nc_request.c	/^req_send_done(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+req_send_next	nc_request.c	/^req_send_next(struct context *ctx, struct conn *conn)$/;"	f
+req_server_dequeue_imsgq	nc_request.c	/^req_server_dequeue_imsgq(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+req_server_dequeue_omsgq	nc_request.c	/^req_server_dequeue_omsgq(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+req_server_enqueue_imsgq	nc_request.c	/^req_server_enqueue_imsgq(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+req_server_enqueue_imsgq_head	nc_request.c	/^req_server_enqueue_imsgq_head(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+req_server_enqueue_omsgq	nc_request.c	/^req_server_enqueue_omsgq(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+request	nc_message.h	/^    unsigned             request:1;       \/* request? or response? *\/$/;"	m	struct:msg
+require_auth	nc_server.h	/^    unsigned           require_auth;         \/* require_auth? *\/$/;"	m	struct:server_pool
+result	nc_message.h	/^    msg_parse_result_t   result;          \/* message parsing result *\/$/;"	m	struct:msg
+right	nc_rbtree.h	/^    struct rbnode *right;    \/* right link *\/$/;"	m	struct:rbnode	typeref:struct:rbnode::rbnode
+rlen	nc_message.h	/^    uint32_t             rlen;            \/* running length in parsing fsa (redis) *\/$/;"	m	struct:msg
+rmsg	nc_connection.h	/^    struct msg          *rmsg;           \/* current message being rcvd *\/$/;"	m	struct:conn	typeref:struct:conn::msg
+rnarg	nc_message.h	/^    uint32_t             rnarg;           \/* running # arg used by parsing fsa (redis) *\/$/;"	m	struct:msg
+role	nc_core.h	/^    char             role;                        \/\/ ROLE_MASTER \/ ROLE_WORKER$/;"	m	struct:instance
+root	nc_rbtree.h	/^    struct rbnode *root;     \/* root node *\/$/;"	m	struct:rbtree	typeref:struct:rbtree::rbnode
+rot	hashkit/nc_jenkins.c	/^#define rot(/;"	d	file:
+rsp_filter	nc_response.c	/^rsp_filter(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+rsp_forward	nc_response.c	/^rsp_forward(struct context *ctx, struct conn *s_conn, struct msg *msg)$/;"	f	file:
+rsp_forward_stats	nc_response.c	/^rsp_forward_stats(struct context *ctx, struct server *server, struct msg *msg, uint32_t msgsize)$/;"	f	file:
+rsp_get	nc_response.c	/^rsp_get(struct conn *conn)$/;"	f
+rsp_make_error	nc_response.c	/^rsp_make_error(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f	file:
+rsp_put	nc_response.c	/^rsp_put(struct msg *msg)$/;"	f
+rsp_recv_done	nc_response.c	/^rsp_recv_done(struct context *ctx, struct conn *conn, struct msg *msg,$/;"	f
+rsp_recv_next	nc_response.c	/^rsp_recv_next(struct context *ctx, struct conn *conn, bool alloc)$/;"	f
+rsp_send_done	nc_response.c	/^rsp_send_done(struct context *ctx, struct conn *conn, struct msg *msg)$/;"	f
+rsp_send_next	nc_response.c	/^rsp_send_next(struct context *ctx, struct conn *conn)$/;"	f
+rstatus_t	nc_core.h	/^typedef int rstatus_t; \/* return type *\/$/;"	t
+s_conn_q	nc_server.h	/^    struct conn_tqh    s_conn_q;      \/* server connection q *\/$/;"	m	struct:server	typeref:struct:server::conn_tqh
+s_tqe	nc_message.h	/^    TAILQ_ENTRY(msg)     s_tqe;           \/* link in server q *\/$/;"	m	struct:msg
+sbin_PROGRAMS	Makefile	/^sbin_PROGRAMS = nutcracker$(EXEEXT)$/;"	m
+sbindir	Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+sbindir	event/Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+sbindir	hashkit/Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+sbindir	proto/Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+sd	nc_connection.h	/^    int                 sd;              \/* socket descriptor *\/$/;"	m	struct:conn
+sd	nc_stats.h	/^    int                 sd;              \/* stats descriptor *\/$/;"	m	struct:stats
+send	nc_connection.h	/^    conn_send_t         send;            \/* send (write) handler *\/$/;"	m	struct:conn
+send_active	nc_connection.h	/^    unsigned            send_active:1;   \/* send active? *\/$/;"	m	struct:conn
+send_bytes	nc_connection.h	/^    size_t              send_bytes;      \/* sent (written) bytes *\/$/;"	m	struct:conn
+send_done	nc_connection.h	/^    conn_send_done_t    send_done;       \/* write done handler *\/$/;"	m	struct:conn
+send_next	nc_connection.h	/^    conn_send_next_t    send_next;       \/* write next message handler *\/$/;"	m	struct:conn
+send_ready	nc_connection.h	/^    unsigned            send_ready:1;    \/* send ready? *\/$/;"	m	struct:conn
+sentinel	nc_rbtree.h	/^    struct rbnode *sentinel; \/* nil node *\/$/;"	m	struct:rbtree	typeref:struct:rbtree::rbnode
+seq	nc_conf.h	/^    unsigned           seq:1;            \/* sequence? *\/$/;"	m	struct:conf
+server	nc_conf.h	/^    struct array       server;                \/* servers: conf_server[] *\/$/;"	m	struct:conf_pool	typeref:struct:conf_pool::array
+server	nc_server.h	/^    struct array       server;               \/* server[] *\/$/;"	m	struct:server_pool	typeref:struct:server_pool::array
+server	nc_server.h	/^struct server {$/;"	s
+server	nc_stats.h	/^    struct array  server; \/* stats_server[] *\/$/;"	m	struct:stats_pool	typeref:struct:stats_pool::array
+server_active	nc_server.c	/^server_active(struct conn *conn)$/;"	f
+server_close	nc_server.c	/^server_close(struct context *ctx, struct conn *conn)$/;"	f
+server_close_stats	nc_server.c	/^server_close_stats(struct context *ctx, struct server *server, err_t err,$/;"	f	file:
+server_conn	nc_server.c	/^server_conn(struct server *server)$/;"	f
+server_connect	nc_server.c	/^server_connect(struct context *ctx, struct server *server, struct conn *conn)$/;"	f
+server_connected	nc_server.c	/^server_connected(struct context *ctx, struct conn *conn)$/;"	f
+server_connections	nc_conf.h	/^    int                server_connections;    \/* server_connections: *\/$/;"	m	struct:conf_pool
+server_connections	nc_server.h	/^    uint32_t           server_connections;   \/* maximum # server connection *\/$/;"	m	struct:server_pool
+server_deinit	nc_server.c	/^server_deinit(struct array *server)$/;"	f
+server_each_disconnect	nc_server.c	/^server_each_disconnect(void *elem, void *data)$/;"	f	file:
+server_each_preconnect	nc_server.c	/^server_each_preconnect(void *elem, void *data)$/;"	f	file:
+server_each_set_owner	nc_server.c	/^server_each_set_owner(void *elem, void *data)$/;"	f	file:
+server_failure	nc_server.c	/^server_failure(struct context *ctx, struct server *server)$/;"	f	file:
+server_failure_limit	nc_conf.h	/^    int                server_failure_limit;  \/* server_failure_limit: *\/$/;"	m	struct:conf_pool
+server_failure_limit	nc_server.h	/^    uint32_t           server_failure_limit; \/* server failure limit *\/$/;"	m	struct:server_pool
+server_init	nc_server.c	/^server_init(struct array *server, struct array *conf_server,$/;"	f
+server_ok	nc_server.c	/^server_ok(struct context *ctx, struct conn *conn)$/;"	f
+server_pool	nc_server.h	/^struct server_pool {$/;"	s
+server_pool_clients_disconnect	nc_server.c	/^server_pool_clients_disconnect(struct server_pool *sp)$/;"	f	file:
+server_pool_conn	nc_server.c	/^server_pool_conn(struct context *ctx, struct server_pool *pool, uint8_t *key,$/;"	f
+server_pool_deinit	nc_server.c	/^server_pool_deinit(struct array *server_pool)$/;"	f
+server_pool_disconnect	nc_server.c	/^server_pool_disconnect(struct context *ctx)$/;"	f
+server_pool_each_calc_connections	nc_server.c	/^server_pool_each_calc_connections(void *elem, void *data)$/;"	f	file:
+server_pool_each_disconnect	nc_server.c	/^server_pool_each_disconnect(void *elem, void *data)$/;"	f	file:
+server_pool_each_preconnect	nc_server.c	/^server_pool_each_preconnect(void *elem, void *data)$/;"	f	file:
+server_pool_each_run	nc_server.c	/^server_pool_each_run(void *elem, void *data)$/;"	f	file:
+server_pool_each_set_owner	nc_server.c	/^server_pool_each_set_owner(void *elem, void *data)$/;"	f	file:
+server_pool_hash	nc_server.c	/^server_pool_hash(struct server_pool *pool, uint8_t *key, uint32_t keylen)$/;"	f	file:
+server_pool_idx	nc_server.c	/^server_pool_idx(struct server_pool *pool, uint8_t *key, uint32_t keylen)$/;"	f
+server_pool_init	nc_server.c	/^server_pool_init(struct array *server_pool, struct array *conf_pool,$/;"	f
+server_pool_preconnect	nc_server.c	/^server_pool_preconnect(struct context *ctx)$/;"	f
+server_pool_run	nc_server.c	/^server_pool_run(struct server_pool *pool)$/;"	f
+server_pool_server	nc_server.c	/^server_pool_server(struct server_pool *pool, uint8_t *key, uint32_t keylen)$/;"	f	file:
+server_pool_update	nc_server.c	/^server_pool_update(struct server_pool *pool)$/;"	f	file:
+server_ref	nc_server.c	/^server_ref(struct conn *conn, void *owner)$/;"	f
+server_resolve	nc_server.c	/^server_resolve(struct server *server, struct conn *conn)$/;"	f	file:
+server_retry_timeout	nc_conf.h	/^    int                server_retry_timeout;  \/* server_retry_timeout: in msec *\/$/;"	m	struct:conf_pool
+server_retry_timeout	nc_server.h	/^    int64_t            server_retry_timeout; \/* server retry timeout in usec *\/$/;"	m	struct:server_pool
+server_timeout	nc_server.c	/^server_timeout(struct conn *conn)$/;"	f
+server_unref	nc_server.c	/^server_unref(struct conn *conn)$/;"	f
+service	nc_stats.h	/^    struct string       service;         \/* service *\/$/;"	m	struct:stats	typeref:struct:stats::string
+service_str	nc_stats.h	/^    struct string       service_str;     \/* service string *\/$/;"	m	struct:stats	typeref:struct:stats::string
+set	nc_conf.h	/^    char          *(*set)(struct conf *cf, struct command *cmd, void *data);$/;"	m	struct:command
+shadow	nc_stats.h	/^    struct array        shadow;          \/* stats_pool[] (b) *\/$/;"	m	struct:stats	typeref:struct:stats::array
+sharedstatedir	Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+sharedstatedir	event/Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+sharedstatedir	hashkit/Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+sharedstatedir	proto/Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+short_options	nc.c	/^static char short_options[] = "hVtdDv:o:c:s:i:a:p:m:";$/;"	v	file:
+show_help	nc.c	/^static int show_help;$/;"	v	file:
+show_version	nc.c	/^static int show_version;$/;"	v	file:
+signal	nc_signal.h	/^struct signal {$/;"	s
+signal_deinit	nc_signal.c	/^signal_deinit(void)$/;"	f
+signal_handler	nc_signal.c	/^signal_handler(int signo)$/;"	f
+signal_init	nc_signal.c	/^signal_init(void)$/;"	f
+signals	nc_signal.c	/^static struct signal signals[] = {$/;"	v	typeref:struct:signal	file:
+signame	nc_signal.h	/^    char *signame;$/;"	m	struct:signal
+signo	nc_signal.h	/^    int  signo;$/;"	m	struct:signal
+size	nc_array.h	/^    size_t   size;   \/* element size *\/$/;"	m	struct:array
+size	nc_stats.h	/^    size_t   size;  \/* buffer alloc size *\/$/;"	m	struct:stats_buffer
+smsg	nc_connection.h	/^    struct msg          *smsg;           \/* current message being sent *\/$/;"	m	struct:conn	typeref:struct:conn::msg
+sockinfo	nc_util.h	/^struct sockinfo {$/;"	s
+sound	nc_conf.h	/^    unsigned           sound:1;          \/* sound? *\/$/;"	m	struct:conf
+source	nc_stats.h	/^    struct string       source;          \/* source *\/$/;"	m	struct:stats	typeref:struct:stats::string
+source_str	nc_stats.h	/^    struct string       source_str;      \/* source string *\/$/;"	m	struct:stats	typeref:struct:stats::string
+srcdir	Makefile	/^srcdir = .$/;"	m
+srcdir	event/Makefile	/^srcdir = .$/;"	m
+srcdir	hashkit/Makefile	/^srcdir = .$/;"	m
+srcdir	proto/Makefile	/^srcdir = .$/;"	m
+start	nc_mbuf.h	/^    uint8_t            *start;  \/* start of buffer (const) *\/$/;"	m	struct:mbuf
+start	nc_message.h	/^    uint8_t             *start;           \/* key start pos *\/$/;"	m	struct:keypos
+start_ts	nc_message.h	/^    int64_t              start_ts;        \/* request start timestamp in usec *\/$/;"	m	struct:msg
+start_ts	nc_stats.h	/^    int64_t             start_ts;        \/* start timestamp of nutcracker *\/$/;"	m	struct:stats
+state	nc_message.h	/^    int                  state;           \/* current parser state *\/$/;"	m	struct:msg
+stats	nc_core.h	/^    struct stats       *stats;      \/* stats *\/$/;"	m	struct:context	typeref:struct:context::stats
+stats	nc_stats.h	/^struct stats {$/;"	s
+stats_add_footer	nc_stats.c	/^stats_add_footer(struct stats *st)$/;"	f	file:
+stats_add_header	nc_stats.c	/^stats_add_header(struct stats *st)$/;"	f	file:
+stats_add_num	nc_stats.c	/^stats_add_num(struct stats *st, struct string *key, int64_t val)$/;"	f	file:
+stats_add_string	nc_stats.c	/^stats_add_string(struct stats *st, struct string *key, struct string *val)$/;"	f	file:
+stats_addr	nc_core.h	/^    char             *stats_addr;                 \/* stats monitoring addr *\/$/;"	m	struct:instance
+stats_aggregate	nc_stats.c	/^stats_aggregate(struct stats *st)$/;"	f	file:
+stats_aggregate_metric	nc_stats.c	/^stats_aggregate_metric(struct array *dst, struct array *src)$/;"	f	file:
+stats_begin_nesting	nc_stats.c	/^stats_begin_nesting(struct stats *st, struct string *key)$/;"	f	file:
+stats_buffer	nc_stats.h	/^struct stats_buffer {$/;"	s
+stats_copy_metric	nc_stats.c	/^stats_copy_metric(struct stats *st, struct array *metric)$/;"	f	file:
+stats_create	nc_stats.c	/^stats_create(uint16_t stats_port, char *stats_ip, int stats_interval,$/;"	f
+stats_create_buf	nc_stats.c	/^stats_create_buf(struct stats *st)$/;"	f	file:
+stats_desc	nc_stats.c	/^struct stats_desc {$/;"	s	file:
+stats_describe	nc_stats.c	/^stats_describe(void)$/;"	f
+stats_destroy	nc_stats.c	/^stats_destroy(struct stats *st)$/;"	f
+stats_destroy_buf	nc_stats.c	/^stats_destroy_buf(struct stats *st)$/;"	f	file:
+stats_enabled	nc_stats.h	/^#define stats_enabled /;"	d
+stats_end_nesting	nc_stats.c	/^stats_end_nesting(struct stats *st)$/;"	f	file:
+stats_interval	nc_core.h	/^    int              stats_interval;              \/* stats aggregation interval *\/$/;"	m	struct:instance
+stats_listen	nc_stats.c	/^stats_listen(struct stats *st)$/;"	f	file:
+stats_loop	nc_stats.c	/^stats_loop(void *arg)$/;"	f	file:
+stats_loop_callback	nc_stats.c	/^stats_loop_callback(void *arg1, void *arg2)$/;"	f	file:
+stats_make_rsp	nc_stats.c	/^stats_make_rsp(struct stats *st)$/;"	f	file:
+stats_metric	nc_stats.h	/^struct stats_metric {$/;"	s
+stats_metric_deinit	nc_stats.c	/^stats_metric_deinit(struct array *metric)$/;"	f	file:
+stats_metric_init	nc_stats.c	/^stats_metric_init(struct stats_metric *stm)$/;"	f	file:
+stats_metric_reset	nc_stats.c	/^stats_metric_reset(struct array *stats_metric)$/;"	f	file:
+stats_pool	nc_stats.h	/^struct stats_pool {$/;"	s
+stats_pool_codec	nc_stats.c	/^static struct stats_metric stats_pool_codec[] = {$/;"	v	typeref:struct:stats_metric	file:
+stats_pool_decr	nc_stats.h	/^#define stats_pool_decr(/;"	d
+stats_pool_decr_by	nc_stats.h	/^#define stats_pool_decr_by(/;"	d
+stats_pool_desc	nc_stats.c	/^static struct stats_desc stats_pool_desc[] = {$/;"	v	typeref:struct:stats_desc	file:
+stats_pool_field	nc_stats.h	/^typedef enum stats_pool_field {$/;"	g
+stats_pool_field_t	nc_stats.h	/^} stats_pool_field_t;$/;"	t	typeref:enum:stats_pool_field
+stats_pool_incr	nc_stats.h	/^#define stats_pool_incr(/;"	d
+stats_pool_incr_by	nc_stats.h	/^#define stats_pool_incr_by(/;"	d
+stats_pool_init	nc_stats.c	/^stats_pool_init(struct stats_pool *stp, struct server_pool *sp)$/;"	f	file:
+stats_pool_map	nc_stats.c	/^stats_pool_map(struct array *stats_pool, struct array *server_pool)$/;"	f	file:
+stats_pool_metric_init	nc_stats.c	/^stats_pool_metric_init(struct array *stats_metric)$/;"	f	file:
+stats_pool_reset	nc_stats.c	/^stats_pool_reset(struct array *stats_pool)$/;"	f	file:
+stats_pool_set_ts	nc_stats.h	/^#define stats_pool_set_ts(/;"	d
+stats_pool_to_metric	nc_stats.c	/^stats_pool_to_metric(struct context *ctx, struct server_pool *pool,$/;"	f	file:
+stats_pool_unmap	nc_stats.c	/^stats_pool_unmap(struct array *stats_pool)$/;"	f	file:
+stats_port	nc_core.h	/^    uint16_t         stats_port;                  \/* stats monitoring port *\/$/;"	m	struct:instance
+stats_send_rsp	nc_stats.c	/^stats_send_rsp(struct stats *st)$/;"	f	file:
+stats_server	nc_stats.h	/^struct stats_server {$/;"	s
+stats_server_codec	nc_stats.c	/^static struct stats_metric stats_server_codec[] = {$/;"	v	typeref:struct:stats_metric	file:
+stats_server_decr	nc_stats.h	/^#define stats_server_decr(/;"	d
+stats_server_decr_by	nc_stats.h	/^#define stats_server_decr_by(/;"	d
+stats_server_desc	nc_stats.c	/^static struct stats_desc stats_server_desc[] = {$/;"	v	typeref:struct:stats_desc	file:
+stats_server_field	nc_stats.h	/^typedef enum stats_server_field {$/;"	g
+stats_server_field_t	nc_stats.h	/^} stats_server_field_t;$/;"	t	typeref:enum:stats_server_field
+stats_server_incr	nc_stats.h	/^#define stats_server_incr(/;"	d
+stats_server_incr_by	nc_stats.h	/^#define stats_server_incr_by(/;"	d
+stats_server_init	nc_stats.c	/^stats_server_init(struct stats_server *sts, struct server *s)$/;"	f	file:
+stats_server_map	nc_stats.c	/^stats_server_map(struct array *stats_server, struct array *server)$/;"	f	file:
+stats_server_metric_init	nc_stats.c	/^stats_server_metric_init(struct stats_server *sts)$/;"	f	file:
+stats_server_set_ts	nc_stats.h	/^#define stats_server_set_ts(/;"	d
+stats_server_to_metric	nc_stats.c	/^stats_server_to_metric(struct context *ctx, struct server *server,$/;"	f	file:
+stats_server_unmap	nc_stats.c	/^stats_server_unmap(struct array *stats_server)$/;"	f	file:
+stats_start_aggregator	nc_stats.c	/^stats_start_aggregator(struct stats *st)$/;"	f	file:
+stats_stop_aggregator	nc_stats.c	/^stats_stop_aggregator(struct stats *st)$/;"	f	file:
+stats_swap	nc_stats.c	/^stats_swap(struct stats *st)$/;"	f
+stats_type	nc_stats.h	/^typedef enum stats_type {$/;"	g
+stats_type_t	nc_stats.h	/^} stats_type_t;$/;"	t	typeref:enum:stats_type
+str10cmp	proto/nc_proto.h	/^#define str10cmp(/;"	d
+str10icmp	proto/nc_proto.h	/^#define str10icmp(/;"	d
+str11cmp	proto/nc_proto.h	/^#define str11cmp(/;"	d
+str11icmp	proto/nc_proto.h	/^#define str11icmp(/;"	d
+str12cmp	proto/nc_proto.h	/^#define str12cmp(/;"	d
+str12icmp	proto/nc_proto.h	/^#define str12icmp(/;"	d
+str13icmp	proto/nc_proto.h	/^#define str13icmp(/;"	d
+str14icmp	proto/nc_proto.h	/^#define str14icmp(/;"	d
+str15icmp	proto/nc_proto.h	/^#define str15icmp(/;"	d
+str16icmp	proto/nc_proto.h	/^#define str16icmp(/;"	d
+str3icmp	proto/nc_proto.h	/^#define str3icmp(/;"	d
+str4cmp	proto/nc_proto.h	/^#define str4cmp(/;"	d
+str4icmp	proto/nc_proto.h	/^#define str4icmp(/;"	d
+str5cmp	proto/nc_proto.h	/^#define str5cmp(/;"	d
+str5icmp	proto/nc_proto.h	/^#define str5icmp(/;"	d
+str6cmp	proto/nc_proto.h	/^#define str6cmp(/;"	d
+str6icmp	proto/nc_proto.h	/^#define str6icmp(/;"	d
+str7cmp	proto/nc_proto.h	/^#define str7cmp(/;"	d
+str7icmp	proto/nc_proto.h	/^#define str7icmp(/;"	d
+str8cmp	proto/nc_proto.h	/^#define str8cmp(/;"	d
+str8icmp	proto/nc_proto.h	/^#define str8icmp(/;"	d
+str9cmp	proto/nc_proto.h	/^#define str9cmp(/;"	d
+str9icmp	proto/nc_proto.h	/^#define str9icmp(/;"	d
+string	nc_string.h	/^#define string(/;"	d
+string	nc_string.h	/^struct string {$/;"	s
+string_compare	nc_string.c	/^string_compare(const struct string *s1, const struct string *s2)$/;"	f
+string_copy	nc_string.c	/^string_copy(struct string *dst, const uint8_t *src, uint32_t srclen)$/;"	f
+string_deinit	nc_string.c	/^string_deinit(struct string *str)$/;"	f
+string_duplicate	nc_string.c	/^string_duplicate(struct string *dst, const struct string *src)$/;"	f
+string_empty	nc_string.c	/^string_empty(const struct string *str)$/;"	f
+string_init	nc_string.c	/^string_init(struct string *str)$/;"	f
+string_set_raw	nc_string.h	/^#define string_set_raw(/;"	d
+string_set_text	nc_string.h	/^#define string_set_text(/;"	d
+subdir	Makefile	/^subdir = src$/;"	m
+subdir	event/Makefile	/^subdir = src\/event$/;"	m
+subdir	hashkit/Makefile	/^subdir = src\/hashkit$/;"	m
+subdir	proto/Makefile	/^subdir = src\/proto$/;"	m
+subdirs	Makefile	/^subdirs =  contrib\/yaml-0.1.4$/;"	m
+subdirs	event/Makefile	/^subdirs =  contrib\/yaml-0.1.4$/;"	m
+subdirs	hashkit/Makefile	/^subdirs =  contrib\/yaml-0.1.4$/;"	m
+subdirs	proto/Makefile	/^subdirs =  contrib\/yaml-0.1.4$/;"	m
+sum	nc_stats.h	/^    struct array        sum;             \/* stats_pool[] (c = a + b) *\/$/;"	m	struct:stats	typeref:struct:stats::array
+swallow	nc_message.h	/^    unsigned             swallow:1;       \/* swallow response? *\/$/;"	m	struct:msg
+swallow_msg	nc_connection.h	/^    conn_swallow_msg_t  swallow_msg;     \/* react on messages to be swallowed *\/$/;"	m	struct:conn
+sysconfdir	Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+sysconfdir	event/Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+sysconfdir	hashkit/Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+sysconfdir	proto/Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+target_alias	Makefile	/^target_alias = $/;"	m
+target_alias	event/Makefile	/^target_alias = $/;"	m
+target_alias	hashkit/Makefile	/^target_alias = $/;"	m
+target_alias	proto/Makefile	/^target_alias = $/;"	m
+tcpkeepalive	nc_conf.h	/^    int                tcpkeepalive;          \/* tcpkeepalive: *\/$/;"	m	struct:conf_pool
+tcpkeepalive	nc_server.h	/^    unsigned           tcpkeepalive:1;       \/* tcpkeepalive? *\/$/;"	m	struct:server_pool
+test_conf	nc.c	/^static int test_conf;$/;"	v	file:
+tid	nc_stats.h	/^    pthread_t           tid;             \/* stats aggregator thread *\/$/;"	m	struct:stats
+timeout	nc_conf.h	/^    int                timeout;               \/* timeout: *\/$/;"	m	struct:conf_pool
+timeout	nc_core.h	/^    int                timeout;     \/* timeout in msec *\/$/;"	m	struct:context
+timeout	nc_server.h	/^    int                timeout;              \/* timeout in msec *\/$/;"	m	struct:server_pool
+timestamp	nc_stats.h	/^        int64_t   timestamp;    \/* monotonic timestamp *\/$/;"	m	union:stats_metric::__anon2
+timestamp_str	nc_stats.h	/^    struct string       timestamp_str;   \/* timestamp string *\/$/;"	m	struct:stats	typeref:struct:stats::string
+tmo_rbe	nc_message.h	/^    struct rbnode        tmo_rbe;         \/* entry in rbtree *\/$/;"	m	struct:msg	typeref:struct:msg::rbnode
+tmo_rbs	nc_message.c	/^static struct rbnode tmo_rbs;    \/* timeout rbtree sentinel *\/$/;"	v	typeref:struct:rbnode	file:
+tmo_rbt	nc_message.c	/^static struct rbtree tmo_rbt;    \/* timeout rbtree *\/$/;"	v	typeref:struct:rbtree	file:
+token	nc_conf.h	/^    yaml_token_t       token;            \/* yaml token *\/$/;"	m	struct:conf
+token	nc_message.h	/^    uint8_t              *token;          \/* token marker *\/$/;"	m	struct:msg
+top_build_prefix	Makefile	/^top_build_prefix = ..\/$/;"	m
+top_build_prefix	event/Makefile	/^top_build_prefix = ..\/..\/$/;"	m
+top_build_prefix	hashkit/Makefile	/^top_build_prefix = ..\/..\/$/;"	m
+top_build_prefix	proto/Makefile	/^top_build_prefix = ..\/..\/$/;"	m
+top_builddir	Makefile	/^top_builddir = ..$/;"	m
+top_builddir	event/Makefile	/^top_builddir = ..\/..$/;"	m
+top_builddir	hashkit/Makefile	/^top_builddir = ..\/..$/;"	m
+top_builddir	proto/Makefile	/^top_builddir = ..\/..$/;"	m
+top_srcdir	Makefile	/^top_srcdir = ..$/;"	m
+top_srcdir	event/Makefile	/^top_srcdir = ..\/..$/;"	m
+top_srcdir	hashkit/Makefile	/^top_srcdir = ..\/..$/;"	m
+top_srcdir	proto/Makefile	/^top_srcdir = ..\/..$/;"	m
+transform	Makefile	/^transform = $(program_transform_name)$/;"	m
+transform	event/Makefile	/^transform = $(program_transform_name)$/;"	m
+transform	hashkit/Makefile	/^transform = $(program_transform_name)$/;"	m
+transform	proto/Makefile	/^transform = $(program_transform_name)$/;"	m
+type	nc_message.h	/^    msg_type_t           type;            \/* message type *\/$/;"	m	struct:msg
+type	nc_stats.h	/^    stats_type_t  type;         \/* type *\/$/;"	m	struct:stats_metric
+un	nc_util.h	/^        struct sockaddr_un  un;    \/* unix domain address *\/$/;"	m	union:sockinfo::__anon3	typeref:struct:sockinfo::__anon3::sockaddr_un
+unref	nc_connection.h	/^    conn_unref_t        unref;           \/* connection unreference handler *\/$/;"	m	struct:conn
+updated	nc_stats.h	/^    volatile int        updated;         \/* current (a) updated? *\/$/;"	m	struct:stats
+uptime_str	nc_stats.h	/^    struct string       uptime_str;      \/* uptime string *\/$/;"	m	struct:stats	typeref:struct:stats::string
+valid	nc_conf.h	/^    unsigned           valid:1;               \/* valid? *\/$/;"	m	struct:conf_pool
+valid	nc_conf.h	/^    unsigned           valid:1;          \/* valid? *\/$/;"	m	struct:conf
+valid	nc_conf.h	/^    unsigned        valid:1;    \/* valid? *\/$/;"	m	struct:conf_server
+valid	nc_conf.h	/^    unsigned        valid:1; \/* valid? *\/$/;"	m	struct:conf_listen
+valid_event	nc_conf.h	/^    unsigned           valid_event:1;    \/* valid event? *\/$/;"	m	struct:conf
+valid_parser	nc_conf.h	/^    unsigned           valid_parser:1;   \/* valid parser? *\/$/;"	m	struct:conf
+valid_token	nc_conf.h	/^    unsigned           valid_token:1;    \/* valid token? *\/$/;"	m	struct:conf
+value	nc_server.h	/^    uint32_t value;  \/* hash value *\/$/;"	m	struct:continuum
+value	nc_stats.h	/^    } value;$/;"	m	struct:stats_metric	typeref:union:stats_metric::__anon2
+version	nc_stats.h	/^    struct string       version;         \/* version *\/$/;"	m	struct:stats	typeref:struct:stats::string
+version_str	nc_stats.h	/^    struct string       version_str;     \/* version string *\/$/;"	m	struct:stats	typeref:struct:stats::string
+vlen	nc_message.h	/^    uint32_t             vlen;            \/* value length (memcache) *\/$/;"	m	struct:msg
+weight	nc_conf.h	/^    int             weight;     \/* weight *\/$/;"	m	struct:conf_server
+weight	nc_server.h	/^    uint32_t           weight;        \/* weight *\/$/;"	m	struct:server
+worker_processes	nc_conf.h	/^    int worker_processes; \/\/ number of worker processes$/;"	m	struct:conf_global
+workers	nc_core.h	/^    struct array     workers;                     \/\/ WORKERS if role == ROLE_MASTER$/;"	m	struct:instance	typeref:struct:instance::array
