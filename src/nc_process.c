@@ -13,8 +13,8 @@ static rstatus_t nc_shutdown_workers(struct array *workers);
 bool pm_reload = false;
 bool pm_respawn = false;
 char pm_myrole = ROLE_MASTER;
-bool pm_quit = false;
-bool pm_terminate= false;
+bool pm_quit = false; // quit right away
+bool pm_terminate= false; // quit after worker_shutdown_timeout
 
 struct instance *master_nci = NULL;
 
