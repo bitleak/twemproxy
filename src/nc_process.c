@@ -267,7 +267,9 @@ nc_worker_process(int worker_id, struct instance *nci)
             break;
         }
     }
-    log_warn("terminated with quit flag: %d", pm_quit);
+    server_pool_disconnect(nci->ctx);
+    server_pool_deinit(&nci->ctx->pool);
+    log_warn("[worker] terminted with quit flag: %d", pm_quit);
 
     exit(0);
 }
