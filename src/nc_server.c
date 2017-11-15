@@ -266,12 +266,20 @@ server_each_disconnect(void *elem, void *data)
 static void
 server_failure(struct context *ctx, struct server *server)
 {
+    struct server *master;
     struct server_pool *pool = server->owner;
     int64_t now, next;
     rstatus_t status;
 
     if (!pool->auto_eject_hosts) {
         return;
+    }
+    /* redis master can't be rejected */
+    if (pool->redis && array_n(&pool->redis_master) > 0) {
+        master = (struct server *) array_get(&pool->redis_master, 0);
+        if (server == master) {
+            return;
+        }
     }
 
     server->failure_count++;
@@ -710,12 +718,32 @@ server_pool_server(struct server_pool *pool, uint8_t *key, uint32_t keylen)
 }
 
 struct conn *
+server_get_conn(struct context *ctx, struct server *srv)
+{
+    struct conn *conn;
+    rstatus_t status;
+
+    /* pick a connection to a given server */
+    conn = server_conn(srv);
+    if (conn == NULL) {
+        return NULL;
+    }
+
+    status = server_connect(ctx, srv, conn);
+    if (status != NC_OK) {
+        server_close(ctx, conn);
+        return NULL;
+    }
+
+    return conn;
+}
+
+struct conn *
 server_pool_conn(struct context *ctx, struct server_pool *pool, uint8_t *key,
                  uint32_t keylen)
 {
     rstatus_t status;
     struct server *server;
-    struct conn *conn;
 
     status = server_pool_update(pool);
     if (status != NC_OK) {
@@ -727,20 +755,7 @@ server_pool_conn(struct context *ctx, struct server_pool *pool, uint8_t *key,
     if (server == NULL) {
         return NULL;
     }
-
-    /* pick a connection to a given server */
-    conn = server_conn(server);
-    if (conn == NULL) {
-        return NULL;
-    }
-
-    status = server_connect(ctx, server, conn);
-    if (status != NC_OK) {
-        server_close(ctx, conn);
-        return NULL;
-    }
-
-    return conn;
+    return server_get_conn(ctx, server);
 }
 
 static rstatus_t
@@ -753,6 +768,12 @@ server_pool_each_preconnect(void *elem, void *data)
         return NC_OK;
     }
 
+    if (array_n(&sp->redis_master) > 0) {
+        status = array_each(&sp->redis_master, server_each_preconnect, NULL);
+        if (status != NC_OK) {
+            return status;
+        }
+    }
     status = array_each(&sp->server, server_each_preconnect, NULL);
     if (status != NC_OK) {
         return status;

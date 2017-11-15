@@ -93,6 +93,7 @@ struct server_pool {
     struct conn_tqh    c_conn_q;             /* client connection q */
 
     struct array       server;               /* server[] */
+    struct array       redis_master;         /* server[] */
     uint32_t           ncontinuum;           /* # continuum points */
     uint32_t           nserver_continuum;    /* # servers - live and dead on continuum (const) */
     struct continuum   *continuum;           /* continuum */
@@ -130,6 +131,7 @@ bool server_active(struct conn *conn);
 rstatus_t server_init(struct array *server, struct array *conf_server, struct server_pool *sp);
 void server_deinit(struct array *server);
 struct conn *server_conn(struct server *server);
+struct conn *server_get_conn(struct context *ctx, struct server *srv);
 rstatus_t server_connect(struct context *ctx, struct server *server, struct conn *conn);
 void server_close(struct context *ctx, struct conn *conn);
 void server_connected(struct context *ctx, struct conn *conn);
