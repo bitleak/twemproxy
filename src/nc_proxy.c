@@ -80,7 +80,6 @@ proxy_close(struct context *ctx, struct conn *conn)
 
     conn->unref(conn);
 
-    event_del_conn(ctx->evb, conn);
     status = close(conn->sd);
     if (status < 0) {
         log_error("close p %d failed, ignored: %s", conn->sd, strerror(errno));
