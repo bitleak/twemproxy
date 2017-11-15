@@ -66,6 +66,15 @@ channel_recv(void *evb, void *priv)
                 pm_quit = true;
                 log_warn("quit signal was receviced");
                 break;
+            case NC_CMD_LOG_REOPEN:
+                log_reopen();
+                break;
+            case NC_CMD_LOG_LEVEL_UP:
+                log_level_up();
+                break;
+            case NC_CMD_LOG_LEVEL_DOWN:
+                log_level_down();
+                break;
         }
     }
     return NC_OK;

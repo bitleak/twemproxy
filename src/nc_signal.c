@@ -90,6 +90,9 @@ signal_handler(int signo)
     case SIGUSR1:
         actionstr = ", reopening log file";
         action = log_reopen;
+        if (pm_myrole == ROLE_MASTER) {
+            nc_signal_workers(&master_nci->workers, NC_CMD_LOG_REOPEN);
+        }
         break;
 
     case SIGUSR2:
@@ -97,12 +100,18 @@ signal_handler(int signo)
 
     case SIGTTIN:
         actionstr = ", up logging level";
+        if (pm_myrole == ROLE_MASTER) {
+            nc_signal_workers(&master_nci->workers, NC_CMD_LOG_LEVEL_UP);
+        }
         action = log_level_up;
         break;
 
     case SIGTTOU:
         actionstr = ", down logging level";
         action = log_level_down;
+        if (pm_myrole == ROLE_MASTER) {
+            nc_signal_workers(&master_nci->workers, NC_CMD_LOG_LEVEL_DOWN);
+        }
         break;
 
     case SIGHUP:
