@@ -25,6 +25,7 @@
 
 #include <nc_core.h>
 #include <nc_server.h>
+#include <nc_process.h>
 
 struct stats_desc {
     char *name; /* stats name */
@@ -787,7 +788,7 @@ stats_send_rsp(struct stats *st)
     return NC_OK;
 }
 
-static void
+void
 stats_loop_callback(void *arg1, void *arg2)
 {
     struct stats *st = arg1;
@@ -804,11 +805,119 @@ stats_loop_callback(void *arg1, void *arg2)
     stats_send_rsp(st);
 }
 
-static void *
-stats_loop(void *arg)
+static rstatus_t
+stats_shared_mem_size(void *arg1, void *arg2)
 {
-    event_loop_stats(stats_loop_callback, arg);
+    char *shared_mem = ((struct instance *)arg1)->ctx->shared_mem;
+    int *size = arg2;
+    *size += strlen(shared_mem);
+    /* use "," instead of "\0" */
+    return NC_OK;
+}
+
+static rstatus_t
+stats_shared_mem_aggregate(void *arg1, void *arg2)
+{
+    char *shared_mem = ((struct instance *)arg1)->ctx->shared_mem;
+    struct stats_buffer *buf = arg2;
+    size_t len = strlen(shared_mem);
+    uint8_t  *pos = buf->data + buf->len;
+    memcpy(pos, shared_mem, len);
+    buf->len += len;
+    pos[len-1] = ',';
+    return NC_OK;
+}
+
+static rstatus_t
+stats_master_send_resp(struct stats *st)
+{
+    rstatus_t status;
+    ssize_t n;
+    int sd;
+    struct stats_buffer buf;
+    buf.len=0;
+    buf.size=0;
+
+    status = array_each(&master_nci->workers, stats_shared_mem_size, &buf.size);
+    if (status) {
+        return NC_ERROR;
+    }
+    /* delete a "," and add "[","]","\0" */
+    buf.size+=2;
+    buf.data = nc_alloc(buf.size);
+    if (buf.data == NULL) {
+       log_error("new out buf for master to aggregate failed");
+        return NC_ERROR;
+    }
+
+    buf.data[0] = '[';
+    buf.len = 1;
+    status = array_each(&master_nci->workers, stats_shared_mem_aggregate, &buf);
+    if (status) {
+        return NC_ERROR;
+    }
+    buf.data[buf.len-1] = ']';
+    buf.data[buf.len] = 0;
+
+    sd = accept(st->sd, NULL, NULL);
+        if (sd < 0) {
+            log_error("accept on m %d failed: %s", st->sd, strerror(errno));
+            free(buf.data);
+            return NC_ERROR;
+        }
+
+    log_debug(LOG_VERB, "send stats on sd %d %d bytes", sd, buf.len);
+
+    n = nc_sendn(sd, buf.data, buf.len);
+    if (n < 0) {
+        log_error("send stats on sd %d failed: %s", sd, strerror(errno));
+        close(sd);
+        free(buf.data);
+        return NC_ERROR;
+    }
+
+    close(sd);
+    free(buf.data);
+    return NC_OK;
+};
+
+void
+stats_master_loop_callback(void *arg1, void* arg2)
+{
+    struct stats *st = arg1;
+    int n = *((int *)arg2);
+
+    if (n == 0) {
+        return;
+    }
+
+    /* master aggregate worker buf to collector */
+    stats_master_send_resp(st);
+}
+
+static void *
+stats_master_loop(void *arg)
+{
+    struct stats *st = arg;
+    event_loop_stats(st->loop, arg);
     return NULL;
+}
+
+static void *
+stats_worker_loop(void *arg)
+{
+    rstatus_t status;
+    struct stats *st = arg;
+    for (;;) {
+        sleep((unsigned int)(st->interval/1000));
+        stats_aggregate(st);
+        status = stats_make_rsp(st);
+        if (status != NC_OK) {
+            return NULL;
+        }
+        memcpy(st->owner->shared_mem, st->buf.data, st->buf.len);
+        st->owner->shared_mem[st->buf.len] = 0;
+    }
 }
 
 static rstatus_t
@@ -833,15 +942,6 @@ stats_listen(struct stats *st)
         log_error("set reuseaddr on m %d failed: %s", st->sd, strerror(errno));
         return NC_ERROR;
     }
-
-#ifdef NC_HAVE_REUSEPORT
-    // FIXME: tmp work around
-    status = nc_set_reuseport(st->sd);
-    if (status < 0) {
-        log_error("set reuseport on m %d failed: %s", st->sd, strerror(errno));
-        return NC_ERROR;
-    }
-#endif
 
     status = bind(st->sd, (struct sockaddr *)&si.addr, si.addrlen);
     if (status < 0) {
@@ -871,12 +971,20 @@ stats_start_aggregator(struct stats *st)
         return NC_OK;
     }
 
-    status = stats_listen(st);
-    if (status != NC_OK) {
-        return status;
+    /* stats is worker when loop is null */
+    if (st->loop != NULL) {
+        status = stats_listen(st);
+        if (status != NC_OK) {
+            return status;
+        }
     }
 
-    status = pthread_create(&st->tid, NULL, stats_loop, st);
+    if (st->loop != NULL) {
+        status = pthread_create(&st->tid, NULL, stats_master_loop, st);
+    } else {
+        status = pthread_create(&st->tid, NULL, stats_worker_loop, st);
+    }
+
     if (status < 0) {
         log_error("stats aggregator create failed: %s", strerror(status));
         return NC_ERROR;
@@ -897,7 +1005,7 @@ stats_stop_aggregator(struct stats *st)
 
 struct stats *
 stats_create(uint16_t stats_port, char *stats_ip, int stats_interval,
-             char *source, struct array *server_pool)
+             char *source, struct array *server_pool, stats_loop_t loop)
 {
     rstatus_t status;
     struct stats *st;
@@ -923,6 +1031,8 @@ stats_create(uint16_t stats_port, char *stats_ip, int stats_interval,
 
     st->tid = (pthread_t) -1;
     st->sd = -1;
+
+    st->loop = loop;
 
     string_set_text(&st->service_str, "service");
     string_set_text(&st->service, "nutcracker");

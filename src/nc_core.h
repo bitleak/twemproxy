@@ -134,6 +134,8 @@ struct context {
     int                max_timeout; /* max timeout in msec */
     int                timeout;     /* timeout in msec */
 
+    char               *shared_mem; /* shared memory for current worker for stats */
+
     uint32_t           max_nfd;     /* max # files */
     uint32_t           max_ncconn;  /* max # client connections */
     uint32_t           max_nsconn;  /* max # server connections */
@@ -160,6 +162,7 @@ struct instance {
 
 struct context *core_ctx_create(struct instance *nci);
 struct context *core_start(struct instance *nci);
+rstatus_t core_init_stats(struct instance *nci);
 rstatus_t core_init_listener(struct instance *nci);
 rstatus_t core_init_instance(struct instance *nci);
 void core_stop(struct context *ctx);
