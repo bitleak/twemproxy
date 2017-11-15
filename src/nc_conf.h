@@ -57,6 +57,8 @@
 #define CONF_DEFAULT_KETAMA_PORT             11211
 #define CONF_DEFAULT_TCPKEEPALIVE            false
 #define CONF_DEFAULT_WORKER_SHUTDOWN_TIMEOUT 30
+#define CONF_DEFAULT_USER                    "nobody"
+#define CONF_DEFAULT_GROUP                   "nobody"
 
 struct conf_listen {
     struct string   pname;   /* listen: as "hostname:port" */
@@ -89,7 +91,7 @@ struct conf_pool {
     int                tcpkeepalive;          /* tcpkeepalive: */
     int                redis;                 /* redis: */
     struct string      redis_auth;            /* redis_auth: redis auth password (matches requirepass on redis) */
-    struct array       redis_master;          /* redis master */ 
+    struct array       redis_master;          /* redis master */
     int                redis_db;              /* redis_db: redis db */
     int                preconnect;            /* preconnect: */
     int                auto_eject_hosts;      /* auto_eject_hosts: */
@@ -101,8 +103,12 @@ struct conf_pool {
 };
 
 struct conf_global {
-    int worker_processes; // number of worker processes
-    int worker_shutdown_timeout; // number of seconds that worker would be quit after signal terminate was received
+    int           worker_processes; // number of worker processes
+    int           worker_shutdown_timeout; // number of seconds that worker would be quit after signal terminate was received
+    struct string user;
+    struct string group;
+    uid_t         uid;
+    gid_t         gid;
 };
 
 struct conf {

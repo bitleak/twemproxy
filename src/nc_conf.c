@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+#include <grp.h>
+#include <pwd.h>
 #include <nc_core.h>
 #include <nc_conf.h>
 #include <nc_server.h>
@@ -129,6 +131,18 @@ static struct command conf_global_commands[] = {
         string("worker_shutdown_timeout"),
         conf_set_num,
         offsetof(struct conf_global, worker_shutdown_timeout)
+    },
+
+    {
+        string("user"),
+        conf_set_string,
+        offsetof(struct conf_global, user)
+    },
+
+    {
+        string("group"),
+        conf_set_string,
+        offsetof(struct conf_global, group)
     },
 
     null_command
@@ -811,6 +825,8 @@ conf_parse_global_section(struct conf *cf)
     // init global conf
     cf->global.worker_processes = CONF_UNSET_NUM;
     cf->global.worker_shutdown_timeout = CONF_UNSET_NUM;
+    string_init(&cf->global.user);
+    string_init(&cf->global.group);
 
     do {
         status = conf_event_next(cf);
@@ -870,6 +886,8 @@ static rstatus_t
 conf_parse(struct conf *cf)
 {
     rstatus_t status;
+    struct passwd *pw;
+    struct group *grp;
 
     ASSERT(cf->sound && !cf->parsed);
     ASSERT(array_n(&cf->arg) == 0);
@@ -883,9 +901,32 @@ conf_parse(struct conf *cf)
     if (status != NC_OK) {
         return status;
     }
+
     if (cf->global.worker_shutdown_timeout == CONF_UNSET_NUM) {
         cf->global.worker_shutdown_timeout = CONF_DEFAULT_WORKER_SHUTDOWN_TIMEOUT;
     }
+
+    // get uid
+    if (cf->global.user.data == CONF_UNSET_PTR) {
+        string_copy(&cf->global.user, (uint8_t *)CONF_DEFAULT_USER, sizeof(CONF_DEFAULT_USER) - 1);
+    }
+    pw = getpwnam((char *)cf->global.user.data);
+    if (pw == NULL) {
+        log_error("user[%s] not found: %s", cf->global.user.data, strerror(errno));
+        return NC_ERROR;
+    }
+    cf->global.uid = pw->pw_uid;
+
+    // get gid
+    if (cf->global.group.data == CONF_UNSET_PTR) {
+        string_copy(&cf->global.group, (uint8_t *)CONF_DEFAULT_GROUP, sizeof(CONF_DEFAULT_USER) - 1);
+    }
+    grp = getgrnam((char *)cf->global.group.data);
+    if (grp == NULL) {
+        log_error("group[%s] not found: %s", cf->global.group.data, strerror(errno));
+        return NC_ERROR;
+    }
+    cf->global.gid = grp->gr_gid;
 
     cf->parsed = 1;
 
