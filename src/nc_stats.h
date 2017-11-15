@@ -50,7 +50,7 @@
 
 #define STATS_ADDR      "0.0.0.0"
 #define STATS_PORT      22222
-#define STATS_INTERVAL  (30 * 1000) /* in msec */
+#define STATS_INTERVAL  (10 * 1000) /* in msec */
 
 typedef void (*stats_loop_t)(void *, void *);
 
