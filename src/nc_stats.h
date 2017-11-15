@@ -50,7 +50,9 @@
 
 #define STATS_ADDR      "0.0.0.0"
 #define STATS_PORT      22222
-#define STATS_INTERVAL  (30 * 1000) /* in msec */
+#define STATS_INTERVAL  (10 * 1000) /* in msec */
+
+typedef void (*stats_loop_t)(void *, void *);
 
 typedef enum stats_type {
     STATS_INVALID,
@@ -87,12 +89,15 @@ struct stats_buffer {
 };
 
 struct stats {
+    struct context      *owner;
+
     uint16_t            port;            /* stats monitoring port */
     int                 interval;        /* stats aggregation interval */
     struct string       addr;            /* stats monitoring address */
 
     int64_t             start_ts;        /* start timestamp of nutcracker */
     struct stats_buffer buf;             /* output buffer */
+    stats_loop_t        loop;            /* loop handler */
 
     struct array        current;         /* stats_pool[] (a) */
     struct array        shadow;          /* stats_pool[] (b) */
@@ -208,8 +213,12 @@ void _stats_server_incr_by(struct context *ctx, struct server *server, stats_ser
 void _stats_server_decr_by(struct context *ctx, struct server *server, stats_server_field_t fidx, int64_t val);
 void _stats_server_set_ts(struct context *ctx, struct server *server, stats_server_field_t fidx, int64_t val);
 
-struct stats *stats_create(uint16_t stats_port, char *stats_ip, int stats_interval, char *source, struct array *server_pool);
+struct stats *stats_create(uint16_t stats_port, char *stats_ip, int stats_interval, char *source, struct array *server_pool, stats_loop_t loop);
 void stats_destroy(struct stats *stats);
 void stats_swap(struct stats *stats);
+void stats_loop_callback(void *arg1, void *arg2);
+void stats_master_loop_callback(void *arg1, void *arg2);
+rstatus_t stats_shared_memory_init(struct stats *stats, int processes);
+void stats_shared_memory_deinit(struct stats *stats);
 
 #endif

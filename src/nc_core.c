@@ -97,22 +97,47 @@ core_ctx_create(struct instance *nci) {
     return ctx;
 }
 
+static stats_loop_t
+get_loop_callback(char role, int processes)
+{
+    if (role == ROLE_MASTER) {
+        if (processes >= 1) {
+            return stats_master_loop_callback;
+        } else {
+            return stats_loop_callback;
+        }
+    }
+    return NULL;
+}
+
 rstatus_t
-core_init_listener(struct instance *nci) {
-    rstatus_t status;
+core_init_stats(struct instance *nci)
+{
+    stats_loop_t loop;
     struct context *ctx;
     ctx = nci->ctx;
 
-    // FIXME: use single process for handling stats
+    loop = get_loop_callback(nci->role, nci->ctx->cf->global.worker_processes);
     /* create stats per server pool */
     ctx->stats = stats_create(nci->stats_port, nci->stats_addr, nci->stats_interval,
-                              nci->hostname, &ctx->pool);
+                              nci->hostname, &ctx->pool, loop);
     if (ctx->stats == NULL) {
         server_pool_deinit(&ctx->pool);
         conf_destroy(ctx->cf);
         nc_free(ctx);
         return NC_ERROR;
     }
+    ctx->stats->owner = ctx;
+
+    return NC_OK;
+}
+
+rstatus_t
+core_init_listener(struct instance *nci)
+{
+    rstatus_t status;
+    struct context *ctx;
+    ctx = nci->ctx;
 
     /* initialize proxy per server pool */
     status = proxy_init(ctx);
@@ -190,7 +215,6 @@ core_start(struct instance *nci)
     ctx = core_ctx_create(nci);
     if (ctx != NULL) {
         nci->ctx = ctx;
-
         if (ctx->cf->global.worker_processes < 1) {
             nc_single_process_cycle(nci);
         } else {

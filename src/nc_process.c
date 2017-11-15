@@ -1,7 +1,11 @@
+#include <sys/mman.h>
+
 #include <signal.h>
 #include <nc_conf.h>
 #include <nc_process.h>
 #include <nc_proxy.h>
+
+#define SHARED_MEMORY_SIZE 1048576
 
 static rstatus_t nc_migrate_proxies(struct context *dst, struct context *src);
 static rstatus_t nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading);
@@ -31,6 +35,13 @@ nc_clone_instance(struct instance *dst, struct instance *src)
         log_error("failed to create context");
         return NC_ERROR;
     }
+
+    new_ctx->shared_mem = nc_shared_mem_alloc(SHARED_MEMORY_SIZE);
+    if (new_ctx->shared_mem == NULL)  {
+        log_error("failed to create shared memory for context");
+        return  NC_ERROR;
+    }
+
     dst->ctx = new_ctx;
     return NC_OK;
 }
@@ -67,6 +78,12 @@ nc_multi_processes_cycle(struct instance *parent_nci)
     rstatus_t status;
     struct context *ctx, *prev_ctx;
     sigset_t set;
+
+    //TODO: listen stat after spawn workers
+    status = core_init_stats(parent_nci);
+    if (status != NC_OK) {
+        return status;
+    }
 
     pm_respawn = true; // spawn workers upon start
     status = nc_setup_listener_for_workers(parent_nci, false);
@@ -214,6 +231,7 @@ nc_shutdown_workers(struct array *workers)
         elem = array_pop(workers);
         worker_nci = (struct instance *)elem;
         nc_dealloc_channel(worker_nci->chan);
+        nc_shared_mem_free(worker_nci->ctx->shared_mem, SHARED_MEMORY_SIZE);
         core_ctx_destroy(worker_nci->ctx);
     }
     // TODO: tell old workers to shutdown gracefully
@@ -232,6 +250,12 @@ nc_worker_process(int worker_id, struct instance *nci)
     sigemptyset(&set);
     if (sigprocmask(SIG_SETMASK, &set, NULL) == -1) {
         log_error("failed to clear signal mask");
+        return;
+    }
+
+    status = core_init_stats(nci);
+    if (status != NC_OK) {
+        log_error("failed to initialize stats");
         return;
     }
 
@@ -274,10 +298,16 @@ nc_single_process_cycle(struct instance *nci)
 {
     rstatus_t status;
 
+    status = core_init_stats(nci);
+    if (status != NC_OK) {
+        return status;
+    }
+
     status = core_init_listener(nci);
     if (status != NC_OK) {
         return status;
     }
+
     status = core_init_instance(nci);
     if (status != NC_OK) {
         return status;
