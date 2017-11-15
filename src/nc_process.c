@@ -244,8 +244,25 @@ nc_worker_process(int worker_id, struct instance *nci)
 {
     rstatus_t status;
     sigset_t set;
+    struct conf *cf = nci->ctx->cf;
 
     ASSERT(nci->role == ROLE_WORKER);
+
+    if (geteuid() == 0) {
+        if (setgid(cf->global.gid) == -1) {
+            log_error("failed to setgid");
+            exit(0);
+        }
+
+        if (initgroups((char *)cf->global.user.data, (int)cf->global.gid) == -1) {
+            log_error("failed to initgroups");
+        }
+
+        if (setuid(cf->global.uid) == -1) {
+            log_error("failed to setuid");
+            exit(0);
+        }
+    }
 
     sigemptyset(&set);
     if (sigprocmask(SIG_SETMASK, &set, NULL) == -1) {
