@@ -577,12 +577,7 @@ req_forward(struct context *ctx, struct conn *c_conn, struct msg *msg)
     key = kpos->start;
     keylen = (uint32_t)(kpos->end - kpos->start);
 
-    if (pool->redis && !redis_readonly(msg)) {
-        if (array_n(&pool->redis_master) == 0) {
-            /* master was not found */
-            req_forward_error(ctx, c_conn, msg);
-            return;
-        }
+    if (pool->redis && !redis_readonly(msg) && array_n(&pool->redis_master) > 0) {
         struct server *master = array_get(&pool->redis_master, 0);
         /* pick a connection to a given server */
         s_conn = server_get_conn(ctx, master);
