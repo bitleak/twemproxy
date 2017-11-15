@@ -78,6 +78,9 @@
 #define nc_atoi(_line, _n)          \
     _nc_atoi((uint8_t *)_line, (size_t)_n)
 
+void* nc_shared_mem_alloc(size_t size);
+void nc_shared_mem_free(void *p, size_t size);
+
 int nc_set_blocking(int sd);
 int nc_set_nonblocking(int sd);
 int nc_set_reuseaddr(int sd);

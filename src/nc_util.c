@@ -27,6 +27,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
+#include <sys/mman.h>
 
 #include <netinet/in.h>
 #include <netinet/tcp.h>
@@ -36,6 +37,23 @@
 #ifdef NC_HAVE_BACKTRACE
 # include <execinfo.h>
 #endif
+
+void*
+nc_shared_mem_alloc(size_t size)
+{
+    void *p;
+    p = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    if (p == MAP_FAILED) {
+        return NULL;
+    }
+    return p;
+}
+
+void
+nc_shared_mem_free(void *p, size_t size)
+{
+    munmap(p, size);
+}
 
 int
 nc_set_blocking(int sd)
