@@ -913,7 +913,6 @@ stats_worker_loop(void *arg)
     rstatus_t status;
     struct stats *st = arg;
     for (;;) {
-        sleep((unsigned int)(st->interval/1000));
         stats_aggregate(st);
         status = stats_make_rsp(st);
         if (status != NC_OK) {
@@ -921,6 +920,7 @@ stats_worker_loop(void *arg)
         }
         memcpy(st->owner->shared_mem, st->buf.data, st->buf.len);
         st->owner->shared_mem[st->buf.len] = 0;
+        sleep((unsigned int)(st->interval/1000));
     }
 }
 
