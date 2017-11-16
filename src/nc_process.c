@@ -47,7 +47,7 @@ nc_clone_instance(struct instance *dst, struct instance *src)
 }
 
 static rstatus_t
-nc_close_other_proxy(void *elem, void *data)
+nc_each_close_other_proxy(void *elem, void *data)
 {
     struct instance *nci = (struct instance *)elem, *self = data;
     struct context *ctx = nci->ctx;
@@ -63,7 +63,7 @@ nc_close_other_proxy(void *elem, void *data)
 static rstatus_t
 nc_close_other_proxies(struct array *workers, struct instance *self)
 {
-    return array_each(workers, nc_close_other_proxy, self);
+    return array_each(workers, nc_each_close_other_proxy, self);
 }
 
 // Master process's jobs:

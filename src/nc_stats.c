@@ -168,10 +168,10 @@ stats_metric_deinit(struct array *metric)
 }
 
 static rstatus_t
-stats_server_init(void *arg1, void *arg2)
+server_each_map_to_stats_server(void *elem, void *data)
 {
-    struct server *s = arg1;
-    struct stats_server *sts = array_push((struct array*)arg2);
+    struct server *s = elem;
+    struct stats_server *sts = array_push((struct array*)data);
     rstatus_t status;
 
     sts->name = s->name;
@@ -205,12 +205,12 @@ stats_server_map(struct array *stats_server, struct array *server, struct array 
         return status;
     }
 
-    status = array_each(server, stats_server_init, stats_server);
+    status = array_each(server, server_each_map_to_stats_server, stats_server);
     if (status != NC_OK) {
         return status;
     }
 
-    status = array_each(master, stats_server_init, stats_server);
+    status = array_each(master, server_each_map_to_stats_server, stats_server);
     if (status != NC_OK) {
         return status;
     }
@@ -814,20 +814,20 @@ stats_loop_callback(void *arg1, void *arg2)
 }
 
 static rstatus_t
-stats_shared_mem_size(void *arg1, void *arg2)
+stats_each_calc_shared_mem_size(void *elem, void *data)
 {
-    char *shared_mem = ((struct instance *)arg1)->ctx->shared_mem;
-    int *size = arg2;
+    char *shared_mem = ((struct instance *)elem)->ctx->shared_mem;
+    int *size = data;
     *size += strlen(shared_mem);
     /* use "," instead of "\0" */
     return NC_OK;
 }
 
 static rstatus_t
-stats_shared_mem_aggregate(void *arg1, void *arg2)
+stats_each_shared_mem_aggregate(void *elem, void *data)
 {
-    char *shared_mem = ((struct instance *)arg1)->ctx->shared_mem;
-    struct stats_buffer *buf = arg2;
+    char *shared_mem = ((struct instance *)elem)->ctx->shared_mem;
+    struct stats_buffer *buf = data;
     size_t len = strlen(shared_mem);
     uint8_t  *pos = buf->data + buf->len;
     memcpy(pos, shared_mem, len);
@@ -846,7 +846,7 @@ stats_master_send_resp(struct stats *st)
     buf.len=0;
     buf.size=0;
 
-    status = array_each(&master_nci->workers, stats_shared_mem_size, &buf.size);
+    status = array_each(&master_nci->workers, stats_each_calc_shared_mem_size, &buf.size);
     if (status) {
         return NC_ERROR;
     }
@@ -860,7 +860,7 @@ stats_master_send_resp(struct stats *st)
 
     buf.data[0] = '[';
     buf.len = 1;
-    status = array_each(&master_nci->workers, stats_shared_mem_aggregate, &buf);
+    status = array_each(&master_nci->workers, stats_each_shared_mem_aggregate, &buf);
     if (status) {
         return NC_ERROR;
     }
