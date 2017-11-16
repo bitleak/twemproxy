@@ -122,9 +122,25 @@ signal_handler(int signo)
         break;
 
     case SIGINT:
-    case SIGTERM:
-        done = true;
+        if (pm_myrole == ROLE_MASTER) {
+            nc_signal_workers(&master_nci->workers, NC_CMD_QUIT);
+            wait(NULL);
+            done = true;
+        } else {
+            pm_quit = true;
+        }
         actionstr = ", exiting";
+        break;
+
+    case SIGTERM:
+        if (pm_myrole == ROLE_MASTER) {
+            nc_signal_workers(&master_nci->workers, NC_CMD_TERMINATE);
+            wait(NULL);
+            done = true;
+        } else {
+            pm_terminate = true;
+        }
+        actionstr = ", terminating";
         break;
 
     case SIGSEGV:

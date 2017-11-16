@@ -303,6 +303,7 @@ nc_worker_process(int worker_id, struct instance *nci)
             break;
         }
     }
+    proxy_deinit(nci->ctx);
     server_pool_disconnect(nci->ctx);
     server_pool_deinit(&nci->ctx->pool);
     log_warn("[worker] terminted with quit flag: %d", pm_quit);
@@ -451,7 +452,7 @@ nc_signal_workers(struct array *workers, int command)
 
     for (i = 0, nelem = array_n(workers); i < nelem; i++) {
         elem = array_get(workers, i);
-        worker_nci = *(struct instance **)elem;
+        worker_nci = (struct instance *)elem;
         msg.command = command;
         if (nc_write_channel(worker_nci->chan->fds[0], &msg) <= 0) {
             log_error("failed to write channel, err %s", strerror(errno));
