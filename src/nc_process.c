@@ -231,10 +231,8 @@ nc_shutdown_workers(struct array *workers)
         elem = array_pop(workers);
         worker_nci = (struct instance *)elem;
         nc_dealloc_channel(worker_nci->chan);
-        nc_shared_mem_free(worker_nci->ctx->shared_mem, SHARED_MEMORY_SIZE);
         core_ctx_destroy(worker_nci->ctx);
     }
-    // TODO: tell old workers to shutdown gracefully
     array_deinit(workers);
     return NC_OK;
 }
@@ -306,6 +304,9 @@ nc_worker_process(int worker_id, struct instance *nci)
     proxy_deinit(nci->ctx);
     server_pool_disconnect(nci->ctx);
     server_pool_deinit(&nci->ctx->pool);
+    nc_shared_mem_free(nci->ctx->shared_mem, SHARED_MEMORY_SIZE);
+    stats_destroy(nci->ctx->stats);
+
     log_warn("[worker] terminted with quit flag: %d", pm_quit);
 
     exit(0);

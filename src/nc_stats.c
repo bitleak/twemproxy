@@ -1004,7 +1004,9 @@ stats_stop_aggregator(struct stats *st)
         return;
     }
 
-    close(st->sd);
+    if (st->sd > 0) {
+        close(st->sd);
+    }
 }
 
 struct stats *
@@ -1095,6 +1097,10 @@ error:
 void
 stats_destroy(struct stats *st)
 {
+    //worker's stats will destroy in worker processes;
+    if (st == NULL) {
+        return;
+    }
     stats_stop_aggregator(st);
     stats_pool_unmap(&st->sum);
     stats_pool_unmap(&st->shadow);
