@@ -1876,7 +1876,7 @@ conf_add_server(struct conf *cf, struct command *cmd, void *conf)
 
     field->valid = 1;
 
-    string_set_text(&master_str, "[master]");
+    string_set_text(&master_str, "master");
     // set server array as deault
     pool = (struct conf_pool *)conf;
     a = &pool->server;
