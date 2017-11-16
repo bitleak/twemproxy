@@ -168,8 +168,10 @@ stats_metric_deinit(struct array *metric)
 }
 
 static rstatus_t
-stats_server_init(struct stats_server *sts, struct server *s)
+stats_server_init(void *arg1, void *arg2)
 {
+    struct server *s = arg1;
+    struct stats_server *sts = array_push((struct array*)arg2);
     rstatus_t status;
 
     sts->name = s->name;
@@ -188,30 +190,32 @@ stats_server_init(struct stats_server *sts, struct server *s)
 }
 
 static rstatus_t
-stats_server_map(struct array *stats_server, struct array *server)
+stats_server_map(struct array *stats_server, struct array *server, struct array *master)
 {
     rstatus_t status;
-    uint32_t i, nserver;
+    uint32_t nserver, nmaster;
 
     nserver = array_n(server);
     ASSERT(nserver != 0);
+    nmaster = array_n(master);
+    /* nmaster can be 0 */
 
-    status = array_init(stats_server, nserver, sizeof(struct stats_server));
+    status = array_init(stats_server, nserver + nmaster, sizeof(struct stats_server));
     if (status != NC_OK) {
         return status;
     }
 
-    for (i = 0; i < nserver; i++) {
-        struct server *s = array_get(server, i);
-        struct stats_server *sts = array_push(stats_server);
-
-        status = stats_server_init(sts, s);
-        if (status != NC_OK) {
-            return status;
-        }
+    status = array_each(server, stats_server_init, stats_server);
+    if (status != NC_OK) {
+        return status;
     }
 
-    log_debug(LOG_VVVERB, "map %"PRIu32" stats servers", nserver);
+    status = array_each(master, stats_server_init, stats_server);
+    if (status != NC_OK) {
+        return status;
+    }
+
+    log_debug(LOG_VVVERB, "map %"PRIu32" stats servers", nserver + master);
 
     return NC_OK;
 }
@@ -246,7 +250,7 @@ stats_pool_init(struct stats_pool *stp, struct server_pool *sp)
         return status;
     }
 
-    status = stats_server_map(&stp->server, &sp->server);
+    status = stats_server_map(&stp->server, &sp->server, &sp->redis_master);
     if (status != NC_OK) {
         stats_metric_deinit(&stp->metric);
         return status;

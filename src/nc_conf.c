@@ -292,9 +292,11 @@ rstatus_t
 conf_pool_each_transform(void *elem, void *data)
 {
     rstatus_t status;
+    uint32_t i;
     struct conf_pool *cp = elem;
     struct array *server_pool = data;
     struct server_pool *sp;
+    struct server *s;
 
     ASSERT(cp->valid);
 
@@ -353,6 +355,11 @@ conf_pool_each_transform(void *elem, void *data)
         status = server_init(&sp->redis_master, &cp->redis_master, sp);
         if (status != NC_OK) {
             return status;
+        }
+        //append redis master metrics to server metrics array
+        for (i = 0; i < array_n(&sp->redis_master); i++) {
+            s = array_get(&sp->redis_master, i);
+            s->idx += array_n(&sp->server);
         }
     }
 
