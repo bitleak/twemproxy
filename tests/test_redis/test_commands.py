@@ -4,8 +4,9 @@
 from common import *
 
 def test_linsert():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
 
+    r.delete('mylist')
     r.rpush('mylist', 'Hello')
     r.rpush('mylist', 'World')
     r.linsert('mylist', 'BEFORE', 'World', 'There')
@@ -14,7 +15,8 @@ def test_linsert():
     assert(rst == ['Hello', 'There', 'World'])
 
 def test_lpush_lrange():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
+    r.delete('mylist')
 
     vals = ['vvv-%s' % i for i in range(10) ]
     assert([] == r.lrange('mylist', 0, -1))
@@ -25,7 +27,8 @@ def test_lpush_lrange():
     assert(10 == len(rst))
 
 def test_hscan():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
+    r.delete('a')
 
     kv = {'kkk-%s' % i : 'vvv-%s' % i for i in range(10)}
     r.hmset('a', kv)
@@ -39,7 +42,8 @@ def test_hscan():
     assert(dic == {'kkk-5': 'vvv-5'})
 
 def test_hscan_large():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
+    r.delete('a')
 
     kv = {'x'* 100 + 'kkk-%s' % i : 'vvv-%s' % i for i in range(1000)}
     r.hmset('a', kv)
@@ -68,7 +72,8 @@ def test_hscan_large():
         assert(len(dic) == 0)
 
 def test_zscan():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
+    r.delete('a')
 
     r.zadd('a', 'a', 1, 'b', 2, 'c', 3)
 
@@ -81,7 +86,8 @@ def test_zscan():
     assert(set(pairs) == set([('a', 1)]))
 
 def test_sscan():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
+    r.delete('a')
 
     r.sadd('a', 1, 2, 3)
 

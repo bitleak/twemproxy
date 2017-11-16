@@ -1,0 +1,43 @@
+global:
+  worker_processes: 1
+
+pools:
+  alpha:
+    listen: 0.0.0.0:32121
+    hash: fnv1a_64
+    distribution: ketama
+    auto_eject_hosts: true
+    redis: true
+    server_retry_timeout: 2000
+    server_failure_limit: 1
+    redis_auth: foobared
+    servers:
+     - __redis_master__:1 master
+     - __redis_slave__:1
+
+  beta:
+    listen: 0.0.0.0:32122
+    hash: fnv1a_64
+    hash_tag: "{}"
+    distribution: ketama
+    auto_eject_hosts: false
+    timeout: 400
+    redis: true
+    servers:
+     - __redis_shard1__:1 server1
+     - __redis_shard2__:1 server2
+     - __redis_shard3__:1 server3
+
+  gamma:
+    listen: 0.0.0.0:32123
+    hash: fnv1a_64
+    distribution: ketama
+    timeout: 400
+    backlog: 1024
+    preconnect: true
+    auto_eject_hosts: true
+    server_retry_timeout: 2000
+    server_failure_limit: 3
+    servers:
+     - __mc_shard1__:1
+     - __mc_shard2__:1
