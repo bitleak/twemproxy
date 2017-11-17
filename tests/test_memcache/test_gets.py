@@ -10,42 +10,14 @@ PWD = os.path.dirname(os.path.realpath(__file__))
 WORKDIR = os.path.join(PWD,  '../')
 sys.path.append(os.path.join(WORKDIR, 'lib/'))
 sys.path.append(os.path.join(WORKDIR, 'conf/'))
-import conf
+from conf import *
 
-from server_modules import *
 from utils import *
 
-CLUSTER_NAME = 'ntest'
-all_mc= [
-        Memcached('127.0.0.1', 2200, '/tmp/r/memcached-2200/', CLUSTER_NAME, 'mc-2200'),
-        Memcached('127.0.0.1', 2201, '/tmp/r/memcached-2201/', CLUSTER_NAME, 'mc-2201'),
-    ]
-
-nc_verbose = int(getenv('T_VERBOSE', 4))
-mbuf = int(getenv('T_MBUF', 512))
 large = int(getenv('T_LARGE', 1000))
 
-nc = NutCracker('127.0.0.1', 4100, '/tmp/r/nutcracker-4100', CLUSTER_NAME,
-                all_mc, mbuf=mbuf, verbose=nc_verbose, is_redis=False)
-
-def setup():
-    for r in all_mc:
-        r.deploy()
-        r.stop()
-        r.start()
-
-    nc.deploy()
-    nc.stop()
-    nc.start()
-
-def teardown():
-    for r in all_mc:
-        r.stop()
-    assert(nc._alive())
-    nc.stop()
-
 def getconn():
-    host_port = '%s:%s' % (nc.host(), nc.port())
+    host_port = '%s:%s' % (nc_servers['mc-shards']['host'], nc_servers['mc-shards']['port'])
     return memcache.Client([host_port])
 
 def test_basic():
