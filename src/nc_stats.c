@@ -210,9 +210,11 @@ stats_server_map(struct array *stats_server, struct array *server, struct array 
         return status;
     }
 
-    status = array_each(master, server_each_map_to_stats_server, stats_server);
-    if (status != NC_OK) {
-        return status;
+    if (nmaster != 0) {
+        status = array_each(master, server_each_map_to_stats_server, stats_server);
+        if (status != NC_OK) {
+            return status;
+        }
     }
 
     log_debug(LOG_VVVERB, "map %"PRIu32" stats servers", nserver + master);
