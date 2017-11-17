@@ -13,6 +13,7 @@ sys.path.append(os.path.join(WORKDIR,'lib/'))
 from conf import *
 from utils import *
 
+large = int(getenv('T_LARGE', 1000))
 default_kv = {'kkk-%s' % i : 'vvv-%s' % i for i in range(10)}
 
 def get_redis_conn(is_ms):

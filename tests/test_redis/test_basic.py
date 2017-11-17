@@ -53,11 +53,6 @@ def test_slow_req():
     assert_fail('timed out', pipe.execute)
 
 def test_issue_323():
-    # do on redis
-    # r = all_redis[0]
-    # c = redis.Redis(r.host(), r.port())
-    # assert([1, 'OK'] == c.eval("return {1, redis.call('set', 'x', '1')}", 1, 'tmp'))
-
     # do on twemproxy
     c = get_redis_conn(is_ms=False)
     assert([1, 'OK'] == c.eval("return {1, redis.call('set', 'x', '1')}", 1, 'tmp'))

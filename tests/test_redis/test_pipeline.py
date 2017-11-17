@@ -4,7 +4,9 @@
 from common import *
 
 def test_pipeline():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
+    r.delete("a")
+    r.delete("z")
 
     pipe = r.pipeline(transaction = False)
 
@@ -22,9 +24,10 @@ def test_pipeline():
         ]
 
 def test_invalid_pipeline():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
 
     pipe = r.pipeline(transaction = False)
+    r.delete("a")
 
     pipe.set('a', 1).set('b', 2).lpush('a', 3).set('d', 4).get('a')
     result = pipe.execute(raise_on_error = False)
@@ -45,9 +48,10 @@ def test_invalid_pipeline():
     assert pipe.set('z', 'zzz').execute() == [True]
 
 def test_parse_error_raised():
-    r = getconn()
+    r = get_redis_conn(is_ms=False)
 
     pipe = r.pipeline(transaction = False)
+    r.delete("a")
 
     # the zrem is invalid because we don't pass any keys to it
     pipe.set('a', 1).zrem('b').set('b', 2)
