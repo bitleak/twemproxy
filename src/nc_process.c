@@ -381,7 +381,7 @@ nc_reap_worker(void)
             log_debug(LOG_NOTICE, "worker [%d] exited with status: %d", pid, WEXITSTATUS(status));
             if (WEXITSTATUS(status) == 0) {
                 // worker shutdown due to config reloading, we don't need to respawn worker or cleanup ends here
-                return;
+                continue;
             }
         }
         if (WIFSIGNALED(status)) {
