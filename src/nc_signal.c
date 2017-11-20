@@ -17,6 +17,8 @@
 
 #include <stdlib.h>
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include <nc_core.h>
 #include <nc_signal.h>

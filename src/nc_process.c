@@ -1,6 +1,9 @@
 #include <sys/mman.h>
-
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <grp.h>
+
 #include <nc_conf.h>
 #include <nc_process.h>
 #include <nc_proxy.h>
