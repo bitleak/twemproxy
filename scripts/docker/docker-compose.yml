@@ -1,0 +1,50 @@
+version: "2.0"
+
+services:
+    redis_master:
+        build: ./redis-master
+        ports:
+            - "2100:6379"
+    redis_slave:
+        build: ./redis-slave
+        ports:
+            - "2101:6379"
+        links:
+            - redis_master
+
+    redis_shard1:
+        image: redis:2.8
+        ports:
+            - "3100:6379"
+    redis_shard2:
+        image: redis:2.8
+        ports:
+            - "3101:6379"
+    redis_shard3:
+        image: redis:2.8
+        ports:
+            - "3102:6379"
+   
+    mc_shard1:
+        image: memcached:1.5.3
+        ports:
+            - "8100:11211"
+    mc_shard2:
+        image: memcached:1.5.3
+        ports:
+            - "8101:11211"
+
+    twemproxy:
+        build: ./twemproxy
+        ports:
+            - "32121:32121"
+            - "32122:32122"
+            - "32123:32123"
+        links:
+            - redis_master
+            - redis_slave
+            - redis_shard1
+            - redis_shard2
+            - redis_shard3
+            - mc_shard1
+            - mc_shard2

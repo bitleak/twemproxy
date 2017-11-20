@@ -67,6 +67,8 @@ nutcracker
 Makefile
 Makefile.in
 
-*.swo
+.swo
+.swp
+.tar.gz
 .idea/
 .vscode/
