@@ -114,6 +114,7 @@ struct stats {
     struct string       version;         /* version */
     struct string       uptime_str;      /* uptime string */
     struct string       timestamp_str;   /* timestamp string */
+    struct string       pid_str;         /* pid string */
     struct string       ntotal_conn_str; /* total connections string */
     struct string       ncurr_conn_str;  /* curr connections string */
 

@@ -18,7 +18,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -169,8 +168,10 @@ stats_metric_deinit(struct array *metric)
 }
 
 static rstatus_t
-stats_server_init(struct stats_server *sts, struct server *s)
+server_each_map_to_stats_server(void *elem, void *data)
 {
+    struct server *s = elem;
+    struct stats_server *sts = array_push((struct array*)data);
     rstatus_t status;
 
     sts->name = s->name;
@@ -189,30 +190,34 @@ stats_server_init(struct stats_server *sts, struct server *s)
 }
 
 static rstatus_t
-stats_server_map(struct array *stats_server, struct array *server)
+stats_server_map(struct array *stats_server, struct array *server, struct array *master)
 {
     rstatus_t status;
-    uint32_t i, nserver;
+    uint32_t nserver, nmaster;
 
     nserver = array_n(server);
     ASSERT(nserver != 0);
+    nmaster = array_n(master);
+    /* nmaster can be 0 */
 
-    status = array_init(stats_server, nserver, sizeof(struct stats_server));
+    status = array_init(stats_server, nserver + nmaster, sizeof(struct stats_server));
     if (status != NC_OK) {
         return status;
     }
 
-    for (i = 0; i < nserver; i++) {
-        struct server *s = array_get(server, i);
-        struct stats_server *sts = array_push(stats_server);
+    status = array_each(server, server_each_map_to_stats_server, stats_server);
+    if (status != NC_OK) {
+        return status;
+    }
 
-        status = stats_server_init(sts, s);
+    if (nmaster != 0) {
+        status = array_each(master, server_each_map_to_stats_server, stats_server);
         if (status != NC_OK) {
             return status;
         }
     }
 
-    log_debug(LOG_VVVERB, "map %"PRIu32" stats servers", nserver);
+    log_debug(LOG_VVVERB, "map %"PRIu32" stats servers", nserver + master);
 
     return NC_OK;
 }
@@ -247,7 +252,7 @@ stats_pool_init(struct stats_pool *stp, struct server_pool *sp)
         return status;
     }
 
-    status = stats_server_map(&stp->server, &sp->server);
+    status = stats_server_map(&stp->server, &sp->server, &sp->redis_master);
     if (status != NC_OK) {
         stats_metric_deinit(&stp->metric);
         return status;
@@ -513,6 +518,11 @@ stats_add_header(struct stats *st)
     }
 
     status = stats_add_num(st, &st->timestamp_str, cur_ts);
+    if (status != NC_OK) {
+        return status;
+    }
+
+    status = stats_add_num(st, &st->pid_str, (int64_t)getpid());
     if (status != NC_OK) {
         return status;
     }
@@ -806,20 +816,20 @@ stats_loop_callback(void *arg1, void *arg2)
 }
 
 static rstatus_t
-stats_shared_mem_size(void *arg1, void *arg2)
+stats_each_calc_shared_mem_size(void *elem, void *data)
 {
-    char *shared_mem = ((struct instance *)arg1)->ctx->shared_mem;
-    int *size = arg2;
+    char *shared_mem = ((struct instance *)elem)->ctx->shared_mem;
+    int *size = data;
     *size += strlen(shared_mem);
     /* use "," instead of "\0" */
     return NC_OK;
 }
 
 static rstatus_t
-stats_shared_mem_aggregate(void *arg1, void *arg2)
+stats_each_shared_mem_aggregate(void *elem, void *data)
 {
-    char *shared_mem = ((struct instance *)arg1)->ctx->shared_mem;
-    struct stats_buffer *buf = arg2;
+    char *shared_mem = ((struct instance *)elem)->ctx->shared_mem;
+    struct stats_buffer *buf = data;
     size_t len = strlen(shared_mem);
     uint8_t  *pos = buf->data + buf->len;
     memcpy(pos, shared_mem, len);
@@ -838,7 +848,7 @@ stats_master_send_resp(struct stats *st)
     buf.len=0;
     buf.size=0;
 
-    status = array_each(&master_nci->workers, stats_shared_mem_size, &buf.size);
+    status = array_each(&master_nci->workers, stats_each_calc_shared_mem_size, &buf.size);
     if (status) {
         return NC_ERROR;
     }
@@ -852,7 +862,7 @@ stats_master_send_resp(struct stats *st)
 
     buf.data[0] = '[';
     buf.len = 1;
-    status = array_each(&master_nci->workers, stats_shared_mem_aggregate, &buf);
+    status = array_each(&master_nci->workers, stats_each_shared_mem_aggregate, &buf);
     if (status) {
         return NC_ERROR;
     }
@@ -909,7 +919,6 @@ stats_worker_loop(void *arg)
     rstatus_t status;
     struct stats *st = arg;
     for (;;) {
-        sleep((unsigned int)(st->interval/1000));
         stats_aggregate(st);
         status = stats_make_rsp(st);
         if (status != NC_OK) {
@@ -917,6 +926,7 @@ stats_worker_loop(void *arg)
         }
         memcpy(st->owner->shared_mem, st->buf.data, st->buf.len);
         st->owner->shared_mem[st->buf.len] = 0;
+        sleep((unsigned int)(st->interval/1000));
     }
 }
 
@@ -1000,7 +1010,9 @@ stats_stop_aggregator(struct stats *st)
         return;
     }
 
-    close(st->sd);
+    if (st->sd > 0) {
+        close(st->sd);
+    }
 }
 
 struct stats *
@@ -1046,6 +1058,8 @@ stats_create(uint16_t stats_port, char *stats_ip, int stats_interval,
     string_set_text(&st->uptime_str, "uptime");
     string_set_text(&st->timestamp_str, "timestamp");
 
+    string_set_text(&st->pid_str, "pid");
+
     string_set_text(&st->ntotal_conn_str, "total_connections");
     string_set_text(&st->ncurr_conn_str, "curr_connections");
 
@@ -1089,6 +1103,10 @@ error:
 void
 stats_destroy(struct stats *st)
 {
+    //worker's stats will destroy in worker processes;
+    if (st == NULL) {
+        return;
+    }
     stats_stop_aggregator(st);
     stats_pool_unmap(&st->sum);
     stats_pool_unmap(&st->shadow);
