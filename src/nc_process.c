@@ -90,7 +90,6 @@ nc_multi_processes_cycle(struct instance *parent_nci)
 
     pm_respawn = true; // spawn workers upon start
     status = nc_setup_listener_for_workers(parent_nci, false);
-    master_nci = parent_nci;
     if (status != NC_OK) {
         log_error("[master] failed to setup listeners");
         return status;

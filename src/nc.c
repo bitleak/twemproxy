@@ -536,6 +536,8 @@ main(int argc, char **argv)
 
     nci.role = ROLE_MASTER;
     nci.chan = NULL;
+    nci.workers.nelem = 0;
+    master_nci = &nci;
 
     nc_set_default_options(&nci);
 
