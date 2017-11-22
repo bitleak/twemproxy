@@ -142,6 +142,7 @@ core_init_listener(struct instance *nci)
     /* initialize proxy per server pool */
     status = proxy_init(ctx);
     if (status != NC_OK) {
+        proxy_deinit(ctx);
         server_pool_disconnect(ctx);
         event_base_destroy(ctx->evb);
         stats_destroy(ctx->stats);
@@ -206,6 +207,7 @@ core_ctx_destroy(struct context *ctx)
 struct context *
 core_start(struct instance *nci)
 {
+    rstatus_t status;
     struct context *ctx;
 
     mbuf_init(nci);
@@ -216,12 +218,13 @@ core_start(struct instance *nci)
     if (ctx != NULL) {
         nci->ctx = ctx;
         if (ctx->cf->global.worker_processes < 1) {
-            nc_single_process_cycle(nci);
+            status = nc_single_process_cycle(nci);
         } else {
-            nc_multi_processes_cycle(nci);
+            status = nc_multi_processes_cycle(nci);
         }
-
-        return ctx;
+        if (status == NC_OK) {
+            return ctx;
+        }
     }
 
     conn_deinit();
