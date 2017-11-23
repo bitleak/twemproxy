@@ -17,6 +17,7 @@
 
 #include <nc_core.h>
 #include <nc_server.h>
+#include <nc_process.h>
 
 struct msg *
 rsp_get(struct conn *conn)
@@ -369,4 +370,8 @@ rsp_send_done(struct context *ctx, struct conn *conn, struct msg *msg)
     conn->dequeue_outq(ctx, conn, pmsg);
 
     req_put(pmsg);
+
+    if (pm_terminate) {
+        conn->done = 1;
+    }
 }
