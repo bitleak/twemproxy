@@ -112,7 +112,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
                 parent_nci->ctx = prev_ctx;
                 continue;
             }
-            // TODO: free prev_ctx
+            core_ctx_destroy(prev_ctx);
             pm_respawn = true; // restart workers
         }
 
