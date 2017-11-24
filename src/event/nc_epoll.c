@@ -108,10 +108,10 @@ event_base_need_resize(struct event_base *evb, int fd)
     int new_size;
     struct ev_data *new_evd;
 
-    if (fd <= evb->nevd) {
+    if (fd < evb->nevd) {
         return;
     }
-    new_size = fd > evb->nevd*2 ? fd + 1 : evb->nevd*2;
+    new_size = fd >= evb->nevd*2 ? fd + 1 : evb->nevd*2;
     new_evd = nc_realloc(evb->evd, new_size*sizeof(struct ev_data));
     if (new_evd != NULL) {
         evb->evd = new_evd;
@@ -131,7 +131,7 @@ event_add(struct event_base *evb, int fd, int mask, event_cb_t cb, void *priv)
     ASSERT(fd > 0);
 
     event_base_need_resize(evb, fd);
-    if (fd > evb->nevd) {
+    if (fd >= evb->nevd) {
         return -1;
     }
     op = evb->evd[fd].mask == EVENT_NONE ? EPOLL_CTL_ADD : EPOLL_CTL_MOD;
@@ -159,6 +159,9 @@ event_del(struct event_base *evb, int fd, int delmask)
     ASSERT(ep > 0);
     ASSERT(fd > 0);
 
+    if (fd >= evb->nevd) {
+        return -1;
+    }
     mask = evb->evd[fd].mask & (~delmask);
     event.events = 0;
     event.data.fd = fd;

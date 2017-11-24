@@ -126,10 +126,10 @@ event_base_need_resize(struct event_base *evb, int fd)
     int new_size;
     struct ev_data *new_evd;
 
-    if (fd <= evb->nevd) {
+    if (fd < evb->nevd) {
         return;
     }
-    new_size = fd > evb->nevd*2 ? fd : evb->nevd*2;
+    new_size = fd >= evb->nevd*2 ? fd : evb->nevd*2;
     new_evd = nc_realloc(evb->evd, new_size*sizeof(struct ev_data));
     if (new_evd != NULL) {
         evb->evd = new_evd;
@@ -147,7 +147,7 @@ event_add(struct event_base *evb, int fd, int mask, event_cb_t cb, void *priv)
     ASSERT(fd > 0);
 
     event_base_need_resize(evb, fd);
-    if (fd > evb->nevd) {
+    if (fd >= evb->nevd) {
         return -1;
     }
     evb->evd[fd].cb = cb;
@@ -173,6 +173,9 @@ event_del(struct event_base *evb, int fd, int mask)
     ASSERT(fd > 0);
     ASSERT(evb->nchange < evb->nevent);
 
+    if (fd >= evb->nevd) {
+        return -1;
+    }
     if (mask & EVENT_READ) {
         event = &evb->change[evb->nchange++];
         EV_SET(event, fd, EVFILT_READ, EV_DELETE, 0, 0, NULL);
