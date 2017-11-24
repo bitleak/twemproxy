@@ -130,7 +130,7 @@ event_base_need_resize(struct event_base *evb, int fd)
         return;
     }
     new_size = fd >= evb->nevd*2 ? fd + 1 : evb->nevd*2;
-    new_evd = nc_calloc(evb->evd, new_size*sizeof(struct ev_data));
+    new_evd = nc_calloc(new_size, sizeof(struct ev_data));
     if (new_evd != NULL) {
         old_evd = evb->evd;
         memcpy(new_evd, old_evd, evb->nevd*sizeof(struct ev_data));
