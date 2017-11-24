@@ -307,6 +307,20 @@ proxy_deinit(struct context *ctx)
               array_n(&ctx->pool));
 }
 
+rstatus_t
+proxy_each_unaccept(void *elem, void *data)
+{
+    struct server_pool *pool = elem;
+    struct conn *p;
+
+    p = pool->p_conn;
+    if (p != NULL) {
+        p->done = 1;
+    }
+
+    return NC_OK;
+}
+
 static rstatus_t
 proxy_accept(struct context *ctx, struct conn *p)
 {

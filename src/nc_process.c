@@ -324,7 +324,7 @@ nc_worker_process(int worker_id, struct instance *nci)
     for (;!pm_quit;) {
         if (pm_terminate && !terminating) {
             // close proxy listen fd, and wait for 30 seconds
-            proxy_deinit(nci->ctx);
+            array_each(&nci->ctx->pool, proxy_each_unaccept, NULL);
             nc_set_timer(nci->ctx->cf->global.worker_shutdown_timeout * 1000, 0);
             terminating = true;
         }

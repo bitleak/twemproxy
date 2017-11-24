@@ -27,6 +27,7 @@ void proxy_close(struct context *ctx, struct conn *conn);
 rstatus_t proxy_each_init(void *elem, void *data);
 rstatus_t proxy_each_post_init(void *elem, void *data);
 rstatus_t proxy_each_deinit(void *elem, void *data);
+rstatus_t proxy_each_unaccept(void *elem, void *data);
 
 rstatus_t proxy_init(struct context *ctx);
 rstatus_t proxy_post_init(struct context *ctx);
