@@ -146,32 +146,68 @@ nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)
 
     status = array_init(&parent_nci->workers, (uint32_t)n, sizeof(struct instance));
     if (status != NC_OK) {
-        log_error("failed to init parent_nci->workers");
-        return status;
+        log_error("failed to init parent_nci->workers, rollback");
+        parent_nci->workers.nelem = 0;
+        goto rollback_step1;
     }
 
     for (i = 0; i < n; i++) {
         worker_nci = array_push(&parent_nci->workers);
         status = nc_clone_instance(worker_nci, parent_nci);
         if (status != NC_OK) {
-            return status;
+            log_error("failed to clone parent_nci, rollback");
+            goto rollback_step2;
         }
         worker_nci->role = ROLE_WORKER;
+    }
 
+    for (; i >= 0; i--) {
+        worker_nci = array_get(&parent_nci->workers, (uint32_t)i);
         if (reloading && i < old_workers_n) {
-            old_worker_nci = (struct instance *)array_get(&old_workers, (uint32_t)i);
+            old_worker_nci = array_get(&old_workers, (uint32_t)i);
             nc_migrate_proxies(worker_nci->ctx, old_worker_nci->ctx);
         }
 
-        status = core_init_listener(worker_nci);
+        status = proxy_init(worker_nci->ctx); // will skip some proxy listeners if they are migrated (p_conn != NULL)
         if (status != NC_OK) {
-            return status;
+            log_error("failed to init worker's listener, rollback");
+            goto rollback_step3;
         }
     }
     if (reloading) {
         nc_shutdown_workers(&old_workers);
     }
+
     return NC_OK;
+
+rollback_step3:
+    if (!reloading) {
+        return status;
+    }
+    for(i = 0; i < old_workers_n; i++) {
+        // restore old_worker_nci'proxies
+        worker_nci = array_get(&parent_nci->workers, (uint32_t)i);
+        old_worker_nci = array_get(&old_workers, (uint32_t)i);
+        nc_migrate_proxies(old_worker_nci->ctx, worker_nci->ctx);
+    }
+
+rollback_step2:
+    if (!reloading) {
+        return status;
+    }
+    for(i = 0; i < (int)array_n(&parent_nci->workers); i++) {
+        // destroy new worker_nci's ctx
+        worker_nci = array_pop(&parent_nci->workers);
+        core_ctx_destroy(worker_nci->ctx);
+    }
+
+rollback_step1:
+    if (!reloading) {
+        return status;
+    }
+    array_deinit(&parent_nci->workers);
+    parent_nci->workers = old_workers;
+    return status;
 }
 
 static rstatus_t
