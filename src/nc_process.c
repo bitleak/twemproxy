@@ -16,7 +16,7 @@ static rstatus_t nc_spawn_workers(struct array *workers);
 static void      nc_worker_process(int worker_id, struct instance *nci);
 static rstatus_t nc_shutdown_workers(struct array *workers);
 
-// Global process management states. TODO: set those flags in signal handlers
+// Global process management states.
 bool pm_reload = false;
 bool pm_respawn = false;
 char pm_myrole = ROLE_MASTER;
@@ -82,7 +82,6 @@ nc_multi_processes_cycle(struct instance *parent_nci)
     struct context *ctx, *prev_ctx;
     sigset_t set;
 
-    //TODO: listen stat after spawn workers
     status = core_init_stats(parent_nci);
     if (status != NC_OK) {
         return status;
@@ -117,7 +116,6 @@ nc_multi_processes_cycle(struct instance *parent_nci)
             pm_respawn = true; // restart workers
         }
 
-        // FIXME: dealloc master instance memory after reload
         if (pm_respawn) {
             pm_respawn = false;
             status = nc_spawn_workers(&parent_nci->workers);
@@ -127,7 +125,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
         }
 
         sigemptyset(&set);
-        sigsuspend(&set); // wake when signal arrives. TODO: add timer using setitimer
+        sigsuspend(&set); // wake when signal arrives.
     }
     return status;
 }
@@ -190,7 +188,6 @@ nc_spawn_worker(int worker_id, struct instance *worker_nci, struct array *worker
         return NC_ERROR;
     case 0:
         pm_myrole = ROLE_WORKER;
-        // TODO: setup the communication channel between master and workers
         pid = getpid();
         worker_nci->pid = pid;
         nc_close_other_proxies(workers, worker_nci);
@@ -287,8 +284,6 @@ nc_worker_process(int worker_id, struct instance *nci)
         log_error("failed to add channel event");
         return;
     }
-    // TODO: worker should remove the listening sockets from event base and after lingering connections are exhausted
-    // or timeout, quit process.
 
     bool terminating = false;
     for (;!pm_quit;) {
