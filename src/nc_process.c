@@ -8,7 +8,6 @@
 #include <nc_process.h>
 #include <nc_proxy.h>
 
-#define SHARED_MEMORY_SIZE 1048576
 
 static rstatus_t nc_migrate_proxies(struct context *dst, struct context *src);
 static rstatus_t nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading);
@@ -334,11 +333,7 @@ nc_worker_process(int worker_id, struct instance *nci)
             break;
         }
     }
-    proxy_deinit(nci->ctx);
-    server_pool_disconnect(nci->ctx);
-    server_pool_deinit(&nci->ctx->pool);
-    nc_shared_mem_free(nci->ctx->shared_mem, SHARED_MEMORY_SIZE);
-    stats_destroy(nci->ctx->stats);
+    core_ctx_destroy(nci->ctx);
 
     log_warn("[worker] terminted with quit flag: %d", pm_quit);
 

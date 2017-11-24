@@ -65,6 +65,7 @@ core_ctx_create(struct instance *nci) {
     ctx->max_nfd = 0;
     ctx->max_ncconn = 0;
     ctx->max_nsconn = 0;
+    ctx->shared_mem = NULL;
 
     /* parse and create configuration */
     ctx->cf = conf_create(nci->conf_filename);
@@ -201,6 +202,9 @@ core_ctx_destroy(struct context *ctx)
     stats_destroy(ctx->stats);
     server_pool_deinit(&ctx->pool);
     conf_destroy(ctx->cf);
+    if (ctx->shared_mem != NULL) {
+        nc_shared_mem_free(ctx->shared_mem, SHARED_MEMORY_SIZE);
+    }
     nc_free(ctx);
 }
 

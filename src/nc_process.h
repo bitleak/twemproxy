@@ -3,6 +3,8 @@
 #ifndef _NC_PROCESS_H
 #define _NC_PROCESS_H
 
+#define SHARED_MEMORY_SIZE 1048576
+
 #define ROLE_MASTER 1
 #define ROLE_WORKER 2
 
