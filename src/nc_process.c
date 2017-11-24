@@ -160,7 +160,7 @@ nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)
         worker_nci->role = ROLE_WORKER;
     }
 
-    for (; i >= 0; i--) {
+    for (i = 0; i < n; i++) {
         worker_nci = array_get(&parent_nci->workers, (uint32_t)i);
         if (reloading && i < old_workers_n) {
             old_worker_nci = array_get(&old_workers, (uint32_t)i);
@@ -183,7 +183,7 @@ rollback_step3:
     if (!reloading) {
         return status;
     }
-    for(i = 0; i < old_workers_n; i++) {
+    for(i = 0; i < old_workers_n && i < n; i++) {
         // restore old_worker_nci'proxies
         worker_nci = array_get(&parent_nci->workers, (uint32_t)i);
         old_worker_nci = array_get(&old_workers, (uint32_t)i);
@@ -458,7 +458,6 @@ nc_migrate_proxies(struct context *dst, struct context *src)
                               dst_proxy_name->data);
                 }
                 if (dst_pool->p_conn != NULL) {
-                    log_error("proxy [%s] has been initialized", dst_proxy_name->data); // this should not happen
                     continue;
                 }
                 log_debug(LOG_NOTICE, "migrate from [%s] [%s]", src_proxy_name->data, src_proxy_addrstr->data);
