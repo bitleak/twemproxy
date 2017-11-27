@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+#include <signal.h>
 #include <nc_core.h>
 
 #ifdef NC_HAVE_EPOLL
@@ -320,15 +321,20 @@ event_wait(struct event_base *evb, int timeout)
     int ep = evb->ep;
     struct epoll_event *event = evb->event;
     int nevent = evb->nevent;
+    sigset_t set;
 
     ASSERT(ep > 0);
     ASSERT(event != NULL);
     ASSERT(nevent > 0);
 
+    sigemptyset(&set);
+    sigaddset(&set, SIGALRM);
     for (;;) {
         int i, nsd;
 
-        nsd = epoll_wait(ep, event, nevent, timeout);
+        // use epoll_pwait instead of epoll_wait,
+        // allow to interupt epoll loop when the worker shutdown timeout was reached
+        nsd = epoll_pwait(ep, event, nevent, timeout, &set);
         if (nsd > 0) {
             for (i = 0; i < nsd; i++) {
                 struct epoll_event *ev = &evb->event[i];
