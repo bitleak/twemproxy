@@ -230,7 +230,7 @@ nc_spawn_worker(int worker_id, struct instance *worker_nci, struct array *worker
         NOT_REACHED();
     default:
         worker_nci->pid = pid;
-        log_debug(LOG_NOTICE, "worker [%d] started", pid);
+        log_warn("worker [%d] started", pid);
         break;
     }
     return NC_OK;
