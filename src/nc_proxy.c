@@ -312,10 +312,11 @@ proxy_each_unaccept(void *elem, void *data)
 {
     struct server_pool *pool = elem;
     struct conn *p;
+    struct context *ctx = pool->ctx;
 
     p = pool->p_conn;
-    if (p != NULL) {
-        p->done = 1;
+    if (p != NULL && ctx != NULL) {
+        event_del_conn(ctx->evb, p);
     }
 
     return NC_OK;
