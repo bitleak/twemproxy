@@ -47,7 +47,7 @@ A quick checklist:
 + Supports multiple hashing modes including consistent hashing and distribution.
 + Can be configured to disable nodes on failures.
 + Observability via stats exposed on the stats monitoring port.
-+ Works with Linux, *BSD, OS X and SmartOS (Solaris)
++ Works with Linux, \*BSD, OS X and SmartOS (Solaris)
 
 ## New Feature
 
@@ -55,6 +55,8 @@ A quick checklist:
 * Supports reload config in runtime
 * Supports split read/write in redis master-slave
 * Supports run test cases with docker and gitlab CI
+
+WARN: Config file format is changed! please refer to the `conf/nutcracker.yml` for demo.
 
 ## Help
 
