@@ -49,6 +49,13 @@ A quick checklist:
 + Observability via stats exposed on the stats monitoring port.
 + Works with Linux, *BSD, OS X and SmartOS (Solaris)
 
+## New Feature
+
+* Supports master-worker's process mode
+* Supports reload config in runtime
+* Supports split read/write in redis master-slave
+* Supports run test cases with docker and gitlab CI
+
 ## Help
 
     Usage: nutcracker [-?hVdDt] [-v verbosity level] [-o output file]
