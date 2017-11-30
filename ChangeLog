@@ -1,3 +1,6 @@
+ 2017-11-30 Tianyi Lin <linty@meitu.com>
+ * FIX: Keep stats from being destroyed after reload
+
  2017-11-28 Tianyi Lin <linty@meitu.com>
  * MOD: use epoll_pwait instread of epoll_wait, allow to interupt epoll loop when the worker shutdown timeout was reached
  * MOD: Remove listen fd from event base when worker was terminated

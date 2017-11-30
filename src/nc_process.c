@@ -103,6 +103,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
                 continue;
             }
             prev_ctx = parent_nci->ctx;
+            ctx->stats = prev_ctx->stats;
             parent_nci->ctx = ctx;
 
             status = nc_setup_listener_for_workers(parent_nci, true);
@@ -111,6 +112,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
                 parent_nci->ctx = prev_ctx;
                 continue;
             }
+            prev_ctx->stats = NULL;
             core_ctx_destroy(prev_ctx);
             pm_respawn = true; // restart workers
         }
