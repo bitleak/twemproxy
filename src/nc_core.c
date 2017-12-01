@@ -198,13 +198,13 @@ core_ctx_destroy(struct context *ctx)
     log_debug(LOG_VVERB, "destroy ctx %p id %"PRIu32"", ctx, ctx->id);
     proxy_deinit(ctx);
     server_pool_disconnect(ctx);
-    event_base_destroy(ctx->evb);
-    stats_destroy(ctx->stats);
     server_pool_deinit(&ctx->pool);
     conf_destroy(ctx->cf);
+    stats_destroy(ctx->stats);
     if (ctx->shared_mem != NULL) {
         nc_shared_mem_free(ctx->shared_mem, SHARED_MEMORY_SIZE);
     }
+    event_base_destroy(ctx->evb);
     nc_free(ctx);
 }
 
