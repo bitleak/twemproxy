@@ -167,6 +167,7 @@ typedef enum msg_parse_result {
     ACTION( REQ_REDIS_QUIT)                                                                         \
     ACTION( REQ_REDIS_AUTH)                                                                         \
     ACTION( REQ_REDIS_SELECT)                  /* only during init */                               \
+    ACTION( REQ_REDIS_RENAME)                  /* only supports in master slave */                  \
     ACTION( RSP_REDIS_STATUS )                 /* redis response */                                 \
     ACTION( RSP_REDIS_ERROR )                                                                       \
     ACTION( RSP_REDIS_ERROR_ERR )                                                                   \

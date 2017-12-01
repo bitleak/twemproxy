@@ -25,6 +25,7 @@
 #define RSP_STRING(ACTION)                                                          \
     ACTION( ok,               "+OK\r\n"                                           ) \
     ACTION( pong,             "+PONG\r\n"                                         ) \
+    ACTION( unknown_command,  "-ERR unknown command\r\n"                          ) \
     ACTION( invalid_password, "-ERR invalid password\r\n"                         ) \
     ACTION( auth_required,    "-NOAUTH Authentication required\r\n"               ) \
     ACTION( no_password,      "-ERR Client sent AUTH, but no password is set\r\n" ) \
@@ -185,6 +186,7 @@ redis_arg1(struct msg *r)
     case MSG_REQ_REDIS_INCRBY:
     case MSG_REQ_REDIS_INCRBYFLOAT:
     case MSG_REQ_REDIS_SETNX:
+    case MSG_REQ_REDIS_RENAME:
 
     case MSG_REQ_REDIS_HEXISTS:
     case MSG_REQ_REDIS_HGET:
@@ -942,6 +944,11 @@ redis_parse_req(struct msg *r)
 
                 if (str6icmp(m, 'z', 's', 'c', 'o', 'r', 'e')) {
                     r->type = MSG_REQ_REDIS_ZSCORE;
+                    break;
+                }
+
+                if (str6icmp(m, 'r', 'e', 'n', 'a', 'm', 'e')) {
+                    r->type = MSG_REQ_REDIS_RENAME;
                     break;
                 }
 
@@ -2763,7 +2770,8 @@ redis_reply(struct msg *r)
     switch (r->type) {
     case MSG_REQ_REDIS_PING:
         return msg_append(response, rsp_pong.data, rsp_pong.len);
-
+    case MSG_REQ_REDIS_RENAME:
+        return msg_append(response, rsp_unknown_command.data, rsp_unknown_command.len);
     default:
         NOT_REACHED();
         return NC_ERROR;

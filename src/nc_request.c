@@ -475,6 +475,8 @@ req_make_reply(struct context *ctx, struct conn *conn, struct msg *req)
 static bool
 req_filter(struct context *ctx, struct conn *conn, struct msg *msg)
 {
+    struct server_pool *pool;
+
     ASSERT(conn->client && !conn->proxy);
 
     if (msg_empty(msg)) {
@@ -512,6 +514,11 @@ req_filter(struct context *ctx, struct conn *conn, struct msg *msg)
         msg->noforward = 1;
     }
 
+    /* redis rename only supports in redis master-slave pool*/
+    if (msg->type == MSG_REQ_REDIS_RENAME) {
+        pool = conn->owner;
+        msg->noforward = array_n(&pool->redis_master) <= 0 ? 1 : 0;
+    }
     return false;
 }
 
