@@ -37,6 +37,8 @@ struct logger {
 #define LOG_VVERB   9   /* verbose messages on crack */
 #define LOG_VVVERB  10  /* verbose messages on ganga */
 #define LOG_PVERB   11  /* periodic verbose messages on crack */
+#define LOG_LEVEN_N 12  /* # of log level */
+
 
 #define LOG_MAX_LEN 256 /* max length of log message */
 
@@ -55,13 +57,13 @@ struct logger {
 
 #define log_debug(_level, ...) do {                                         \
     if (log_loggable(_level) != 0) {                                        \
-        _log(__FILE__, __LINE__, 0, __VA_ARGS__);                           \
+        _log(_level, __FILE__, __LINE__, 0, __VA_ARGS__);                   \
     }                                                                       \
 } while (0)
 
 #define log_hexdump(_level, _data, _datalen, ...) do {                      \
     if (log_loggable(_level) != 0) {                                        \
-        _log(__FILE__, __LINE__, 0, __VA_ARGS__);                           \
+        _log(_level, __FILE__, __LINE__, 0, __VA_ARGS__);                   \
         _log_hexdump(__FILE__, __LINE__, (char *)(_data), (int)(_datalen),  \
                      __VA_ARGS__);                                          \
     }                                                                       \
@@ -87,30 +89,30 @@ struct logger {
 } while (0)
 
 #define loga(...) do {                                                      \
-    _log(__FILE__, __LINE__, 0, __VA_ARGS__);                               \
+    _log(LOG_INFO, __FILE__, __LINE__, 0, __VA_ARGS__);                     \
 } while (0)
 
 #define loga_hexdump(_data, _datalen, ...) do {                             \
-    _log(__FILE__, __LINE__, 0, __VA_ARGS__);                               \
+    _log(LOG_INFO, __FILE__, __LINE__, 0, __VA_ARGS__);                     \
     _log_hexdump(__FILE__, __LINE__, (char *)(_data), (int)(_datalen),      \
                  __VA_ARGS__);                                              \
 } while (0)                                                                 \
 
 #define log_error(...) do {                                                 \
     if (log_loggable(LOG_ALERT) != 0) {                                     \
-        _log(__FILE__, __LINE__, 0, __VA_ARGS__);                           \
+        _log(LOG_ALERT, __FILE__, __LINE__, 0, __VA_ARGS__);                \
     }                                                                       \
 } while (0)
 
 #define log_warn(...) do {                                                  \
     if (log_loggable(LOG_WARN) != 0) {                                      \
-        _log(__FILE__, __LINE__, 0, __VA_ARGS__);                           \
+        _log(LOG_WARN, __FILE__, __LINE__, 0, __VA_ARGS__);                 \
     }                                                                       \
 } while (0)
 
 #define log_panic(...) do {                                                 \
     if (log_loggable(LOG_EMERG) != 0) {                                     \
-        _log(__FILE__, __LINE__, 1, __VA_ARGS__);                           \
+        _log(LOG_EMERG, __FILE__, __LINE__, 1, __VA_ARGS__);                \
     }                                                                       \
 } while (0)
 
@@ -122,7 +124,7 @@ void log_level_set(int level);
 void log_stacktrace(void);
 void log_reopen(void);
 int log_loggable(int level);
-void _log(const char *file, int line, int panic, const char *fmt, ...);
+void _log(int level, const char *file, int line, int panic, const char *fmt, ...);
 void _log_stderr(const char *fmt, ...);
 void _log_safe(const char *fmt, ...);
 void _log_stderr_safe(const char *fmt, ...);

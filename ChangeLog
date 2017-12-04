@@ -1,3 +1,8 @@
+
+ 2017-11-30 Tianyi Lin <linty@meitu.com>
+ * Supports scan/renamenx/bitop/msetnx command in master-slave
+ * Add sysv init script and logrotate
+
  2017-11-30 Tianyi Lin <linty@meitu.com>
  * twemproxy: version 1.0.4 release
  * FIX: segment fault as ctx->stats was freed before server_pool_deinit
