@@ -69,12 +69,13 @@ typedef enum msg_parse_result {
     ACTION( REQ_REDIS_PEXPIREAT )                                                                   \
     ACTION( REQ_REDIS_PERSIST )                                                                     \
     ACTION( REQ_REDIS_PTTL )                                                                        \
+    ACTION( REQ_REDIS_RENAME )                                                                      \
     ACTION( REQ_REDIS_SORT )                                                                        \
     ACTION( REQ_REDIS_TTL )                                                                         \
     ACTION( REQ_REDIS_TYPE )                                                                        \
     ACTION( REQ_REDIS_APPEND )                 /* redis requests - string */                        \
     ACTION( REQ_REDIS_BITCOUNT )                                                                    \
-    ACTION( REQ_REDIS_BITPOS )                                                                    \
+    ACTION( REQ_REDIS_BITPOS )                                                                      \
     ACTION( REQ_REDIS_DECR )                                                                        \
     ACTION( REQ_REDIS_DECRBY )                                                                      \
     ACTION( REQ_REDIS_DUMP )                                                                        \
@@ -167,7 +168,6 @@ typedef enum msg_parse_result {
     ACTION( REQ_REDIS_QUIT)                                                                         \
     ACTION( REQ_REDIS_AUTH)                                                                         \
     ACTION( REQ_REDIS_SELECT)                  /* only during init */                               \
-    ACTION( REQ_REDIS_RENAME)                  /* only supports in master slave */                  \
     ACTION( RSP_REDIS_STATUS )                 /* redis response */                                 \
     ACTION( RSP_REDIS_ERROR )                                                                       \
     ACTION( RSP_REDIS_ERROR_ERR )                                                                   \

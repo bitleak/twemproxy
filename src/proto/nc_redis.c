@@ -178,6 +178,7 @@ redis_arg1(struct msg *r)
     case MSG_REQ_REDIS_EXPIREAT:
     case MSG_REQ_REDIS_PEXPIRE:
     case MSG_REQ_REDIS_PEXPIREAT:
+    case MSG_REQ_REDIS_RENAME:
 
     case MSG_REQ_REDIS_APPEND:
     case MSG_REQ_REDIS_DECRBY:
@@ -186,7 +187,6 @@ redis_arg1(struct msg *r)
     case MSG_REQ_REDIS_INCRBY:
     case MSG_REQ_REDIS_INCRBYFLOAT:
     case MSG_REQ_REDIS_SETNX:
-    case MSG_REQ_REDIS_RENAME:
 
     case MSG_REQ_REDIS_HEXISTS:
     case MSG_REQ_REDIS_HGET:
@@ -842,6 +842,11 @@ redis_parse_req(struct msg *r)
                 break;
 
             case 6:
+                if (str6icmp(m, 'r', 'e', 'n', 'a', 'm', 'e')) {
+                    r->type = MSG_REQ_REDIS_RENAME;
+                    break;
+                }
+
                 if (str6icmp(m, 'a', 'p', 'p', 'e', 'n', 'd')) {
                     r->type = MSG_REQ_REDIS_APPEND;
                     break;
@@ -944,11 +949,6 @@ redis_parse_req(struct msg *r)
 
                 if (str6icmp(m, 'z', 's', 'c', 'o', 'r', 'e')) {
                     r->type = MSG_REQ_REDIS_ZSCORE;
-                    break;
-                }
-
-                if (str6icmp(m, 'r', 'e', 'n', 'a', 'm', 'e')) {
-                    r->type = MSG_REQ_REDIS_RENAME;
                     break;
                 }
 
