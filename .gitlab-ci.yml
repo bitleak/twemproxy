@@ -11,6 +11,7 @@ stages:
     - release
 
 build:
+    image: centos6-gcc
     stage: build
     tags:
         - dev
@@ -18,19 +19,13 @@ build:
         - develop
         - release
         - tags
-    before_script:
-        - yum install -y tar automake libtool
-        - curl -O http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz # download newer autoconf
-        - tar -xzf autoconf-2.69.tar.gz && cd autoconf-2.69
-        - ./configure && make && make install
-        - cd -
     script:
         - autoreconf -fvi && ./configure
         - make && make install
         - mkdir -p $BUILD_DIR/bin && mkdir -p $BUILD_DIR/conf
-        - echo `pwd` 
+        - echo `pwd`
         - cp src/nutcracker $BUILD_DIR/bin
-        - cp conf/* $BUILD_DIR/conf
+        - cp conf/nutcracker.yml $BUILD_DIR/conf
     artifacts:
         name: "twemproxy-${CI_PIPELINE_ID}-build"
         paths:
@@ -40,15 +35,10 @@ build:
 
 test:
     stage: test
-    image: docker-compose-centos7
+    image: twemproxy-test
     tags:
         - dev
     before_script:
-        - yum install -y epel-release git tar python
-        - yum install -y python-pip
-        - pip install nose
-        - pip install git+https://github.com/andymccurdy/redis-py.git@2.10.3
-        - pip install git+https://github.com/idning/python-memcached.git#egg=memcache
         - cp tests/conf/conf-ci.py tests/conf/conf.py
     script:
         - cwd=`pwd`; echo $cwd
