@@ -19,4 +19,4 @@ def test_master_slave_choose_server():
 
     slave.execute_command('AUTH', redis_passwd)
     for k, expected in default_kv.items():
-        assert_equal(nc.get(k), expected)
+        assert_equal(slave.get(k), expected)
