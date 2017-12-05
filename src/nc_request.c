@@ -514,8 +514,8 @@ req_filter(struct context *ctx, struct conn *conn, struct msg *msg)
         msg->noforward = 1;
     }
 
-    /* redis rename only supports in redis master-slave pool*/
-    if (msg->type == MSG_REQ_REDIS_RENAME) {
+    /* some commands only supports in redis master-slave pool*/
+    if (redis_master_slave_only(msg)) {
         pool = conn->owner;
         msg->noforward = array_n(&pool->redis_master) <= 0 ? 1 : 0;
     }

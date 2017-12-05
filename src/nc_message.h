@@ -70,6 +70,7 @@ typedef enum msg_parse_result {
     ACTION( REQ_REDIS_PERSIST )                                                                     \
     ACTION( REQ_REDIS_PTTL )                                                                        \
     ACTION( REQ_REDIS_RENAME )                                                                      \
+    ACTION( REQ_REDIS_SCAN )                                                                        \
     ACTION( REQ_REDIS_SORT )                                                                        \
     ACTION( REQ_REDIS_TTL )                                                                         \
     ACTION( REQ_REDIS_TYPE )                                                                        \

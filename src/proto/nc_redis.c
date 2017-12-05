@@ -47,6 +47,7 @@ redis_readonly(struct msg *r)
     case MSG_REQ_REDIS_PING:
     case MSG_REQ_REDIS_AUTH:
     case MSG_REQ_REDIS_PTTL:
+    case MSG_REQ_REDIS_SCAN:
     case MSG_REQ_REDIS_TYPE:
     case MSG_REQ_REDIS_DUMP:
     case MSG_REQ_REDIS_STRLEN:
@@ -96,6 +97,18 @@ redis_readonly(struct msg *r)
     case MSG_REQ_REDIS_SMEMBERS:
     case MSG_REQ_REDIS_SISMEMBER:
     case MSG_REQ_REDIS_SRANDMEMBER:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool
+redis_master_slave_only(struct msg *r)
+{
+    switch (r->type) {
+    case MSG_REQ_REDIS_RENAME:
+    case MSG_REQ_REDIS_SCAN:
         return true;
     default:
         return false;
@@ -279,6 +292,7 @@ static bool
 redis_argn(struct msg *r)
 {
     switch (r->type) {
+    case MSG_REQ_REDIS_SCAN:
     case MSG_REQ_REDIS_SORT:
 
     case MSG_REQ_REDIS_BITCOUNT:
@@ -616,6 +630,11 @@ redis_parse_req(struct msg *r)
             case 4:
                 if (str4icmp(m, 'p', 't', 't', 'l')) {
                     r->type = MSG_REQ_REDIS_PTTL;
+                    break;
+                }
+
+                if (str4icmp(m, 's', 'c', 'a', 'n')) {
+                    r->type = MSG_REQ_REDIS_SCAN;
                     break;
                 }
 
@@ -2767,11 +2786,13 @@ redis_reply(struct msg *r)
         return msg_append(response, rsp_auth_required.data, rsp_auth_required.len);
     }
 
+    if (redis_master_slave_only(r)) {
+        return msg_append(response, rsp_unknown_command.data, rsp_unknown_command.len);
+    }
+
     switch (r->type) {
     case MSG_REQ_REDIS_PING:
         return msg_append(response, rsp_pong.data, rsp_pong.len);
-    case MSG_REQ_REDIS_RENAME:
-        return msg_append(response, rsp_unknown_command.data, rsp_unknown_command.len);
     default:
         NOT_REACHED();
         return NC_ERROR;
