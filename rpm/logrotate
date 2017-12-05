@@ -1,0 +1,11 @@
+/www/twemproxy/logs/*.log {
+    daily
+    dateext
+    dateyesterday
+    missingok
+    nocreate
+    sharedscripts
+    postrotate
+        kill -USR1 `cat /var/run/twemproxy.pid`
+    endscript
+}
