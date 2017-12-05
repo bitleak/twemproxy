@@ -108,6 +108,7 @@ redis_master_slave_only(struct msg *r)
 {
     switch (r->type) {
     case MSG_REQ_REDIS_RENAME:
+    case MSG_REQ_REDIS_RENAMENX:
     case MSG_REQ_REDIS_SCAN:
         return true;
     default:
@@ -192,6 +193,7 @@ redis_arg1(struct msg *r)
     case MSG_REQ_REDIS_PEXPIRE:
     case MSG_REQ_REDIS_PEXPIREAT:
     case MSG_REQ_REDIS_RENAME:
+    case MSG_REQ_REDIS_RENAMENX:
 
     case MSG_REQ_REDIS_APPEND:
     case MSG_REQ_REDIS_DECRBY:
@@ -1034,6 +1036,11 @@ redis_parse_req(struct msg *r)
             case 8:
                 if (str8icmp(m, 'e', 'x', 'p', 'i', 'r', 'e', 'a', 't')) {
                     r->type = MSG_REQ_REDIS_EXPIREAT;
+                    break;
+                }
+
+                if (str8icmp(m, 'r', 'e', 'n', 'a', 'm', 'e', 'n', 'x')) {
+                    r->type = MSG_REQ_REDIS_RENAMENX;
                     break;
                 }
 
