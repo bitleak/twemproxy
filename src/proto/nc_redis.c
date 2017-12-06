@@ -110,6 +110,8 @@ redis_master_slave_only(struct msg *r)
     case MSG_REQ_REDIS_RENAME:
     case MSG_REQ_REDIS_RENAMENX:
     case MSG_REQ_REDIS_SCAN:
+
+    case MSG_REQ_REDIS_BITOP:
         return true;
     default:
         return false;
@@ -298,6 +300,7 @@ redis_argn(struct msg *r)
     case MSG_REQ_REDIS_SORT:
 
     case MSG_REQ_REDIS_BITCOUNT:
+    case MSG_REQ_REDIS_BITOP:
     case MSG_REQ_REDIS_BITPOS:
 
     case MSG_REQ_REDIS_SET:
@@ -770,6 +773,11 @@ redis_parse_req(struct msg *r)
                 break;
 
             case 5:
+                if (str5icmp(m, 'b', 'i', 't', 'o', 'p')) {
+                    r->type = MSG_REQ_REDIS_BITOP;
+                    break;
+                }
+
                 if (str5icmp(m, 'h', 'k', 'e', 'y', 's')) {
                     r->type = MSG_REQ_REDIS_HKEYS;
                     break;
