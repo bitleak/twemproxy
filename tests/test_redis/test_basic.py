@@ -9,13 +9,6 @@ def test_setget():
     rst = r.set('k', 'v')
     assert(r.get('k') == 'v')
 
-def test_msetnx():
-    r = get_redis_conn(is_ms=False)
-
-    #not supported
-    keys = default_kv.keys()
-    assert_fail('Socket closed|Connection closed', r.msetnx,**default_kv)
-
 def test_null_key():
     r = get_redis_conn(is_ms=False)
     rst = r.set('', 'v')
