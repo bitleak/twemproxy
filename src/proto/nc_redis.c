@@ -112,6 +112,7 @@ redis_master_slave_only(struct msg *r)
     case MSG_REQ_REDIS_SCAN:
 
     case MSG_REQ_REDIS_BITOP:
+    case MSG_REQ_REDIS_MSETNX:
         return true;
     default:
         return false;
@@ -373,6 +374,7 @@ redis_argkvx(struct msg *r)
 {
     switch (r->type) {
     case MSG_REQ_REDIS_MSET:
+    case MSG_REQ_REDIS_MSETNX:
         return true;
 
     default:
@@ -909,6 +911,11 @@ redis_parse_req(struct msg *r)
                 if (str6icmp(m, 'g', 'e', 't', 's', 'e', 't')) {
                     r->type = MSG_REQ_REDIS_GETSET;
                     break;
+                }
+
+                if (str6icmp(m, 'm', 's', 'e', 't', 'n', 'x')) {
+                   r->type = MSG_REQ_REDIS_MSETNX;
+                   break;
                 }
 
                 if (str6icmp(m, 'p', 's', 'e', 't', 'e', 'x')) {
