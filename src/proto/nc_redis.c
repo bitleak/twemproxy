@@ -47,7 +47,6 @@ redis_readonly(struct msg *r)
     case MSG_REQ_REDIS_PING:
     case MSG_REQ_REDIS_AUTH:
     case MSG_REQ_REDIS_PTTL:
-    case MSG_REQ_REDIS_SCAN:
     case MSG_REQ_REDIS_TYPE:
     case MSG_REQ_REDIS_DUMP:
     case MSG_REQ_REDIS_STRLEN:
