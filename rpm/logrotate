@@ -1,4 +1,5 @@
 /www/twemproxy/logs/*.log {
+    rotate 7
     daily
     dateext
     dateyesterday
