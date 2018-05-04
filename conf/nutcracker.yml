@@ -16,7 +16,7 @@ pools:                        # pools 的参数参考原文档的相应参数即
     server_failure_limit: 5 # 失败多少次后暂时剔除
     timeout: 1000 # Server 超时时间, 1 sec
     backlog: 1024 # 连接队列大小
-    preconnect: 1 # 预连接大小
+    preconnect: true # 预连接大小
 
     servers:
      - 127.0.0.1:6379:1 master  # 将该后端设置为 "主", 所有的写操作都只会转发给这台后端.
