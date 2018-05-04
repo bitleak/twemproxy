@@ -1,25 +1,25 @@
 global:
-  worker_processes: 4         # 并发进程数, 如果为0, 这 fallback 回原来的单进程模型(不支持 config reload!)
-  user: nobody                # worker 进程的用户, 默认 nobody. 只要主进程是 root 用户启动才生效.
-  group: nobody               # worker 进程的用户组
-  worker_shutdown_timeout: 30 # 单位为秒. 用于 reload 过程中在改时间段之后强制退出旧的 worker 进程.
+  worker_processes: 4         # num of workers, fallback to single process model while worker_processes is 0
+  user: nobody                # user of worker's process, master process should be setup with root
+  group: nobody               # group of worker's process
+  worker_shutdown_timeout: 30 # terminate the old worker after worker_shutdown_timeout, unit is second
 
-pools:                        # pools 的参数参考原文档的相应参数即可, 除了 servers 的配置有改变, 其他都不变.
-  alpha:
-    listen: 127.0.0.1:22121
-    hash: fnv1a_64 # 选择实例的 hash 规则
+pools:
+  alpha:                        # pool name
+    listen: 127.0.0.1:22121     # accept connections on the specified host and port
+    hash: fnv1a_64
     distribution: ketama
-    auto_eject_hosts: true # server 有问题是否剔除
-    redis: true # 是否为 Redis 协议
-    server_retry_timeout: 5000 # 被剔除多长时间后会重试
-    server_connections: 25 # NOTE: server 连接池的大小, 默认为 1, 建议调整
-    server_failure_limit: 5 # 失败多少次后暂时剔除
-    timeout: 1000 # Server 超时时间, 1 sec
-    backlog: 1024 # 连接队列大小
-    preconnect: true # 预连接大小
+    auto_eject_hosts: true # auto eject the hosts or not when the server was failed after server_failure_limit times
+    redis: true # redis protocol or not
+    server_retry_timeout: 5000 # retry interval while the server was ejected
+    server_connections: 25 # NOTE: server pool size, default: 1
+    server_failure_limit: 5 # eject the failure server after N times retry
+    timeout: 1000 # server timeout, default: 1 sec
+    backlog: 1024 # listen backlog
+    preconnect: true # preconnect the server or not
 
     servers:
-     - 127.0.0.1:6379:1 master  # 将该后端设置为 "主", 所有的写操作都只会转发给这台后端.
+     - 127.0.0.1:6379:1 master  # the redis pool was in master-slaves mode, and the server was tagged as master, all write operations would forward to it
      - 127.0.0.1:6380:1
 
   beta:
