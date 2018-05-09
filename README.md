@@ -1,6 +1,6 @@
 # twemproxy (nutcracker) [![Build Status](https://secure.travis-ci.org/twitter/twemproxy.png)](http://travis-ci.org/twitter/twemproxy)
 
-**twemproxy** (pronounced "two-em-proxy"), aka **nutcracker** is a fast and lightweight proxy for [memcached](http://www.memcached.org/) and [redis](http://redis.io/) protocol. It was built primarily to reduce the number of connections to the caching servers on the backend. This, together with protocol pipelining and sharding enables you to horizontally scale your distributed caching architecture.
+**meitu twemproxy** is a multi-process, fast and lightweight proxy for [memcached](http://www.memcached.org/) and [redis](http://redis.io/) protocol. It was built primarily to reduce the number of connections to the caching servers on the backend. This, together with protocol pipelining and sharding enables you to horizontally scale your distributed caching architecture.
 
 ## Build
 
@@ -34,6 +34,10 @@ A quick checklist:
 
 ## Features
 
+* Supports master-worker's process mode(NEW)
+* Supports reload config in runtime(NEW)
+* Supports split read/write in redis master-slave(NEW)
+
 + Fast.
 + Lightweight.
 + Maintains persistent server connections.
@@ -48,15 +52,6 @@ A quick checklist:
 + Can be configured to disable nodes on failures.
 + Observability via stats exposed on the stats monitoring port.
 + Works with Linux, \*BSD, OS X and SmartOS (Solaris)
-
-## New Feature
-
-* Supports master-worker's process mode
-* Supports reload config in runtime
-* Supports split read/write in redis master-slave
-* Supports run test cases with docker and gitlab CI
-
-WARN: Config file format is changed! please refer to the `conf/nutcracker.yml` for demo.
 
 ## Help
 
