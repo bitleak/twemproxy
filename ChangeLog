@@ -1,39 +1,8 @@
-
- 2017-11-30 Tianyi Lin <linty@meitu.com>
- * Supports scan/renamenx/bitop/msetnx command in master-slave
- * Add sysv init script and logrotate
-
- 2017-11-30 Tianyi Lin <linty@meitu.com>
- * twemproxy: version 1.0.4 release
- * FIX: segment fault as ctx->stats was freed before server_pool_deinit
- when the worker was terminated with unclosed clients
- * ADD: Supports rename command in redis master-slave
-
- 2017-11-30 Tianyi Lin <linty@meitu.com>
- * twemproxy: version 1.0.3 release
- * FIX: Keep stats from being destroyed after reload
-
- 2017-11-28 Tianyi Lin <linty@meitu.com>
- * twemproxy: version 1.0.2 release
- * MOD: use epoll_pwait instread of epoll_wait, allow to interupt epoll loop when the worker shutdown timeout was reached
- * MOD: Remove listen fd from event base when worker was terminated
-
- 2017-11-27 Tianyi Lin <linty@meitu.com>
- * twemproxy: version 1.0.1 release
- * FIX: Fix bug when event_add fd is oversize the num of event data
- * FIX: Cleanup those complete todo comments
- * FIX: Free old ctx of master_nci during reload
- * FIX: Rollback reloading failure
- * FIX: Free mmap memory in core_ctx_destroy to avoid some mmap leak
- * FIX: Fix workers array index boundary checking and remove a false err log
- * FIX: Fix proxy conn unref when worker is termianted
-
- 2017-11-24 Tianyi Lin <linty@meitu.com>
+  2018-05-09 Tianyi Lin <linty@meitu.com>
  	* twemproxy: version 1.0.0 release
 	* Supports master-workers model
 	* Supports reload config in runtime
 	* Supports split read/write in Redis master-slave
-	* Supports run test cases with docker and gitlab CI
 
  2015-22-06  Manju Rajashekhar  <manj@cs.stanford.edu>
     * twemproxy: version 0.4.1 release
