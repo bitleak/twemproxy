@@ -26,6 +26,12 @@
 #include <nc_server.h>
 #include <nc_process.h>
 
+static struct string server_latency_key = string("server_latency");
+static int64_t latency_buckets[] =  {
+    1, 10, 20, 50, 100, 200, 500, 1000, 2000, 3000, INT64_MAX
+};
+
+#define NBUCKET (sizeof(latency_buckets)/sizeof(latency_buckets[0]))
 struct stats_desc {
     char *name; /* stats name */
     char *desc; /* stats description */
@@ -167,6 +173,44 @@ stats_metric_deinit(struct array *metric)
     array_deinit(metric);
 }
 
+static void
+stats_latency_reset(struct array *latency)
+{
+    uint32_t i;
+    uint64_t *bucket;
+
+    for (i = 0; i < NBUCKET; i++) {
+        bucket = array_get(latency, i);
+        *bucket = 0;
+    }
+}
+
+static rstatus_t
+stats_server_latency_init(struct stats_server *sts)
+{
+    rstatus_t status;
+    uint32_t i;
+
+    status = array_init(&sts->latency, NBUCKET, sizeof(uint64_t));
+    for (i = 0; i < NBUCKET; i++) {
+        uint64_t *bucket = array_push(&sts->latency);
+        *bucket = 0;
+    }
+    return status;
+}
+
+static void
+stats_latency_deinit(struct array *latency)
+{
+    uint32_t i, buckets;
+
+    buckets = array_n(latency);
+    for (i = 0; i < buckets; i++) {
+        array_pop(latency);
+    }
+    array_deinit(latency);
+}
+
 static rstatus_t
 server_each_map_to_stats_server(void *elem, void *data)
 {
@@ -179,6 +223,11 @@ server_each_map_to_stats_server(void *elem, void *data)
 
     status = stats_server_metric_init(sts);
     if (status != NC_OK) {
+        return status;
+    }
+    status = stats_server_latency_init(sts);
+    if (status != NC_OK) {
+        stats_metric_deinit(&sts->metric);
         return status;
     }
 
@@ -232,6 +281,7 @@ stats_server_unmap(struct array *stats_server)
     for (i = 0; i < nserver; i++) {
         struct stats_server *sts = array_pop(stats_server);
         stats_metric_deinit(&sts->metric);
+        stats_latency_deinit(&sts->latency);
     }
     array_deinit(stats_server);
 
@@ -282,6 +332,7 @@ stats_pool_reset(struct array *stats_pool)
         for (j = 0; j < nserver; j++) {
             struct stats_server *sts = array_get(&stp->server, j);
             stats_metric_reset(&sts->metric);
+            stats_latency_reset(&sts->latency);
         }
     }
 }
@@ -339,6 +390,7 @@ stats_create_buf(struct stats *st)
     uint32_t key_value_extra = 8;   /* "key": "value", */
     uint32_t pool_extra = 8;        /* '"pool_name": { ' + ' }' */
     uint32_t server_extra = 8;      /* '"server_name": { ' + ' }' */
+    uint32_t latency_extra = 8;     /* '"latency": [' + '], ' */
     size_t size = 0;
     uint32_t i;
 
@@ -406,6 +458,9 @@ stats_create_buf(struct stats *st)
                 size += int64_max_digits;
                 size += key_value_extra;
             }
+            // server request latency
+            // +1 for comma in array
+            size += NBUCKET*(int64_max_digits+1)+latency_extra;
         }
     }
 
@@ -435,6 +490,34 @@ stats_destroy_buf(struct stats *st)
         nc_free(st->buf.data);
         st->buf.size = 0;
     }
+}
+
+static rstatus_t
+stats_add_latency(struct stats *st, struct string *key, struct array *latency)
+{
+    struct stats_buffer *buf;
+    uint8_t *pos;
+    size_t room;
+    int i, n;
+    uint64_t *bucket;
+
+    buf = &st->buf;
+    pos = buf->data + buf->len;
+    room = buf->size - buf->len - 1;
+    n = nc_snprintf(pos, room, "\"%.*s\": [", key->len, key->data);
+    for (i = 0; i <NBUCKET; i++) {
+        bucket = array_get(latency, i);
+        if (n >= room) {
+            return NC_ERROR;
+        }
+        if (i == NBUCKET -1) {
+            n += nc_snprintf(pos+n, room - n, "%"PRId64"], ", *bucket);
+        } else {
+            n += nc_snprintf(pos+n, room - n, "%"PRId64",", *bucket);
+        }
+    }
+    buf->len += (size_t)n;
+    return NC_OK;
 }
 
 static rstatus_t
@@ -639,6 +722,20 @@ stats_copy_metric(struct stats *st, struct array *metric)
 }
 
 static void
+stats_aggregate_latency(struct array *dst, struct array *src)
+{
+    uint32_t i;
+    uint64_t *bucket1;
+    uint64_t *bucket2;
+
+    for (i = 0; i < NBUCKET; i++) {
+        bucket1 = array_get(src, i);
+        bucket2 = array_get(dst, i);
+        *bucket2 += *bucket1;
+    }
+}
+
+static void
 stats_aggregate_metric(struct array *dst, struct array *src)
 {
     uint32_t i;
@@ -700,6 +797,7 @@ stats_aggregate(struct stats *st)
             sts1 = array_get(&stp1->server, j);
             sts2 = array_get(&stp2->server, j);
             stats_aggregate_metric(&sts2->metric, &sts1->metric);
+            stats_aggregate_latency(&sts2->latency, &sts1->latency);
         }
     }
 
@@ -742,6 +840,10 @@ stats_make_rsp(struct stats *st)
 
             /* copy server metric from sum(c) to buffer */
             status = stats_copy_metric(st, &sts->metric);
+            if (status != NC_OK) {
+                return status;
+            }
+            stats_add_latency(st, &server_latency_key, &sts->latency);
             if (status != NC_OK) {
                 return status;
             }
@@ -1346,4 +1448,23 @@ _stats_server_set_ts(struct context *ctx, struct server *server,
 
     log_debug(LOG_VVVERB, "set ts field '%.*s' to %"PRId64"", stm->name.len,
               stm->name.data, stm->value.timestamp);
+}
+
+void
+_stats_server_record_latency(struct context *ctx, struct server *server, int64_t latency)
+{
+    struct stats *st;
+    struct stats_pool *stp;
+    struct stats_server *sts;
+    uint32_t ind, pidx, sidx;
+    uint64_t *counter;
+
+    sidx = server->idx;
+    pidx = server->owner->idx;
+    st = ctx->stats;
+    stp = array_get(&st->current, pidx);
+    sts = array_get(&stp->server, sidx);
+    for (ind = 0; latency > latency_buckets[ind]; ind++);
+    counter = array_get(&sts->latency, ind);
+    *counter += 1;
 }

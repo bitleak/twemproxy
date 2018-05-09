@@ -276,15 +276,19 @@ void
 rsp_recv_done(struct context *ctx, struct conn *conn, struct msg *msg,
               struct msg *nmsg)
 {
+    struct msg *pmsg;
+
     ASSERT(!conn->client && !conn->proxy);
     ASSERT(msg != NULL && conn->rmsg == msg);
     ASSERT(!msg->request);
     ASSERT(msg->owner == conn);
     ASSERT(nmsg == NULL || !nmsg->request);
 
+    pmsg = TAILQ_FIRST(&conn->omsg_q);
+    stats_server_record_latency(ctx, conn->owner, nc_msec_now()-pmsg->forward_start_ts);
+
     /* enqueue next message (response), if any */
     conn->rmsg = nmsg;
-
     if (rsp_filter(ctx, conn, msg)) {
         return;
     }

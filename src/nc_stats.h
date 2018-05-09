@@ -72,8 +72,9 @@ struct stats_metric {
 };
 
 struct stats_server {
-    struct string name;   /* server name (ref) */
-    struct array  metric; /* stats_metric[] for server codec */
+    struct string name;     /* server name (ref) */
+    struct array  metric;   /* stats_metric[] for server codec */
+    struct array  latency;  /* lantency[] for server request latency */
 };
 
 struct stats_pool {
@@ -178,6 +179,10 @@ typedef enum stats_server_field {
      _stats_server_set_ts(_ctx, _server, STATS_SERVER_##_name, _val);   \
 } while (0)
 
+#define stats_server_record_latency(_ctx, _server, _val) do {           \
+     _stats_server_record_latency(_ctx, _server, _val);                 \
+} while (0)
+
 #else
 
 #define stats_pool_incr(_ctx, _pool, _name)
@@ -213,6 +218,7 @@ void _stats_server_decr(struct context *ctx, struct server *server, stats_server
 void _stats_server_incr_by(struct context *ctx, struct server *server, stats_server_field_t fidx, int64_t val);
 void _stats_server_decr_by(struct context *ctx, struct server *server, stats_server_field_t fidx, int64_t val);
 void _stats_server_set_ts(struct context *ctx, struct server *server, stats_server_field_t fidx, int64_t val);
+void _stats_server_record_latency(struct context *ctx, struct server *server, int64_t latency);
 
 struct stats *stats_create(uint16_t stats_port, char *stats_ip, int stats_interval, char *source, struct array *server_pool, stats_loop_t loop);
 void stats_destroy(struct stats *stats);

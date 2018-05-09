@@ -220,6 +220,7 @@ done:
     STAILQ_INIT(&msg->mhdr);
     msg->mlen = 0;
     msg->start_ts = 0;
+    msg->forward_start_ts = 0;
 
     msg->state = 0;
     msg->pos = NULL;
