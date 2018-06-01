@@ -25,6 +25,7 @@
 #include <sys/utsname.h>
 
 #include <nc_core.h>
+#include <nc.h>
 #include <nc_conf.h>
 #include <nc_signal.h>
 #include <nc_process.h>
@@ -40,7 +41,7 @@
 #define NC_STATS_ADDR       STATS_ADDR
 #define NC_STATS_INTERVAL   STATS_INTERVAL
 
-#define NC_PID_FILE         NULL
+#define NC_PID_FILE         "/var/run/twemproxy.pid"
 
 #define NC_MBUF_SIZE        MBUF_SIZE
 #define NC_MBUF_MIN_SIZE    MBUF_MIN_SIZE
@@ -51,6 +52,19 @@ static int show_version;
 static int test_conf;
 static int daemonize;
 static int describe_stats;
+static char *user_cmd;
+
+struct command_signal {
+    const char *command;
+    int signal;
+};
+
+static struct command_signal command_signals[] = {
+    { "reload",    SIGHUP  },
+    { "reopen",    SIGUSR1 },
+    { "stop",      SIGTERM },
+    { "shutdown",  SIGTERM }
+};
 
 static struct option long_options[] = {
     { "help",           no_argument,        NULL,   'h' },
@@ -66,10 +80,11 @@ static struct option long_options[] = {
     { "stats-addr",     required_argument,  NULL,   'a' },
     { "pid-file",       required_argument,  NULL,   'p' },
     { "mbuf-size",      required_argument,  NULL,   'm' },
+    { "kill",           required_argument,  NULL,   'k' },
     { NULL,             0,                  NULL,    0  }
 };
 
-static char short_options[] = "hVtdDv:o:c:s:i:a:p:m:";
+static char short_options[] = "hVtdDv:o:c:s:i:a:p:m:k:";
 
 static rstatus_t
 nc_daemonize(int dump_core)
@@ -206,6 +221,7 @@ nc_show_usage(void)
         "Usage: nutcracker [-?hVdDt] [-v verbosity level] [-o output file]" CRLF
         "                  [-c conf file] [-s stats port] [-a stats addr]" CRLF
         "                  [-i stats interval] [-p pid file] [-m mbuf size]" CRLF
+        "                  [-k signal(shudown,stop,reload,reopen)]" CRLF
         "");
     log_stderr(
         "Options:" CRLF
@@ -223,6 +239,7 @@ nc_show_usage(void)
         "  -i, --stats-interval=N : set stats aggregation interval in msec (default: %d msec)" CRLF
         "  -p, --pid-file=S       : set pid file (default: %s)" CRLF
         "  -m, --mbuf-size=N      : set size of mbuf chunk in bytes (default: %d bytes)" CRLF
+        "  -k, --kill=S           : send signal to running process" CRLF
         "",
         NC_LOG_DEFAULT, NC_LOG_MIN, NC_LOG_MAX,
         NC_LOG_PATH != NULL ? NC_LOG_PATH : "stderr",
@@ -259,6 +276,43 @@ nc_create_pidfile(struct instance *nci)
     close(fd);
 
     return NC_OK;
+}
+
+static pid_t
+nc_read_pidfile(struct instance *nci)
+{
+    char pid[NC_UINTMAX_MAXLEN];
+    int fd;
+    ssize_t n;
+    pid_t pid_value;
+
+    fd = open(nci->pid_filename, O_RDONLY);
+    if (fd < 0) {
+        log_error("opening pid file '%s' failed: %s", nci->pid_filename,
+                strerror(errno));
+        return -1;
+    }
+
+    n = nc_read(fd, &pid, NC_UINTMAX_MAXLEN);
+    if (n <= 0) {
+        log_error("Read pid file '%s' failed: %s", nci->pid_filename,
+                strerror(errno));
+        close(fd);
+        return -1;
+    }
+    //the pid in pid file is not end with "\0"
+    // so when convert to int we should use  the number of bytes that were read from the file instead of the strlen of pid
+    pid_value = nc_atoi(pid, n);
+    if (pid_value <= 0) {
+        log_error("Read pid file '%s' failed: %s", nci->pid_filename,
+                strerror(errno));
+        close(fd);
+        return -1;
+    }
+
+    close(fd);
+
+    return pid_value;
 }
 
 static void
@@ -299,7 +353,7 @@ nc_set_default_options(struct instance *nci)
     nci->mbuf_chunk_size = NC_MBUF_SIZE;
 
     nci->pid = (pid_t)-1;
-    nci->pid_filename = NULL;
+    nci->pid_filename = NC_PID_FILE;
     nci->pidfile = 0;
 }
 
@@ -406,6 +460,10 @@ nc_get_options(int argc, char **argv, struct instance *nci)
             nci->mbuf_chunk_size = (size_t)value;
             break;
 
+        case 'k':
+            user_cmd = optarg;
+            break;
+
         case '?':
             switch (optopt) {
             case 'o':
@@ -423,6 +481,7 @@ nc_get_options(int argc, char **argv, struct instance *nci)
                 break;
 
             case 'a':
+            case 'k':
                 log_stderr("nutcracker: option -%c requires a string", optopt);
                 break;
 
@@ -501,7 +560,7 @@ nc_pre_run(struct instance *nci)
     return NC_OK;
 }
 
-static void
+void
 nc_post_run(struct instance *nci)
 {
     if (nci->pidfile) {
@@ -528,6 +587,36 @@ nc_run(struct instance *nci)
     core_stop(ctx);
 }
 
+static void
+nc_handle_user_cmd(struct instance *nci, const char *cmd)
+{
+    int signal = 0;
+    unsigned long i;
+
+    for(i = 0; i < sizeof(command_signals)/sizeof(struct command_signal); i++) {
+        if (nc_strncmp( cmd, command_signals[i].command, nc_strlen(cmd) ) == 0) {
+            signal = command_signals[i].signal;
+            break;
+        }
+    }
+    if (signal == 0){
+        log_stderr("invalid option: \"-k %s\"", cmd);
+        exit(1);
+    }
+
+    if (!nci->pid_filename) {
+        log_stderr("The nutcracker pid_file_name is null,please check your input" CRLF);
+        exit(1);
+    }
+    pid_t pid;
+    pid = nc_read_pidfile(nci);
+    if (pid <=0) {
+        log_stderr("The nutcracker pid does not exist,program not started?" CRLF);
+        exit(1);
+    }
+    exit(kill(pid, signal));
+}
+
 int
 main(int argc, char **argv)
 {
@@ -544,6 +633,11 @@ main(int argc, char **argv)
     status = nc_get_options(argc, argv, &nci);
     if (status != NC_OK) {
         nc_show_usage();
+        exit(1);
+    }
+
+    if (user_cmd) {
+        nc_handle_user_cmd(&nci,user_cmd);
         exit(1);
     }
 

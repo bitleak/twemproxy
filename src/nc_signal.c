@@ -21,6 +21,7 @@
 #include <sys/wait.h>
 
 #include <nc_core.h>
+#include <nc.h>
 #include <nc_signal.h>
 #include <nc_process.h>
 
@@ -175,6 +176,7 @@ signal_handler(int signo)
     }
 
     if (done) {
+        nc_post_run(master_nci);
         exit(1);
     }
 }
