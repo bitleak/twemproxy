@@ -81,6 +81,7 @@ struct stats_pool {
     struct string name;   /* pool name (ref) */
     struct array  metric; /* stats_metric[] for pool codec */
     struct array  server; /* stats_server[] */
+    struct array  latency;  /* lantency[] for server request latency */
 };
 
 struct stats_buffer {
@@ -183,6 +184,10 @@ typedef enum stats_server_field {
      _stats_server_record_latency(_ctx, _server, _val);                 \
 } while (0)
 
+#define stats_pool_record_latency(_ctx, _pool, _val) do {           \
+     _stats_pool_record_latency(_ctx, _pool, _val);                 \
+} while (0)
+
 #else
 
 #define stats_pool_incr(_ctx, _pool, _name)
@@ -200,6 +205,10 @@ typedef enum stats_server_field {
 #define stats_server_incr_by(_ctx, _server, _name, _val)
 
 #define stats_server_decr_by(_ctx, _server, _name, _val)
+
+#define stats_server_record_latency(_ctx, _server, _val)
+
+#define stats_pool_record_latency(_ctx, _pool, _val)
 
 #endif
 
