@@ -228,6 +228,7 @@ void _stats_server_incr_by(struct context *ctx, struct server *server, stats_ser
 void _stats_server_decr_by(struct context *ctx, struct server *server, stats_server_field_t fidx, int64_t val);
 void _stats_server_set_ts(struct context *ctx, struct server *server, stats_server_field_t fidx, int64_t val);
 void _stats_server_record_latency(struct context *ctx, struct server *server, int64_t latency);
+void _stats_pool_record_latency(struct context *ctx, struct server_pool *pool, int64_t latency);
 
 struct stats *stats_create(uint16_t stats_port, char *stats_ip, int stats_interval, char *source, struct array *server_pool, stats_loop_t loop);
 void stats_destroy(struct stats *stats);

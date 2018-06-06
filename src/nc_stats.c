@@ -511,15 +511,15 @@ stats_add_latency(struct stats *st, struct string *key, struct array *latency)
 {
     struct stats_buffer *buf;
     uint8_t *pos;
-    size_t room;
-    int i, n;
+    int n, room;
+    uint32_t i;
     uint64_t *bucket;
 
     buf = &st->buf;
     pos = buf->data + buf->len;
-    room = buf->size - buf->len - 1;
+    room = (int)(buf->size - buf->len - 1);
     n = nc_snprintf(pos, room, "\"%.*s\": [", key->len, key->data);
-    for (i = 0; i <NBUCKET; i++) {
+    for (i = 0; i < NBUCKET; i++) {
         bucket = array_get(latency, i);
         if (n >= room) {
             return NC_ERROR;
@@ -943,7 +943,7 @@ static rstatus_t
 stats_each_calc_shared_mem_size(void *elem, void *data)
 {
     char *shared_mem = ((struct instance *)elem)->ctx->shared_mem;
-    int *size = data;
+    size_t *size = data;
     *size += strlen(shared_mem);
     /* use "," instead of "\0" */
     return NC_OK;
@@ -1473,7 +1473,7 @@ _stats_server_set_ts(struct context *ctx, struct server *server,
 }
 
 void
-_stats_pool_record_latency(struct context *ctx, struct server_pool *pool, int latency)
+_stats_pool_record_latency(struct context *ctx, struct server_pool *pool, int64_t latency)
 {
     struct stats *st;
     struct stats_pool *stp;
