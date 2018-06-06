@@ -56,7 +56,7 @@ static char *user_cmd;
 
 struct command_signal {
     const char *command;
-    int signal;
+    int sig;
 };
 
 static struct command_signal command_signals[] = {
@@ -590,16 +590,16 @@ nc_run(struct instance *nci)
 static void
 nc_handle_user_cmd(struct instance *nci, const char *cmd)
 {
-    int signal = 0;
+    int sig = 0;
     unsigned long i;
 
     for(i = 0; i < sizeof(command_signals)/sizeof(struct command_signal); i++) {
         if (nc_strncmp( cmd, command_signals[i].command, nc_strlen(cmd) ) == 0) {
-            signal = command_signals[i].signal;
+            sig = command_signals[i].sig;
             break;
         }
     }
-    if (signal == 0){
+    if (sig == 0){
         log_stderr("invalid option: \"-k %s\"", cmd);
         exit(1);
     }
@@ -614,7 +614,7 @@ nc_handle_user_cmd(struct instance *nci, const char *cmd)
         log_stderr("The nutcracker pid does not exist,program not started?" CRLF);
         exit(1);
     }
-    exit(kill(pid, signal));
+    exit(kill(pid, sig));
 }
 
 int
