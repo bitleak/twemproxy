@@ -102,7 +102,6 @@ req_put(struct msg *msg)
 {
     struct msg *pmsg; /* peer message (response) */
     struct conn *conn = msg->owner;
-    int64_t req_time;
 
     ASSERT(msg->request);
 
@@ -114,11 +113,6 @@ req_put(struct msg *msg)
         msg->peer = NULL;
         pmsg->peer = NULL;
         rsp_put(pmsg);
-        /* only record the server pool message */
-        if (conn->client && !conn->proxy) {
-            req_time = nc_msec_now()-msg->start_ts/1000;
-            stats_pool_record_latency(conn_to_ctx(conn), conn->owner, req_time);
-        }
     }
 
     msg_tmo_delete(msg);

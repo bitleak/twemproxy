@@ -357,6 +357,7 @@ rsp_send_next(struct context *ctx, struct conn *conn)
 void
 rsp_send_done(struct context *ctx, struct conn *conn, struct msg *msg)
 {
+    int64_t req_time;
     struct msg *pmsg; /* peer message (request) */
 
     ASSERT(conn->client && !conn->proxy);
@@ -377,5 +378,10 @@ rsp_send_done(struct context *ctx, struct conn *conn, struct msg *msg)
 
     if (pm_terminate) {
         conn->done = 1;
+    }
+    /* only record the request's latency, and ignore the fragment */
+    if (pmsg->frag_id == 0 || pmsg->frag_owner == pmsg) {
+        req_time = nc_msec_now()-pmsg->start_ts/1000;
+        stats_pool_record_latency(conn_to_ctx(conn), conn->owner, req_time);
     }
 }
