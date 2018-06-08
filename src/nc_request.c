@@ -101,7 +101,6 @@ void
 req_put(struct msg *msg)
 {
     struct msg *pmsg; /* peer message (response) */
-    struct conn *conn = msg->owner;
 
     ASSERT(msg->request);
 
