@@ -309,6 +309,8 @@ nc_worker_process(int worker_id, struct instance *nci)
         log_error("failed to initialize stats");
         return;
     }
+    // Close inherited stats listening FD
+    close(master_nci->ctx->stats->sd);
 
     status = core_init_instance(nci);
     if (status != NC_OK) {
