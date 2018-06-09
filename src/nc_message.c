@@ -220,6 +220,7 @@ done:
     STAILQ_INIT(&msg->mhdr);
     msg->mlen = 0;
     msg->start_ts = 0;
+    msg->forward_start_ts = 0;
 
     msg->state = 0;
     msg->pos = NULL;
@@ -312,9 +313,7 @@ msg_get(struct conn *conn, bool request, bool redis)
         msg->post_coalesce = memcache_post_coalesce;
     }
 
-    if (log_loggable(LOG_NOTICE) != 0) {
-        msg->start_ts = nc_usec_now();
-    }
+    msg->start_ts = nc_usec_now();
 
     log_debug(LOG_VVERB, "get msg %p id %"PRIu64" request %d owner sd %d",
               msg, msg->id, msg->request, conn->sd);

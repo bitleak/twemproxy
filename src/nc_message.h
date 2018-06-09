@@ -218,6 +218,7 @@ struct msg {
     struct mhdr          mhdr;            /* message mbuf header */
     uint32_t             mlen;            /* message length */
     int64_t              start_ts;        /* request start timestamp in usec */
+    int64_t              forward_start_ts;/* request forward timestamp in msec */
 
     int                  state;           /* current parser state */
     uint8_t              *pos;            /* parser position marker */

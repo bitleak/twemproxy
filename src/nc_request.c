@@ -761,7 +761,7 @@ req_send_done(struct context *ctx, struct conn *conn, struct msg *msg)
 
     /* dequeue the message (request) from server inq */
     conn->dequeue_inq(ctx, conn, msg);
-
+    msg->forward_start_ts = nc_msec_now();
     /*
      * noreply request instructs the server not to send any response. So,
      * enqueue message (request) in server outq, if response is expected.
