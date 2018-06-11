@@ -1,4 +1,10 @@
   2018-05-09 Tianyi Lin <linty@meitu.com>
+ 	* twemproxy: version 1.0.1 release
+	* Supports request and server latency in stats
+	* Supports reload/stop in cmdline
+	* Fix incorrect log format when pool is empty
+
+  2018-05-09 Tianyi Lin <linty@meitu.com>
  	* twemproxy: version 1.0.0 release
 	* Supports master-workers model
 	* Supports reload config in runtime
