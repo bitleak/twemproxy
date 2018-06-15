@@ -32,6 +32,13 @@
  */
 #define MEMCACHE_MAX_KEY_LENGTH 250
 
+#define RSP_STRING(ACTION)                                                          \
+    ACTION( invalid_command,  "ERROR\r\n"                                         ) \
+
+#define DEFINE_ACTION(_var, _str) static struct string rsp_##_var = string(_str);
+RSP_STRING( DEFINE_ACTION )
+#undef DEFINE_ACTION
+
 /*
  * Return true, if the memcache command is a storage command, otherwise
  * return false
@@ -740,6 +747,7 @@ enomem:
 
 error:
     r->result = MSG_PARSE_ERROR;
+    r->noforward = 1;
     r->state = state;
     errno = EINVAL;
 
@@ -1555,7 +1563,21 @@ memcache_add_auth(struct context *ctx, struct conn *c_conn, struct conn *s_conn)
 rstatus_t
 memcache_reply(struct msg *r)
 {
-    NOT_REACHED();
-    return NC_OK;
+    struct conn *c_conn;
+    struct msg *response = r->peer;
+
+    ASSERT(response != NULL && response->owner != NULL);
+
+    c_conn = response->owner;
+
+    switch (r->result) {
+        case MSG_PARSE_ERROR:
+        case MSG_PARSE_ERROR_WRONG_ARGU_NUM:
+        case MSG_PARSE_ERROR_UNKNOWN_COMMAND:
+            return msg_append(response, rsp_invalid_command.data, rsp_invalid_command.len);
+        default:
+            NOT_REACHED();
+            return NC_ERROR;
+    }
 }
 

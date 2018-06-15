@@ -26,6 +26,7 @@
     ACTION( ok,               "+OK\r\n"                                           ) \
     ACTION( pong,             "+PONG\r\n"                                         ) \
     ACTION( unknown_command,  "-ERR unknown command\r\n"                          ) \
+    ACTION( wrong_number_argu,"-ERR wrong number of arguments for command\r\n"    ) \
     ACTION( invalid_password, "-ERR invalid password\r\n"                         ) \
     ACTION( auth_required,    "-NOAUTH Authentication required\r\n"               ) \
     ACTION( no_password,      "-ERR Client sent AUTH, but no password is set\r\n" ) \
@@ -1209,7 +1210,7 @@ redis_parse_req(struct msg *r)
 
             if (r->type == MSG_UNKNOWN) {
                 log_error("parsed unsupported command '%.*s'", p - m, m);
-                goto error;
+                goto unknown_command_error;
             }
 
             log_debug(LOG_VERB, "parsed command '%.*s'", p - m, m);
@@ -1223,7 +1224,7 @@ redis_parse_req(struct msg *r)
                 if (redis_argz(r)) {
                     goto done;
                 } else if (r->narg == 1) {
-                    goto error;
+                    goto wrong_number_argu_err;
                 } else if (redis_argeval(r)) {
                     state = SW_ARG1_LEN;
                 } else {
@@ -1317,22 +1318,22 @@ redis_parse_req(struct msg *r)
             case LF:
                 if (redis_arg0(r)) {
                     if (r->rnarg != 0) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     goto done;
                 } else if (redis_arg1(r)) {
                     if (r->rnarg != 1) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_ARG1_LEN;
                 } else if (redis_arg2(r)) {
                     if (r->rnarg != 2) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_ARG1_LEN;
                 } else if (redis_arg3(r)) {
                     if (r->rnarg != 3) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_ARG1_LEN;
                 } else if (redis_argn(r)) {
@@ -1347,7 +1348,7 @@ redis_parse_req(struct msg *r)
                     state = SW_KEY_LEN;
                 } else if (redis_argkvx(r)) {
                     if (r->narg % 2 == 0) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_ARG1_LEN;
                 } else if (redis_argeval(r)) {
@@ -1426,17 +1427,17 @@ redis_parse_req(struct msg *r)
             case LF:
                 if (redis_arg1(r)) {
                     if (r->rnarg != 0) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     goto done;
                 } else if (redis_arg2(r)) {
                     if (r->rnarg != 1) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_ARG2_LEN;
                 } else if (redis_arg3(r)) {
                     if (r->rnarg != 2) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_ARG2_LEN;
                 } else if (redis_argn(r)) {
@@ -1446,7 +1447,7 @@ redis_parse_req(struct msg *r)
                     state = SW_ARGN_LEN;
                 } else if (redis_argeval(r)) {
                     if (r->rnarg < 2) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_ARG2_LEN;
                 } else if (redis_argkvx(r)) {
@@ -1562,12 +1563,12 @@ redis_parse_req(struct msg *r)
             case LF:
                 if (redis_arg2(r)) {
                     if (r->rnarg != 0) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     goto done;
                 } else if (redis_arg3(r)) {
                     if (r->rnarg != 1) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_ARG3_LEN;
                 } else if (redis_argn(r)) {
@@ -1577,7 +1578,7 @@ redis_parse_req(struct msg *r)
                     state = SW_ARGN_LEN;
                 } else if (redis_argeval(r)) {
                     if (r->rnarg < 1) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     state = SW_KEY_LEN;
                 } else {
@@ -1650,7 +1651,7 @@ redis_parse_req(struct msg *r)
             case LF:
                 if (redis_arg3(r)) {
                     if (r->rnarg != 0) {
-                        goto error;
+                        goto wrong_number_argu_err;
                     }
                     goto done;
                 } else if (redis_argn(r)) {
@@ -1789,14 +1790,38 @@ enomem:
 
     return;
 
+wrong_number_argu_err:
+    r->result = MSG_PARSE_ERROR_WRONG_ARGU_NUM;
+    r->noforward = 1;
+    r->state = state;
+    errno = EINVAL;
+
+    log_hexdump(LOG_INFO, b->pos, mbuf_length(b), "parsed bad req(wrong argu number) %"PRIu64" "
+                                                                          "res %d type %d state %d", r->id, r->result, r->type,
+                r->state);
+    return;
+
+unknown_command_error:
+    r->result = MSG_PARSE_ERROR_UNKNOWN_COMMAND;
+    r->noforward = 1;
+    r->state = state;
+    errno = EINVAL;
+
+    log_hexdump(LOG_INFO, b->pos, mbuf_length(b), "parsed bad req(unknown command) %"PRIu64" "
+                                                                          "res %d type %d state %d", r->id, r->result, r->type,
+                r->state);
+    return;
+    
 error:
     r->result = MSG_PARSE_ERROR;
+    r->noforward = 1;
     r->state = state;
     errno = EINVAL;
 
     log_hexdump(LOG_INFO, b->pos, mbuf_length(b), "parsed bad req %"PRIu64" "
                 "res %d type %d state %d", r->id, r->result, r->type,
                 r->state);
+
 }
 
 /*
@@ -2791,14 +2816,21 @@ redis_fragment(struct msg *r, uint32_t ncontinuum, struct msg_tqh *frag_msgq)
 }
 
 rstatus_t
-redis_reply(struct msg *r)
-{
+redis_reply(struct msg *r) {
     struct conn *c_conn;
     struct msg *response = r->peer;
 
     ASSERT(response != NULL && response->owner != NULL);
 
     c_conn = response->owner;
+
+    switch (r->result) {
+        case MSG_PARSE_ERROR_UNKNOWN_COMMAND:
+            return msg_append(response, rsp_unknown_command.data, rsp_unknown_command.len);
+        case MSG_PARSE_ERROR_WRONG_ARGU_NUM:
+            return msg_append(response, rsp_wrong_number_argu.data, rsp_wrong_number_argu.len);
+    }
+
     if (r->type == MSG_REQ_REDIS_AUTH) {
         return redis_handle_auth_req(r, response);
     }
@@ -2812,11 +2844,11 @@ redis_reply(struct msg *r)
     }
 
     switch (r->type) {
-    case MSG_REQ_REDIS_PING:
-        return msg_append(response, rsp_pong.data, rsp_pong.len);
-    default:
-        NOT_REACHED();
-        return NC_ERROR;
+        case MSG_REQ_REDIS_PING:
+            return msg_append(response, rsp_pong.data, rsp_pong.len);
+        default:
+            NOT_REACHED();
+            return NC_ERROR;
     }
 }
 

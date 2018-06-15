@@ -29,7 +29,9 @@ typedef bool (*msg_failure_t)(struct msg *r);
 
 typedef enum msg_parse_result {
     MSG_PARSE_OK,                         /* parsing ok */
-    MSG_PARSE_ERROR,                      /* parsing error */
+    MSG_PARSE_ERROR,                      /* parsing error: usually protocol error */
+    MSG_PARSE_ERROR_WRONG_ARGU_NUM,       /* parsing error: wrong number of arguments */
+    MSG_PARSE_ERROR_UNKNOWN_COMMAND,      /* parsing error: unknown command */
     MSG_PARSE_REPAIR,                     /* more to parse -> repair parsed & unparsed data */
     MSG_PARSE_AGAIN,                      /* incomplete -> parse again */
 } msg_parse_result_t;
@@ -228,7 +230,7 @@ struct msg {
     msg_parse_result_t   result;          /* message parsing result */
 
     msg_fragment_t       fragment;        /* message fragment */
-    msg_reply_t          reply;           /* generate message reply (example: ping) */
+    msg_reply_t          reply;           /* generate message (error) reply (example: ping,invalid cmd,wrong argu num)*/
     msg_add_auth_t       add_auth;        /* add auth message when we forward msg */
     msg_failure_t        failure;         /* transient failure response? */
 

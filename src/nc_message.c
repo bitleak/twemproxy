@@ -308,6 +308,7 @@ msg_get(struct conn *conn, bool request, bool redis)
         }
         msg->add_auth = memcache_add_auth;
         msg->fragment = memcache_fragment;
+        msg->reply = memcache_reply;
         msg->failure = memcache_failure;
         msg->pre_coalesce = memcache_pre_coalesce;
         msg->post_coalesce = memcache_post_coalesce;
@@ -649,7 +650,31 @@ msg_parse(struct context *ctx, struct conn *conn, struct msg *msg)
         status = NC_OK;
         break;
 
+    case MSG_PARSE_ERROR:
+        if (!msg->redis) {
+            //return error msg to client
+            conn->recv_done(ctx, conn, msg, NULL);
+            status = NC_OK;
+        }else{
+            //protocol error : need to close the connection
+            //TODO orginal redis server will response with error msg and then close the connection, fix this?
+            status = NC_ERROR;
+            conn->err = errno;
+        }
+        break;
+
+    case MSG_PARSE_ERROR_WRONG_ARGU_NUM:
+    case MSG_PARSE_ERROR_UNKNOWN_COMMAND:
+        //TODO the return error msg doesn't contain the requested command, fix this?
+        //the original redis server will return error msg like this : -ERR wrong number of arguments for 'get' command
+        // but current proxy will response with genenal msg: -ERR wrong number of arguments for command
+        conn->recv_done(ctx, conn, msg, NULL);
+        status = NC_OK;
+        break;
+
     default:
+        //protocol error : need to close the connection
+        //TODO orginal redis server will response with error msg and then close the connection, fix this?
         status = NC_ERROR;
         conn->err = errno;
         break;
