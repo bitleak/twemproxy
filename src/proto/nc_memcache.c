@@ -32,6 +32,13 @@
  */
 #define MEMCACHE_MAX_KEY_LENGTH 250
 
+#define RSP_STRING(ACTION)                                                          \
+    ACTION( invalid_command,  "ERROR\r\n"                                         ) \
+
+#define DEFINE_ACTION(_var, _str) static struct string rsp_##_var = string(_str);
+RSP_STRING( DEFINE_ACTION )
+#undef DEFINE_ACTION
+
 /*
  * Return true, if the memcache command is a storage command, otherwise
  * return false
@@ -1198,6 +1205,25 @@ error:
     log_hexdump(LOG_INFO, b->pos, mbuf_length(b), "parsed bad rsp %"PRIu64" "
                 "res %d type %d state %d", r->id, r->result, r->type,
                 r->state);
+}
+
+rstatus_t
+memcache_error_reply(struct msg *r)
+{
+    struct conn *c_conn;
+    struct msg *response = r->peer;
+
+    ASSERT(response != NULL && response->owner != NULL);
+
+    c_conn = response->owner;
+
+    switch (r->result) {
+        case MSG_PARSE_ERROR:
+            return msg_append(response, rsp_invalid_command.data, rsp_invalid_command.len);
+        default:
+            NOT_REACHED();
+            return NC_ERROR;
+    }
 }
 
 bool

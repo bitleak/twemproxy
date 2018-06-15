@@ -297,6 +297,7 @@ msg_get(struct conn *conn, bool request, bool redis)
         msg->add_auth = redis_add_auth;
         msg->fragment = redis_fragment;
         msg->reply = redis_reply;
+        msg->error_reply = redis_error_reply;
         msg->failure = redis_failure;
         msg->pre_coalesce = redis_pre_coalesce;
         msg->post_coalesce = redis_post_coalesce;
@@ -311,6 +312,7 @@ msg_get(struct conn *conn, bool request, bool redis)
         msg->failure = memcache_failure;
         msg->pre_coalesce = memcache_pre_coalesce;
         msg->post_coalesce = memcache_post_coalesce;
+        msg->error_reply = memcache_error_reply;
     }
 
     msg->start_ts = nc_usec_now();
@@ -646,6 +648,12 @@ msg_parse(struct context *ctx, struct conn *conn, struct msg *msg)
         break;
 
     case MSG_PARSE_AGAIN:
+        status = NC_OK;
+        break;
+
+    case MSG_PARSE_ERROR:
+        //return error msg to client
+        conn->recv_done(ctx, conn, msg, NULL);
         status = NC_OK;
         break;
 
