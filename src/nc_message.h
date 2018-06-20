@@ -25,6 +25,7 @@ typedef rstatus_t (*msg_add_auth_t)(struct context *ctx, struct conn *c_conn, st
 typedef rstatus_t (*msg_fragment_t)(struct msg *, uint32_t, struct msg_tqh *);
 typedef void (*msg_coalesce_t)(struct msg *r);
 typedef rstatus_t (*msg_reply_t)(struct msg *r);
+typedef rstatus_t (*msg_error_reply_t)(struct msg *r);
 typedef bool (*msg_failure_t)(struct msg *r);
 
 typedef enum msg_parse_result {
@@ -229,6 +230,7 @@ struct msg {
 
     msg_fragment_t       fragment;        /* message fragment */
     msg_reply_t          reply;           /* generate message reply (example: ping) */
+    msg_error_reply_t    error_reply;     /* generate message error reply (example: invalid command) */
     msg_add_auth_t       add_auth;        /* add auth message when we forward msg */
     msg_failure_t        failure;         /* transient failure response? */
 
@@ -256,6 +258,7 @@ struct msg {
     struct msg           **frag_seq;      /* sequence of fragment message, map from keys to fragments*/
 
     err_t                err;             /* errno on error? */
+    err_t                err_detail_no;   /* detail error no */
     unsigned             error:1;         /* error? */
     unsigned             ferror:1;        /* one or more fragments are in error? */
     unsigned             request:1;       /* request? or response? */
@@ -279,7 +282,7 @@ void msg_deinit(void);
 struct string *msg_type_string(msg_type_t type);
 struct msg *msg_get(struct conn *conn, bool request, bool redis);
 void msg_put(struct msg *msg);
-struct msg *msg_get_error(bool redis, err_t err);
+struct msg *msg_get_error(bool redis, err_t err, err_t err_detail_no);
 void msg_dump(struct msg *msg, int level);
 bool msg_empty(struct msg *msg);
 rstatus_t msg_recv(struct context *ctx, struct conn *conn);

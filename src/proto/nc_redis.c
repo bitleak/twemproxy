@@ -2820,6 +2820,25 @@ redis_reply(struct msg *r)
     }
 }
 
+rstatus_t
+redis_error_reply(struct msg *r)
+{
+    struct conn *c_conn;
+    struct msg *response = r->peer;
+
+    ASSERT(response != NULL && response->owner != NULL);
+
+    c_conn = response->owner;
+
+    switch (r->result) {
+        case MSG_PARSE_ERROR:
+            return msg_append(response, rsp_unknown_command.data, rsp_unknown_command.len);
+        default:
+            NOT_REACHED();
+            return NC_ERROR;
+    }
+}
+
 void
 redis_post_coalesce_mset(struct msg *request)
 {

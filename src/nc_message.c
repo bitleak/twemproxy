@@ -123,6 +123,15 @@ static struct string msg_type_strings[] = {
 };
 #undef DEFINE_ACTION
 
+#define RSP_STRING(ACTION)                                                                                           \
+    ACTION( oom,              "command not allowed when used memory > 'maxmemory'."                                ) \
+    ACTION( busy,             "Redis is busy running a script. You can only call SCRIPT KILL or SHUTDOWN NOSAVE."  ) \
+    ACTION( loading,          "Redis is loading the dataset in memory"                                             ) \
+
+#define DEFINE_RSP_ACTION(_var, _str) static char * rsp_##_var = _str;
+RSP_STRING( DEFINE_RSP_ACTION )
+#undef DEFINE_RSP_ACTION
+
 static struct msg *
 msg_from_rbe(struct rbnode *node)
 {
@@ -297,6 +306,7 @@ msg_get(struct conn *conn, bool request, bool redis)
         msg->add_auth = redis_add_auth;
         msg->fragment = redis_fragment;
         msg->reply = redis_reply;
+        msg->error_reply = redis_error_reply;
         msg->failure = redis_failure;
         msg->pre_coalesce = redis_pre_coalesce;
         msg->post_coalesce = redis_post_coalesce;
@@ -311,6 +321,7 @@ msg_get(struct conn *conn, bool request, bool redis)
         msg->failure = memcache_failure;
         msg->pre_coalesce = memcache_pre_coalesce;
         msg->post_coalesce = memcache_post_coalesce;
+        msg->error_reply = memcache_error_reply;
     }
 
     msg->start_ts = nc_usec_now();
@@ -322,13 +333,32 @@ msg_get(struct conn *conn, bool request, bool redis)
 }
 
 struct msg *
-msg_get_error(bool redis, err_t err)
+msg_get_error(bool redis, err_t err, err_t err_detail_no)
 {
     struct msg *msg;
     struct mbuf *mbuf;
     int n;
     char *errstr = err ? strerror(err) : "unknown";
     char *protstr = redis ? "-ERR" : "SERVER_ERROR";
+
+    if (err_detail_no) {
+        switch (err_detail_no) {
+            case MSG_RSP_REDIS_ERROR_OOM:
+                errstr = rsp_oom;
+                protstr = "-OOM";
+                break;
+            case MSG_RSP_REDIS_ERROR_BUSY:
+                errstr = rsp_busy;
+                protstr = "-BUSY";
+                break;
+            case MSG_RSP_REDIS_ERROR_LOADING:
+                errstr = rsp_loading;
+                protstr = "-LOADING";
+                break;
+            default:
+                break;
+        }
+    }
 
     msg = _msg_get();
     if (msg == NULL) {
@@ -646,6 +676,12 @@ msg_parse(struct context *ctx, struct conn *conn, struct msg *msg)
         break;
 
     case MSG_PARSE_AGAIN:
+        status = NC_OK;
+        break;
+
+    case MSG_PARSE_ERROR:
+        //return error msg to client
+        conn->recv_done(ctx, conn, msg, NULL);
         status = NC_OK;
         break;
 

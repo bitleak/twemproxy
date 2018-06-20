@@ -76,6 +76,7 @@ struct conn {
 
     uint32_t            events;          /* connection io events */
     err_t               err;             /* connection errno */
+    err_t               err_detail_no;   /* connection detail errno */
     unsigned            recv_active:1;   /* recv active? */
     unsigned            recv_ready:1;    /* recv ready? */
     unsigned            send_active:1;   /* send active? */
