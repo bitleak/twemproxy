@@ -393,6 +393,7 @@ server_close(struct context *ctx, struct conn *conn)
             msg->done = 1;
             msg->error = 1;
             msg->err = conn->err;
+            msg->err_detail_no = conn->err_detail_no;
 
             if (msg->frag_owner != NULL) {
                 msg->frag_owner->nfrag_done++;
@@ -427,6 +428,7 @@ server_close(struct context *ctx, struct conn *conn)
             msg->done = 1;
             msg->error = 1;
             msg->err = conn->err;
+            msg->err_detail_no = conn->err_detail_no;
             if (msg->frag_owner != NULL) {
                 msg->frag_owner->nfrag_done++;
             }

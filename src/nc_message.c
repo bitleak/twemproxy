@@ -123,6 +123,15 @@ static struct string msg_type_strings[] = {
 };
 #undef DEFINE_ACTION
 
+#define RSP_STRING(ACTION)                                                                                           \
+    ACTION( oom,              "command not allowed when used memory > 'maxmemory'."                                ) \
+    ACTION( busy,             "Redis is busy running a script. You can only call SCRIPT KILL or SHUTDOWN NOSAVE."  ) \
+    ACTION( loading,          "Redis is loading the dataset in memory"                                             ) \
+
+#define DEFINE_RSP_ACTION(_var, _str) static char * rsp_##_var = _str;
+RSP_STRING( DEFINE_RSP_ACTION )
+#undef DEFINE_RSP_ACTION
+
 static struct msg *
 msg_from_rbe(struct rbnode *node)
 {
@@ -324,13 +333,32 @@ msg_get(struct conn *conn, bool request, bool redis)
 }
 
 struct msg *
-msg_get_error(bool redis, err_t err)
+msg_get_error(bool redis, err_t err, err_t err_detail_no)
 {
     struct msg *msg;
     struct mbuf *mbuf;
     int n;
     char *errstr = err ? strerror(err) : "unknown";
     char *protstr = redis ? "-ERR" : "SERVER_ERROR";
+
+    if (err_detail_no) {
+        switch (err_detail_no) {
+            case MSG_RSP_REDIS_ERROR_OOM:
+                errstr = rsp_oom;
+                protstr = "-OOM";
+                break;
+            case MSG_RSP_REDIS_ERROR_BUSY:
+                errstr = rsp_busy;
+                protstr = "-BUSY";
+                break;
+            case MSG_RSP_REDIS_ERROR_LOADING:
+                errstr = rsp_loading;
+                protstr = "-LOADING";
+                break;
+            default:
+                break;
+        }
+    }
 
     msg = _msg_get();
     if (msg == NULL) {

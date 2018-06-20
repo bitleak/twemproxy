@@ -49,6 +49,7 @@ rsp_make_error(struct context *ctx, struct conn *conn, struct msg *msg)
     struct msg *cmsg, *nmsg; /* current and next message (request) */
     uint64_t id;
     err_t err;
+    err_t err_detail_no;
 
     ASSERT(conn->client && !conn->proxy);
     ASSERT(msg->request && req_error(conn, msg));
@@ -65,12 +66,15 @@ rsp_make_error(struct context *ctx, struct conn *conn, struct msg *msg)
             conn->dequeue_outq(ctx, conn, cmsg);
             if (err == 0 && cmsg->err != 0) {
                 err = cmsg->err;
+                err_detail_no = cmsg->err_detail_no;
             }
 
             req_put(cmsg);
         }
     } else {
         err = msg->err;
+        //TODO use err field instead of temp added err_detail_no field? replace strerror func with custom error func
+        err_detail_no = msg->err_detail_no;
     }
 
     pmsg = msg->peer;
@@ -81,7 +85,7 @@ rsp_make_error(struct context *ctx, struct conn *conn, struct msg *msg)
         rsp_put(pmsg);
     }
 
-    return msg_get_error(conn->redis, err);
+    return msg_get_error(conn->redis, err,err_detail_no);
 }
 
 struct msg *
@@ -199,6 +203,7 @@ rsp_filter(struct context *ctx, struct conn *conn, struct msg *msg)
         rsp_put(msg);
 
         conn->err = EINVAL;
+        conn->err_detail_no = msg->type;
         conn->done = 1;
 
         return true;
