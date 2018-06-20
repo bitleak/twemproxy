@@ -196,12 +196,12 @@ rsp_filter(struct context *ctx, struct conn *conn, struct msg *msg)
     if (msg->failure(msg)) {
         log_debug(LOG_INFO, "server failure rsp %"PRIu64" len %"PRIu32" "
                   "type %d on s %d", msg->id, msg->mlen, msg->type, conn->sd);
-        rsp_put(msg);
 
         conn->err = EINVAL;
         conn->done = 1;
 
-        return true;
+        //continue forward response msg to client before close server
+        return false;
     }
 
     if (pmsg->swallow) {
