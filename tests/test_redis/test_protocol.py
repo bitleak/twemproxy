@@ -64,7 +64,7 @@ def _test_bad(req):
     s.sendall(req)
     data = s.recv(10000)
     print data
-
+    
     assert('' == s.recv(1000))  # peer is closed
 
 def test_badreq():
@@ -74,8 +74,8 @@ def test_badreq():
         # '*3abcdefg\r\n',
         '*3\r\n*abcde\r\n',
 
-        '*4\r\n$4\r\nMSET\r\n$1\r\nA\r\n$1\r\nA\r\n$1\r\nA\r\n',
-        '*2\r\n$4\r\nMSET\r\n$1\r\nA\r\n',
+        #'*4\r\n$4\r\nMSET\r\n$1\r\nA\r\n$1\r\nA\r\n$1\r\nA\r\n',
+        #'*2\r\n$4\r\nMSET\r\n$1\r\nA\r\n',
         # '*3\r\n$abcde\r\n',
         # '*3\r\n$3abcde\r\n',
         # '*3\r\n$3\r\nabcde\r\n',
@@ -86,7 +86,12 @@ def test_badreq():
 
 
 def test_wrong_argc():
-    s = get_conn()
+    req = '*1\r\n$3\r\nGET\r\n'
+    resp = '-ERR wrong number of arguments for command\r\n'
+    _test(req, resp)
 
-    s.sendall('*1\r\n$3\r\nGET\r\n')
-    assert('' == s.recv(1000))  # peer is closed
+def test_unknown_command():
+    req = '*1\r\n$2\r\ndd\r\n'
+    resp = '-ERR unknown command\r\n'
+    _test(req, resp)
+
