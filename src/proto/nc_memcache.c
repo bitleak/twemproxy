@@ -1572,7 +1572,7 @@ memcache_reply(struct msg *r)
 
     switch (r->result) {
         case MSG_PARSE_ERROR:
-        case MSG_PARSE_ERROR_WRONG_ARGU_NUM:
+        case MSG_PARSE_ERROR_WRONG_ARG_NUM:
         case MSG_PARSE_ERROR_UNKNOWN_COMMAND:
             return msg_append(response, rsp_invalid_command.data, rsp_invalid_command.len);
         default:

@@ -663,7 +663,7 @@ msg_parse(struct context *ctx, struct conn *conn, struct msg *msg)
         }
         break;
 
-    case MSG_PARSE_ERROR_WRONG_ARGU_NUM:
+    case MSG_PARSE_ERROR_WRONG_ARG_NUM:
     case MSG_PARSE_ERROR_UNKNOWN_COMMAND:
         //TODO the return error msg doesn't contain the requested command, fix this?
         //the original redis server will return error msg like this : -ERR wrong number of arguments for 'get' command

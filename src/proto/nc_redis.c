@@ -26,7 +26,7 @@
     ACTION( ok,               "+OK\r\n"                                           ) \
     ACTION( pong,             "+PONG\r\n"                                         ) \
     ACTION( unknown_command,  "-ERR unknown command\r\n"                          ) \
-    ACTION( wrong_number_argu,"-ERR wrong number of arguments for command\r\n"    ) \
+    ACTION( wrong_arg_num,    "-ERR wrong number of arguments for command\r\n"    ) \
     ACTION( invalid_password, "-ERR invalid password\r\n"                         ) \
     ACTION( auth_required,    "-NOAUTH Authentication required\r\n"               ) \
     ACTION( no_password,      "-ERR Client sent AUTH, but no password is set\r\n" ) \
@@ -1224,7 +1224,7 @@ redis_parse_req(struct msg *r)
                 if (redis_argz(r)) {
                     goto done;
                 } else if (r->narg == 1) {
-                    goto wrong_number_argu_err;
+                    goto wrong_number_arg_err;
                 } else if (redis_argeval(r)) {
                     state = SW_ARG1_LEN;
                 } else {
@@ -1318,22 +1318,22 @@ redis_parse_req(struct msg *r)
             case LF:
                 if (redis_arg0(r)) {
                     if (r->rnarg != 0) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     goto done;
                 } else if (redis_arg1(r)) {
                     if (r->rnarg != 1) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_ARG1_LEN;
                 } else if (redis_arg2(r)) {
                     if (r->rnarg != 2) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_ARG1_LEN;
                 } else if (redis_arg3(r)) {
                     if (r->rnarg != 3) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_ARG1_LEN;
                 } else if (redis_argn(r)) {
@@ -1348,7 +1348,7 @@ redis_parse_req(struct msg *r)
                     state = SW_KEY_LEN;
                 } else if (redis_argkvx(r)) {
                     if (r->narg % 2 == 0) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_ARG1_LEN;
                 } else if (redis_argeval(r)) {
@@ -1427,17 +1427,17 @@ redis_parse_req(struct msg *r)
             case LF:
                 if (redis_arg1(r)) {
                     if (r->rnarg != 0) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     goto done;
                 } else if (redis_arg2(r)) {
                     if (r->rnarg != 1) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_ARG2_LEN;
                 } else if (redis_arg3(r)) {
                     if (r->rnarg != 2) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_ARG2_LEN;
                 } else if (redis_argn(r)) {
@@ -1447,7 +1447,7 @@ redis_parse_req(struct msg *r)
                     state = SW_ARGN_LEN;
                 } else if (redis_argeval(r)) {
                     if (r->rnarg < 2) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_ARG2_LEN;
                 } else if (redis_argkvx(r)) {
@@ -1563,12 +1563,12 @@ redis_parse_req(struct msg *r)
             case LF:
                 if (redis_arg2(r)) {
                     if (r->rnarg != 0) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     goto done;
                 } else if (redis_arg3(r)) {
                     if (r->rnarg != 1) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_ARG3_LEN;
                 } else if (redis_argn(r)) {
@@ -1578,7 +1578,7 @@ redis_parse_req(struct msg *r)
                     state = SW_ARGN_LEN;
                 } else if (redis_argeval(r)) {
                     if (r->rnarg < 1) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     state = SW_KEY_LEN;
                 } else {
@@ -1651,7 +1651,7 @@ redis_parse_req(struct msg *r)
             case LF:
                 if (redis_arg3(r)) {
                     if (r->rnarg != 0) {
-                        goto wrong_number_argu_err;
+                        goto wrong_number_arg_err;
                     }
                     goto done;
                 } else if (redis_argn(r)) {
@@ -1790,8 +1790,8 @@ enomem:
 
     return;
 
-wrong_number_argu_err:
-    r->result = MSG_PARSE_ERROR_WRONG_ARGU_NUM;
+wrong_number_arg_err:
+    r->result = MSG_PARSE_ERROR_WRONG_ARG_NUM;
     r->noforward = 1;
     r->state = state;
     errno = EINVAL;
@@ -1814,7 +1814,6 @@ unknown_command_error:
     
 error:
     r->result = MSG_PARSE_ERROR;
-    r->noforward = 1;
     r->state = state;
     errno = EINVAL;
 
@@ -2827,8 +2826,8 @@ redis_reply(struct msg *r) {
     switch (r->result) {
         case MSG_PARSE_ERROR_UNKNOWN_COMMAND:
             return msg_append(response, rsp_unknown_command.data, rsp_unknown_command.len);
-        case MSG_PARSE_ERROR_WRONG_ARGU_NUM:
-            return msg_append(response, rsp_wrong_number_argu.data, rsp_wrong_number_argu.len);
+        case MSG_PARSE_ERROR_WRONG_ARG_NUM:
+            return msg_append(response, rsp_wrong_arg_num.data, rsp_wrong_arg_num.len);
     }
 
     if (r->type == MSG_REQ_REDIS_AUTH) {
