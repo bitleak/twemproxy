@@ -285,7 +285,9 @@ rsp_recv_done(struct context *ctx, struct conn *conn, struct msg *msg,
     ASSERT(nmsg == NULL || !nmsg->request);
 
     pmsg = TAILQ_FIRST(&conn->omsg_q);
-    stats_server_record_latency(ctx, conn->owner, nc_msec_now()-pmsg->forward_start_ts);
+    if (pmsg) {
+        stats_server_record_latency(ctx, conn->owner, nc_msec_now()-pmsg->forward_start_ts);
+    }
 
     /* enqueue next message (response), if any */
     conn->rmsg = nmsg;
