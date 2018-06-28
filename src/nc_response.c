@@ -200,7 +200,7 @@ rsp_filter(struct context *ctx, struct conn *conn, struct msg *msg)
         conn->err = EINVAL;
         conn->done = 1;
 
-        //continue forward response msg to client before close server
+        // continue forward response msg to client before close server
         return false;
     }
 

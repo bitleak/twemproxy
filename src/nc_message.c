@@ -652,12 +652,12 @@ msg_parse(struct context *ctx, struct conn *conn, struct msg *msg)
 
     case MSG_PARSE_ERROR:
         if (!msg->redis) {
-            //return error msg to client
+            // return error msg to client
             conn->recv_done(ctx, conn, msg, NULL);
             status = NC_OK;
         }else{
-            //protocol error : need to close the connection
-            //TODO orginal redis server will response with error msg and then close the connection, fix this?
+            // protocol error : need to close the connection
+            // TODO orginal redis server will response with error msg and then close the connection, fix this?
             status = NC_ERROR;
             conn->err = errno;
         }
@@ -665,16 +665,16 @@ msg_parse(struct context *ctx, struct conn *conn, struct msg *msg)
 
     case MSG_PARSE_ERROR_WRONG_ARG_NUM:
     case MSG_PARSE_ERROR_UNKNOWN_COMMAND:
-        //TODO the return error msg doesn't contain the requested command, fix this?
-        //the original redis server will return error msg like this : -ERR wrong number of arguments for 'get' command
+        // TODO the return error msg doesn't contain the requested command, fix this?
+        // the original redis server will return error msg like this : -ERR wrong number of arguments for 'get' command
         // but current proxy will response with genenal msg: -ERR wrong number of arguments for command
         conn->recv_done(ctx, conn, msg, NULL);
         status = NC_OK;
         break;
 
     default:
-        //protocol error : need to close the connection
-        //TODO orginal redis server will response with error msg and then close the connection, fix this?
+        // protocol error : need to close the connection
+        // TODO orginal redis server will response with error msg and then close the connection, fix this?
         status = NC_ERROR;
         conn->err = errno;
         break;
