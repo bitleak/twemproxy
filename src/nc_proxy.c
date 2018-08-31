@@ -381,7 +381,7 @@ proxy_accept(struct context *ctx, struct conn *p)
     }
 
     if (conn_ncurr_cconn() >= ctx->max_ncconn) {
-        log_debug(LOG_CRIT, "client connections %"PRIu32" exceed limit %"PRIu32,
+        log_warn("client connections %"PRIu32" exceed limit %"PRIu32,
                   conn_ncurr_cconn(), ctx->max_ncconn);
         status = close(sd);
         if (status < 0) {
