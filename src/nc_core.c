@@ -25,12 +25,34 @@
 
 static uint32_t ctx_id; /* context generation */
 
+static void
+adjust_openfiles_limit(rlim_t maxfiles) {
+    // Note: we just improve the open files to a higher num,
+    // while the twemproxy didn't support max client connections now.
+    struct rlimit limit;
+    rlim_t old_limit, best_limit = maxfiles, decr_step = 16;
+    if (getrlimit(RLIMIT_NOFILE, &limit) < 0 || best_limit <= limit.rlim_cur) {
+        return;
+    }
+    old_limit = limit.rlim_cur;
+    while(best_limit > old_limit) {
+        limit.rlim_cur = best_limit;
+        limit.rlim_max = best_limit;
+        if (setrlimit(RLIMIT_NOFILE,&limit) != -1) break;
+        /* We failed to set file limit to 'bestlimit'. Try with a
+         * smaller limit decrementing by a few FDs per iteration. */
+        if (best_limit < decr_step) break;
+        best_limit -= decr_step;
+    }
+}
+
 static rstatus_t
 core_calc_connections(struct context *ctx)
 {
     int status;
     struct rlimit limit;
 
+    adjust_openfiles_limit((rlim_t)ctx->cf->global.max_openfiles);
     status = getrlimit(RLIMIT_NOFILE, &limit);
     if (status < 0) {
         log_error("getrlimit failed: %s", strerror(errno));
@@ -39,7 +61,7 @@ core_calc_connections(struct context *ctx)
 
     ctx->max_nfd = (uint32_t)limit.rlim_cur;
     ctx->max_ncconn = ctx->max_nfd - ctx->max_nsconn - RESERVED_FDS;
-    log_debug(LOG_NOTICE, "max fds %"PRIu32" max client conns %"PRIu32" "
+    log_warn("max fds %"PRIu32" max client conns %"PRIu32" "
               "max server conns %"PRIu32"", ctx->max_nfd, ctx->max_ncconn,
               ctx->max_nsconn);
 

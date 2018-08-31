@@ -57,6 +57,7 @@
 #define CONF_DEFAULT_KETAMA_PORT             11211
 #define CONF_DEFAULT_TCPKEEPALIVE            false
 #define CONF_DEFAULT_WORKER_SHUTDOWN_TIMEOUT 30
+#define CONF_DEFAULT_MAX_OPENFILES           102400
 #define CONF_DEFAULT_USER                    "nobody"
 #define CONF_DEFAULT_GROUP                   "nobody"
 
@@ -105,6 +106,7 @@ struct conf_pool {
 struct conf_global {
     int           worker_processes; // number of worker processes
     int           worker_shutdown_timeout; // number of seconds that worker would be quit after signal terminate was received
+    int           max_openfiles; // max number of open files
     struct string user;
     struct string group;
     uid_t         uid;

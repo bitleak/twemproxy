@@ -128,6 +128,12 @@ static struct command conf_global_commands[] = {
     },
 
     {
+        string("max_openfiles"),
+        conf_set_num,
+        offsetof(struct conf_global, max_openfiles)
+    },
+
+    {
         string("worker_shutdown_timeout"),
         conf_set_num,
         offsetof(struct conf_global, worker_shutdown_timeout)
@@ -831,6 +837,7 @@ conf_parse_global_section(struct conf *cf)
 
     // init global conf
     cf->global.worker_processes = CONF_UNSET_NUM;
+    cf->global.max_openfiles = CONF_UNSET_NUM;
     cf->global.worker_shutdown_timeout = CONF_UNSET_NUM;
     string_init(&cf->global.user);
     string_init(&cf->global.group);
@@ -911,6 +918,9 @@ conf_parse(struct conf *cf)
 
     if (cf->global.worker_shutdown_timeout == CONF_UNSET_NUM) {
         cf->global.worker_shutdown_timeout = CONF_DEFAULT_WORKER_SHUTDOWN_TIMEOUT;
+    }
+    if (cf->global.max_openfiles == CONF_UNSET_NUM) {
+        cf->global.max_openfiles= CONF_DEFAULT_MAX_OPENFILES;
     }
 
     // get uid
