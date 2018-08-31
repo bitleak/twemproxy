@@ -52,7 +52,7 @@ core_calc_connections(struct context *ctx)
     int status;
     struct rlimit limit;
 
-    adjust_openfiles_limit(102400);
+    adjust_openfiles_limit((rlim_t)ctx->cf->global.max_openfiles);
     status = getrlimit(RLIMIT_NOFILE, &limit);
     if (status < 0) {
         log_error("getrlimit failed: %s", strerror(errno));
