@@ -96,7 +96,7 @@ nc_multi_processes_cycle(struct instance *parent_nci)
     for (;;) {
         if (pm_reload) {
             pm_reload = false; // restart workers
-            log_debug(LOG_NOTICE, "reloading config");
+            log_warn("reloading config");
             ctx = core_ctx_create(parent_nci);
             if (ctx == NULL) {
                 log_error("[master] failed to recreate context");
@@ -410,14 +410,14 @@ nc_reap_worker(void)
         }
 
         if (WIFEXITED(status)) {
-            log_debug(LOG_NOTICE, "worker [%d] exited with status: %d", pid, WEXITSTATUS(status));
+            log_warn("worker [%d] exited with status: %d", pid, WEXITSTATUS(status));
             if (WEXITSTATUS(status) == 0) {
                 // worker shutdown due to config reloading, we don't need to respawn worker or cleanup ends here
                 continue;
             }
         }
         if (WIFSIGNALED(status)) {
-            log_debug(LOG_NOTICE, "worker [%d] terminated", pid);
+            log_warn("worker [%d] terminated", pid);
         }
 
         for (i = 0, nelem = array_n(&master_nci->workers); i < nelem; i++) {
@@ -458,13 +458,13 @@ nc_migrate_proxies(struct context *dst, struct context *src)
             dst_proxy_addrstr = &dst_pool->addrstr;
             if (string_compare(dst_proxy_addrstr, src_proxy_addrstr) == 0) {
                 if (string_compare(dst_proxy_name, src_proxy_name) != 0) {
-                    log_debug(LOG_NOTICE, "listening socket's name change from [%s] to [%s]", src_proxy_name->data,
+                    log_warn("listening socket's name change from [%s] to [%s]", src_proxy_name->data,
                               dst_proxy_name->data);
                 }
                 if (dst_pool->p_conn != NULL) {
                     continue;
                 }
-                log_debug(LOG_NOTICE, "migrate from [%s] [%s]", src_proxy_name->data, src_proxy_addrstr->data);
+                log_warn("migrate from [%s] [%s]", src_proxy_name->data, src_proxy_addrstr->data);
                 dst_pool->p_conn = src_pool->p_conn;
                 dst_pool->p_conn->owner = dst_pool;
                 src_pool->p_conn = NULL; // p_conn is migrated, so clear the src_pool
