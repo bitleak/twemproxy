@@ -38,6 +38,7 @@ STAILQ_HEAD(mhdr, mbuf);
 #define MBUF_MAX_SIZE   16777216
 #define MBUF_SIZE       16384
 #define MBUF_HSIZE      sizeof(struct mbuf)
+#define MBUF_RESERVED   4096 /* # reserved mbuf number */
 
 static inline bool
 mbuf_empty(struct mbuf *mbuf)
