@@ -1,3 +1,11 @@
+  2018-09-14 Tianyi Lin <linty@meitu.com>
+	* twemproxy: version 1.0.3 release
+	* Supports max open files in config file
+	* Shrink the free mbuf when exceeding the MBUF_RESERVED(4096)
+
+  2018-07-29 Tianyi Lin <linty@meitu.com>
+	* twemproxy: version 1.0.2 release
+	* fix core when pmsg = NULL
   2018-05-09 Tianyi Lin <linty@meitu.com>
  	* twemproxy: version 1.0.1 release
 	* Supports request and server latency in stats
