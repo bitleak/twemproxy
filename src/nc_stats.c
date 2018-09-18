@@ -26,6 +26,8 @@
 #include <nc_server.h>
 #include <nc_process.h>
 
+static struct string pools_tag_key = string("pools");
+static struct string servers_tag_key = string("servers");
 static struct string server_latency_key = string("server_latency");
 static struct string req_latency_key = string("request_latency");
 static int64_t latency_buckets[] =  {
@@ -396,11 +398,13 @@ stats_pool_unmap(struct array *stats_pool)
 static rstatus_t
 stats_create_buf(struct stats *st)
 {
-    uint32_t int64_max_digits = 20; /* INT64_MAX = 9223372036854775807 */
-    uint32_t key_value_extra = 8;   /* "key": "value", */
-    uint32_t pool_extra = 8;        /* '"pool_name": { ' + ' }' */
-    uint32_t server_extra = 8;      /* '"server_name": { ' + ' }' */
-    uint32_t latency_extra = 8;     /* '"latency": [' + '], ' */
+    uint32_t int64_max_digits = 20;  /* INT64_MAX = 9223372036854775807 */
+    uint32_t key_value_extra = 8;    /* "key": "value", */
+    uint32_t pool_extra = 8;         /* '"pool_name": { ' + ' }' */
+    uint32_t server_extra = 8;       /* '"server_name": { ' + ' }' */
+    uint32_t pools_tag_extra = 14;   /* '"pools": { ' + ' }' */
+    uint32_t servers_tag_extra = 16; /* '"servers": { ' + ' }' */
+    uint32_t latency_extra = 8;      /* '"latency": [' + '], ' */
     size_t size = 0;
     uint32_t i;
 
@@ -438,6 +442,7 @@ stats_create_buf(struct stats *st)
     size += key_value_extra;
 
     /* server pools */
+    size += pools_tag_extra;
     for (i = 0; i < array_n(&st->sum); i++) {
         struct stats_pool *stp = array_get(&st->sum, i);
         uint32_t j;
@@ -458,6 +463,7 @@ stats_create_buf(struct stats *st)
         size += NBUCKET*(int64_max_digits+1)+latency_extra;
 
         /* servers per pool */
+        size += servers_tag_extra;
         for (j = 0; j < array_n(&stp->server); j++) {
             struct stats_server *sts = array_get(&stp->server, j);
             uint32_t k;
@@ -830,6 +836,10 @@ stats_make_rsp(struct stats *st)
         return status;
     }
 
+    status = stats_begin_nesting(st, &pools_tag_key);
+    if (status != NC_OK) {
+        return status;
+    }
     for (i = 0; i < array_n(&st->sum); i++) {
         struct stats_pool *stp = array_get(&st->sum, i);
         uint32_t j;
@@ -851,6 +861,10 @@ stats_make_rsp(struct stats *st)
             return status;
         }
 
+        status = stats_begin_nesting(st, &servers_tag_key);
+        if (status != NC_OK) {
+            return status;
+        }
         for (j = 0; j < array_n(&stp->server); j++) {
             struct stats_server *sts = array_get(&stp->server, j);
 
@@ -876,10 +890,22 @@ stats_make_rsp(struct stats *st)
             }
         }
 
+        /* end nesting for server name*/
         status = stats_end_nesting(st);
         if (status != NC_OK) {
             return status;
         }
+
+        /* end nesting for servers tag */
+        status = stats_end_nesting(st);
+        if (status != NC_OK) {
+            return status;
+        }
+    }
+    /* end nesting for pools tag */
+    status = stats_end_nesting(st);
+    if (status != NC_OK) {
+        return status;
     }
 
     status = stats_add_footer(st);
