@@ -257,6 +257,7 @@ server_each_disconnect(void *elem, void *data)
         ASSERT(server->ns_conn_q > 0);
 
         conn = TAILQ_FIRST(&server->s_conn_q);
+        event_del_conn(pool->ctx->evb, conn);
         conn->close(pool->ctx, conn);
     }
 
