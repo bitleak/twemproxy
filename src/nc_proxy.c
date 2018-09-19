@@ -317,6 +317,7 @@ proxy_each_unaccept(void *elem, void *data)
     p = pool->p_conn;
     if (p != NULL && ctx != NULL) {
         event_del_conn(ctx->evb, p);
+        proxy_close(ctx, p);
     }
 
     return NC_OK;
