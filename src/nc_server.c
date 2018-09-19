@@ -257,6 +257,7 @@ server_each_disconnect(void *elem, void *data)
         ASSERT(server->ns_conn_q > 0);
 
         conn = TAILQ_FIRST(&server->s_conn_q);
+        event_del_conn(pool->ctx->evb, conn);
         conn->close(pool->ctx, conn);
     }
 
@@ -536,6 +537,7 @@ server_connect(struct context *ctx, struct server *server, struct conn *conn)
             return NC_OK;
         }
 
+        event_del_conn(ctx->evb, conn);
         log_error("connect on s %d to server '%.*s' failed: %s", conn->sd,
                   server->pname.len, server->pname.data, strerror(errno));
 
