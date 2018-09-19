@@ -417,7 +417,8 @@ core_core(void *evb, void *arg, uint32_t events)
     /* read takes precedence over write */
     if (events & EVENT_READ) {
         status = core_recv(ctx, conn);
-        if (status != NC_OK || conn->done || conn->err) {
+        /* Don't close the proxy conn, even accept error */
+        if ((status != NC_OK && conn->proxy != 1) || conn->done || conn->err) {
             core_close(ctx, conn);
             return NC_ERROR;
         }

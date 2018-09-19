@@ -537,6 +537,7 @@ server_connect(struct context *ctx, struct server *server, struct conn *conn)
             return NC_OK;
         }
 
+        event_del_conn(ctx->evb, conn);
         log_error("connect on s %d to server '%.*s' failed: %s", conn->sd,
                   server->pname.len, server->pname.data, strerror(errno));
 
