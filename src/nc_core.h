@@ -125,7 +125,7 @@ struct event_base;
 #include <nc_channel.h>
 
 struct context {
-    uint32_t           id;          /* unique context id */
+    int                id;          /* unique context id */
     struct conf        *cf;         /* configuration */
     struct stats       *stats;      /* stats */
 
@@ -143,6 +143,7 @@ struct context {
 
 
 struct instance {
+    int              id;                           /* store the worker id, master should -1 */
     struct context   *ctx;                        /* active context */
     int              log_level;                   /* log level */
     char             *log_filename;               /* log filename */

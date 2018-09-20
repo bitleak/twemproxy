@@ -133,6 +133,16 @@ proxy_listen(struct context *ctx, struct conn *p)
 
     ASSERT(p->proxy);
 
+    /*
+    * NOTE: only one worker can listen and bind to unix socket,
+    * let's pin the unix socket to first worker, so we just
+    * create socket here when the family type is AF_UNIX.
+    * do nothing in other workers when setup the proxy listen.
+    */
+    if (p->family == AF_UNIX && ctx->id != 0) {
+        return NC_OK;
+    }
+
     p->sd = socket(p->family, SOCK_STREAM, 0);
     if (p->sd < 0) {
         log_error("socket failed: %s", strerror(errno));
@@ -239,6 +249,15 @@ proxy_each_post_init(void *elem, void *data)
     struct conn *p;
 
     p = pool->p_conn;
+    /*
+    * NOTE: only one worker can listen and bind to unix socket,
+    * let's pin the unix socket to first worker. 
+    * so the other workers were not bind the socket indeed,
+    * don't attach the event to those fd.
+    */
+    if (p->family == AF_UNIX && pool->ctx->id != 0) {
+        return NC_OK;
+    }
     status = event_add_conn(pool->ctx->evb, p);
     if (status < 0) {
         log_error("event add conn p %d on addr '%.*s' failed: %s",
@@ -316,8 +335,15 @@ proxy_each_unaccept(void *elem, void *data)
 
     p = pool->p_conn;
     if (p != NULL && ctx != NULL) {
-        event_del_conn(ctx->evb, p);
-        proxy_close(ctx, p);
+        /*
+        * NOTE: only one worker can listen and bind to unix socket,
+        * let's pin the unix socket to first worker. 
+        * so none of events were attached to the other workers.
+        */
+        if (p->family != AF_UNIX || ctx->id == 0) {
+            event_del_conn(ctx->evb, p);
+            proxy_close(ctx, p);
+        }
     }
 
     return NC_OK;

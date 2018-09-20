@@ -77,7 +77,7 @@ core_ctx_create(struct instance *nci) {
     if (ctx == NULL) {
         return NULL;
     }
-    ctx->id = ++ctx_id;
+    ctx->id = nci->id;
     ctx->cf = NULL;
     ctx->stats = NULL;
     ctx->evb = NULL;

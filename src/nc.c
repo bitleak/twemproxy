@@ -623,6 +623,7 @@ main(int argc, char **argv)
     rstatus_t status;
     struct instance nci;
 
+    nci.id = -1;
     nci.role = ROLE_MASTER;
     nci.chan = NULL;
     nci.workers.nelem = 0;

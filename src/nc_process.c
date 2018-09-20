@@ -25,13 +25,14 @@ bool pm_terminate= false; // quit after worker_shutdown_timeout
 struct instance *master_nci = NULL;
 
 static rstatus_t
-nc_clone_instance(struct instance *dst, struct instance *src)
+nc_clone_instance(int worker_id, struct instance *dst, struct instance *src)
 {
     struct context *new_ctx;
     if (dst == NULL || src == NULL) {
         return NC_ERROR;
     }
     nc_memcpy(dst, src, sizeof(struct instance));
+    dst->id = worker_id;
     new_ctx = core_ctx_create(dst);
     if (new_ctx == NULL) {
         log_error("failed to create context");
@@ -110,6 +111,8 @@ nc_multi_processes_cycle(struct instance *parent_nci)
             if (status != NC_OK) {
                 // skip reloading
                 parent_nci->ctx = prev_ctx;
+                ctx->stats = NULL;
+                core_ctx_destroy(ctx);
                 continue;
             }
             prev_ctx->stats = NULL;
@@ -154,7 +157,7 @@ nc_setup_listener_for_workers(struct instance *parent_nci, bool reloading)
 
     for (i = 0; i < n; i++) {
         worker_nci = array_push(&parent_nci->workers);
-        status = nc_clone_instance(worker_nci, parent_nci);
+        status = nc_clone_instance(i, worker_nci, parent_nci);
         if (status != NC_OK) {
             log_error("failed to clone parent_nci, rollback");
             goto rollback_step2;
