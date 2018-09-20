@@ -110,6 +110,8 @@ nc_multi_processes_cycle(struct instance *parent_nci)
             if (status != NC_OK) {
                 // skip reloading
                 parent_nci->ctx = prev_ctx;
+                ctx->stats = NULL;
+                core_ctx_destroy(ctx);
                 continue;
             }
             prev_ctx->stats = NULL;
