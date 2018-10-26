@@ -512,8 +512,7 @@ nc_test_conf(struct instance *nci)
 
     cf = conf_create(nci->conf_filename);
     if (cf == NULL) {
-        log_stderr("nutcracker: configuration file '%s' syntax is invalid",
-                   nci->conf_filename);
+        log_stderr("invalid config");
         return false;
     }
 
@@ -656,6 +655,8 @@ main(int argc, char **argv)
     }
 
     if (test_conf) {
+        log_init(LOG_DEBUG, NULL);
+
         if (!nc_test_conf(&nci)) {
             exit(1);
         }
