@@ -56,6 +56,7 @@
 #define CONF_DEFAULT_SERVER_CONNECTIONS      1
 #define CONF_DEFAULT_KETAMA_PORT             11211
 #define CONF_DEFAULT_TCPKEEPALIVE            false
+#define CONF_DEFAULT_WORKER_PROCESSES        4
 #define CONF_DEFAULT_WORKER_SHUTDOWN_TIMEOUT 30
 #define CONF_DEFAULT_MAX_OPENFILES           102400
 #define CONF_DEFAULT_USER                    "nobody"
@@ -144,6 +145,7 @@ char *conf_set_string(struct conf *cf, struct command *cmd, void *conf);
 char *conf_set_listen(struct conf *cf, struct command *cmd, void *conf);
 char *conf_add_server(struct conf *cf, struct command *cmd, void *conf);
 char *conf_set_num(struct conf *cf, struct command *cmd, void *conf);
+char *conf_set_worker_processes(struct conf *cf, struct command *cmd, void *conf);
 char *conf_set_bool(struct conf *cf, struct command *cmd, void *conf);
 char *conf_set_hash(struct conf *cf, struct command *cmd, void *conf);
 char *conf_set_distribution(struct conf *cf, struct command *cmd, void *conf);
