@@ -1,5 +1,5 @@
 global:
-  worker_processes: 4         # num of workers, fallback to single process model while worker_processes is 0
+  worker_processes: auto      # num of workers, fallback to single process model while worker_processes is 0
   max_openfiles: 102400       # max num of open files in every worker process
   user: nobody                # user of worker's process, master process should be setup with root
   group: nobody               # group of worker's process

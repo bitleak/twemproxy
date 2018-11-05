@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+#include <unistd.h>
 #include <grp.h>
 #include <pwd.h>
 #include <nc_core.h>
@@ -123,7 +124,7 @@ static struct command conf_pool_commands[] = {
 static struct command conf_global_commands[] = {
     {
         string("worker_processes"),
-        conf_set_num,
+        conf_set_worker_processes,
         offsetof(struct conf_global, worker_processes)
     },
 
@@ -1906,6 +1907,37 @@ conf_add_server(struct conf *cf, struct command *cmd, void *conf)
     nc_memcpy(array_push(a), field, sizeof(*field));
     nc_free(field);
 
+    return CONF_OK;
+}
+
+char *
+conf_set_worker_processes(struct conf *cf, struct command *cmd, void *conf)
+{
+    uint8_t *p;
+    int num, *np;
+    struct string *value, auto_str;
+
+    p = conf;
+    np = (int *)(p + cmd->offset);
+
+    if (*np != CONF_UNSET_NUM) {
+        return "is a duplicate";
+    }
+    string_set_text(&auto_str, "auto");
+    value = array_top(&cf->arg);
+    if (!string_compare(value, &auto_str)) {
+#ifdef _SC_NPROCESSORS_ONLN
+        *np = (int)sysconf(_SC_NPROCESSORS_ONLN);
+#else
+        *np = CONF_DEFAULT_WORKER_PROCESSES;
+#endif
+    } else {
+        num = nc_atoi(value->data, value->len);
+        if (num < 0) {
+            return "is not a number";
+        }
+        *np = num;
+    }
     return CONF_OK;
 }
 
