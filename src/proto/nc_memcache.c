@@ -1200,10 +1200,10 @@ error:
                 r->state);
 }
 
-bool
+err_t
 memcache_failure(struct msg *r)
 {
-    return false;
+    return 0;
 }
 
 static rstatus_t

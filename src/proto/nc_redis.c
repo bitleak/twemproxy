@@ -2364,8 +2364,8 @@ error:
 }
 
 /*
- * Return true, if redis replies with a transient server failure response,
- * otherwise return false
+ * Return error type, if redis replies with a transient server failure response,
+ * otherwise return 0
  *
  * Transient failures on redis are scenarios when it is temporarily
  * unresponsive and responds with the following protocol specific error
@@ -2376,7 +2376,7 @@ error:
  *
  * See issue: https://github.com/twitter/twemproxy/issues/369
  */
-bool
+err_t
 redis_failure(struct msg *r)
 {
     ASSERT(!r->request);
@@ -2385,13 +2385,13 @@ redis_failure(struct msg *r)
     case MSG_RSP_REDIS_ERROR_OOM:
     case MSG_RSP_REDIS_ERROR_BUSY:
     case MSG_RSP_REDIS_ERROR_LOADING:
-        return true;
+        return -1 * r->type;
 
     default:
         break;
     }
 
-    return false;
+    return 0;
 }
 
 /*
@@ -3062,5 +3062,23 @@ redis_swallow_msg(struct conn *conn, struct msg *pmsg, struct msg *msg)
         log_warn("SELECT %d failed on %s | %s: %s",
                  conn_pool->redis_db, conn_pool->name.data,
                  conn_server->name.data, message);
+    }
+}
+
+char*
+redis_failure_msg(err_t err)
+{
+    switch (-1 * err) {
+        case MSG_RSP_REDIS_ERROR_OOM:
+            return "-OOM command not allowed when used memory > 'maxmemory'.";
+
+        case MSG_RSP_REDIS_ERROR_BUSY:
+            return "-BUSY Redis is busy running a script. You can only call SCRIPT KILL or SHUTDOWN NOSAVE.";
+
+        case MSG_RSP_REDIS_ERROR_LOADING:
+            return "-LOADING Redis is loading the dataset in memory";
+
+        default:
+            return "-ERR unknown";
     }
 }
