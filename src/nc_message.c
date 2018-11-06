@@ -344,8 +344,11 @@ msg_get_error(bool redis, err_t err)
         return NULL;
     }
     mbuf_insert(&msg->mhdr, mbuf);
-
-    n = nc_scnprintf(mbuf->last, mbuf_size(mbuf), "%s %s"CRLF, protstr, errstr);
+    if (redis && err < 0) {
+        n = nc_scnprintf(mbuf->last, mbuf_size(mbuf), "%s"CRLF, redis_failure_msg(err));
+    } else {
+        n = nc_scnprintf(mbuf->last, mbuf_size(mbuf), "%s %s"CRLF, protstr, errstr);
+    }
     mbuf->last += n;
     msg->mlen = (uint32_t)n;
 

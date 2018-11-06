@@ -143,7 +143,7 @@ static bool
 rsp_filter(struct context *ctx, struct conn *conn, struct msg *msg)
 {
     struct msg *pmsg;
-
+    err_t  err;
     ASSERT(!conn->client && !conn->proxy);
 
     if (msg_empty(msg)) {
@@ -193,12 +193,12 @@ rsp_filter(struct context *ctx, struct conn *conn, struct msg *msg)
      * If auto_eject_host is enabled, this will also update the failure_count
      * and eject the server if it exceeds the failure_limit
      */
-    if (msg->failure(msg)) {
+    if ((err = msg->failure(msg)) != 0) {
         log_debug(LOG_INFO, "server failure rsp %"PRIu64" len %"PRIu32" "
                   "type %d on s %d", msg->id, msg->mlen, msg->type, conn->sd);
         rsp_put(msg);
 
-        conn->err = EINVAL;
+        conn->err = err;
         conn->done = 1;
 
         return true;
