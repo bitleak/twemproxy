@@ -1458,7 +1458,12 @@ conf_validate_pool(struct conf *cf, struct conf_pool *cp)
         cp->backlog = CONF_DEFAULT_LISTEN_BACKLOG;
     }
 
-    cp->client_connections = CONF_DEFAULT_CLIENT_CONNECTIONS;
+    if (cp->client_connections == CONF_UNSET_NUM){
+        cp->client_connections = CONF_DEFAULT_CLIENT_CONNECTIONS;
+    } else if (cp->client_connections == 0) {
+        log_error("conf: directive \"client_connections:\" cannot be 0");
+        return NC_ERROR;
+    }
 
     if (cp->redis == CONF_UNSET_NUM) {
         cp->redis = CONF_DEFAULT_REDIS;

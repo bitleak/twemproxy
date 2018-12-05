@@ -46,7 +46,7 @@
 #define CONF_DEFAULT_DIST                    DIST_KETAMA
 #define CONF_DEFAULT_TIMEOUT                 -1
 #define CONF_DEFAULT_LISTEN_BACKLOG          512
-#define CONF_DEFAULT_CLIENT_CONNECTIONS      0
+#define CONF_DEFAULT_CLIENT_CONNECTIONS      2048
 #define CONF_DEFAULT_REDIS                   false
 #define CONF_DEFAULT_REDIS_DB                0
 #define CONF_DEFAULT_PRECONNECT              false

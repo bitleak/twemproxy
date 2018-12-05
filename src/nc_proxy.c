@@ -407,9 +407,21 @@ proxy_accept(struct context *ctx, struct conn *p)
         break;
     }
 
+    // check total client connection count
     if (conn_ncurr_cconn() >= ctx->max_ncconn) {
         log_warn("client connections %"PRIu32" exceed limit %"PRIu32,
                   conn_ncurr_cconn(), ctx->max_ncconn);
+        status = close(sd);
+        if (status < 0) {
+            log_error("close c %d failed, ignored: %s", sd, strerror(errno));
+        }
+        return NC_OK;
+    }
+
+    // check client connection of a server pool count
+    if (pool->nc_conn_q >= pool->client_connections) {
+        log_warn("server pool client connections %"PRIu32" exceed limit %"PRIu32,
+                 pool->nc_conn_q, pool->client_connections);
         status = close(sd);
         if (status < 0) {
             log_error("close c %d failed, ignored: %s", sd, strerror(errno));
