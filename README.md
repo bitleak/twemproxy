@@ -1,6 +1,13 @@
 # twemproxy (nutcracker) [![Build Status](https://secure.travis-ci.org/twitter/twemproxy.png)](http://travis-ci.org/twitter/twemproxy)
 
-**meitu twemproxy** is a multi-process, fast and lightweight proxy for [memcached](http://www.memcached.org/) and [redis](http://redis.io/) protocol. It was built primarily to reduce the number of connections to the caching servers on the backend. This, together with protocol pipelining and sharding enables you to horizontally scale your distributed caching architecture.
+twemproxy is a multi-process, fast and lightweight proxy for [memcached](http://www.memcached.org/) and [redis](http://redis.io/) protocol.
+It was built primarily to reduce the number of connections to the caching servers on the backend.
+This, together with protocol pipelining and sharding enables you to horizontally scale your distributed caching architecture.
+
+This is a fork of `twitter/twemproxy` to support *multi-process* and *hot-reload* features. All the developments happen
+on the `develop` branch, so we could use the master to track the upstream changes and backporting.
+
+The `develop` branch is quite stable, it's been used on the production servers at *Meitu Inc.* and reliably weathers the storm for over a year.
 
 ## Build
 
